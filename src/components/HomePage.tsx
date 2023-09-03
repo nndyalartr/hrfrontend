@@ -1,24 +1,11 @@
 import { Col, Menu, MenuProps, Row, Table } from "antd";
 import axios from "axios";
+import { useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react";
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, SettingOutlined,HomeOutlined } from '@ant-design/icons';
+import TopMenu from "./TopMenu";
 export default function HomePage() {
-    const [userData, setUserData] = useState([])
-    const [current, setCurrent] = useState('mail');
-
-    const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click ', e);
-        setCurrent(e.key);
-    };
-    const login =()=>{
-
-    }
-    const items: MenuProps['items'] = [
-        {
-          label: 'Navigation One',
-          key: 'mail',
-          icon: <MailOutlined onClick={()=>login()} />,
-        },]
+    const [userData, setUserData] = useState([])    
     useEffect(() => {
         axios({
             url: "http://127.0.0.1:8000/test",
@@ -49,16 +36,7 @@ export default function HomePage() {
     ];
     return (
         <div >
-            <Row justify="space-around">
-                <Col span={6}>
-                    <h5>HR Portal</h5>
-                </Col>
-                <Col span={6}></Col>
-                <Col span={6}>
-                <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
-                </Col>
-            </Row>
-           
+            <TopMenu/>           
             <Table rowKey={(record: any) => record.id} dataSource={userData} columns={columns} />
 
         </div>
