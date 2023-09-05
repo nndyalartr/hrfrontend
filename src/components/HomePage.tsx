@@ -8,7 +8,7 @@ export default function HomePage() {
     const [userData, setUserData] = useState([])    
     useEffect(() => {
         axios({
-            url: "http://127.0.0.1:8000/test",
+            url: "http://127.0.0.1:8000/test/",
             method: "GET"
         }).then((res) => {
             console.log(res)
