@@ -71,7 +71,7 @@ export default function TopMenu() {
                     <Menu theme="light" onClick={onClick} mode="horizontal" items={items || []} />
 
                 </Col>
-                <Col span={4} ><Button onClick={punchin}>Punch In</Button>
+                <Col span={4} ><Button className="me-2" onClick={punchin}>Punch In</Button>
                     <Button onClick={punchOut}>Punch Out</Button></Col>
             </Row>
 
