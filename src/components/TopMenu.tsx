@@ -15,7 +15,7 @@ export default function TopMenu() {
     const items: MenuProps['items'] = [
         {
             label: 'Home',
-            key: '/',
+            key: '/dashboard',
         },
         {
             label: 'User',

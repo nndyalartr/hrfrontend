@@ -2,6 +2,7 @@ import { Col, Row, Table } from "antd";
 import axios from "axios";
 import TopMenu from "./TopMenu";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 const UserPage =()=>{
     const [userData, setUserData] = useState([])    
@@ -10,7 +11,6 @@ const UserPage =()=>{
             url: "http://127.0.0.1:8000/attendance-details/?email_id=raviteja@gmail.com",
             method: "GET"
         }).then((res) => {
-            console.log(res)
             setUserData(res.data)
         }).catch((err) => {
             console.log(err)
@@ -33,8 +33,10 @@ const UserPage =()=>{
             key: 'login_time',
             render:(loginTime:string)=>{
                 if(loginTime){
-                    let str = loginTime.split("T")
+                    let local = moment.utc(loginTime).local().format()
+                    let str = local.split("T")
                     str = str[1].split(".")
+                    str = str[0].split("+")
                     return(str[0])
                 }else{
                     return("Not Available")
@@ -47,8 +49,10 @@ const UserPage =()=>{
             key: 'logout_time',
             render:(logOutTime:string)=>{
                 if(logOutTime){
-                    let str = logOutTime.split("T")
+                    let local = moment.utc(logOutTime).local().format()
+                    let str = local.split("T")
                     str = str[1].split(".")
+                    str = str[0].split("+")
                     return(str[0])
                 }else{
                     return("Not Available")

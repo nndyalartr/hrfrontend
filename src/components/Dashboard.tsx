@@ -2,20 +2,40 @@ import { Card, Col, Row } from "antd";
 import TopMenu from "./TopMenu";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
+import useGetLeaveDetails from "../QueryApiCalls/useGetLeaveDetails";
 
 const Dashboard = () => {
-    const [attendanceData,setAttendanceData] = useState<{present:string,absent:string}>()
+    let userCookie = Cookies.get('_auth_state')
+    const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
     useEffect(()=>{
-        axios({
-            url: "http://127.0.0.1:8000/leave-details/?email_id=raviteja@gmail.com",
-            method: "GET"
-        }).then((res) => {
-            console.log(res)
-            setAttendanceData({present:res.data.present_days,absent:res.data.absent_days})
-        }).catch((err) => {
-            console.log(err)
-        })
-    })
+        if(userCookie){
+            let emailOpt = JSON.parse(userCookie)
+            setOptions({userEmail:emailOpt.email,getApiEnabled:true})         
+            
+        }
+    },[userCookie])
+    const [attendanceData,setAttendanceData] = useState<{present:string,absent:string}>()
+    const onSuccess=(res:any)=>{
+        setOptions({...options,getApiEnabled:false})
+        setAttendanceData({present:res.data.present_days,absent:res.data.absent_days})
+    }
+    const onError = (err:any)=>{
+        console.log("err")
+    }
+    const {refetch} = useGetLeaveDetails(options,onSuccess,onError)
+
+    // useEffect(()=>{
+    //     axios({
+    //         url: `http://127.0.0.1:8000/leave-details/?email_id=${userEmail.email}`,
+    //         method: "GET"
+    //     }).then((res) => {
+    //         console.log(res)
+    //         setAttendanceData({present:res.data.present_days,absent:res.data.absent_days})
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+    // },[])
     return (
         <>
             <TopMenu />
