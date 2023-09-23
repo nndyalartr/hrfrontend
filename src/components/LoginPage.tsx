@@ -32,6 +32,7 @@ const LoginPage = () => {
                             email:values.emailId
                         }
                     })
+                    localStorage.setItem("_USER_EMAIL",values.emailId)
                     const from:string = location.state?.from||"/dashboard"
                     console.log(from)
                     navigate(from,{replace:true})

@@ -4,19 +4,25 @@ import { useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react";
 import { AppstoreOutlined, MailOutlined, SettingOutlined,HomeOutlined } from '@ant-design/icons';
 import TopMenu from "./TopMenu";
+import useGetAllUserDetails from "../QueryApiCalls/useGetAllUsers";
+import { UserInfoStore } from "../utils/useUserInfoStore";
 export default function HomePage() {
-    const [userData, setUserData] = useState([])    
-    useEffect(() => {
-        axios({
-            url: "http://127.0.0.1:8000/test/",
-            method: "GET"
-        }).then((res) => {
-            console.log(res)
-            setUserData(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }, [])
+    const [userData, setUserData] = useState([])  
+    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value 
+    const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
+    useEffect(()=>{
+        setOptions({userEmail:loggedInEmail,getApiEnabled:true})
+    
+},[])
+    const onSuccess=(res:any)=>{
+        setOptions({...options,getApiEnabled:false})
+        setUserData(res.data)
+    }
+    const onError = (err:any)=>{
+        console.log("err")
+    }
+    const {refetch} = useGetAllUserDetails(options,onSuccess,onError) 
+    
     const columns = [
         {
             title: 'Employ Name',

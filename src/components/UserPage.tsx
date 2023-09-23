@@ -3,19 +3,27 @@ import axios from "axios";
 import TopMenu from "./TopMenu";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import Cookies from "js-cookie";
+import useGetAttendanceDetails from "../QueryApiCalls/useGetAttendanceDetails";
+import { UserInfoStore } from "../utils/useUserInfoStore";
 
 const UserPage =()=>{
-    const [userData, setUserData] = useState([])    
-    useEffect(() => {
-        axios({
-            url: "http://127.0.0.1:8000/attendance-details/?email_id=raviteja@gmail.com",
-            method: "GET"
-        }).then((res) => {
-            setUserData(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }, [])
+    const [userData, setUserData] = useState([])  
+    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
+    const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
+    useEffect(()=>{
+            setOptions({userEmail:loggedInEmail,getApiEnabled:true})
+        
+    },[])
+    const onSuccess=(res:any)=>{
+        setOptions({...options,getApiEnabled:false})
+        setUserData(res.data)
+    }
+    const onError = (err:any)=>{
+        console.log("err")
+    }
+    const {refetch} = useGetAttendanceDetails(options,onSuccess,onError)
+
     const columns = [
         {
             title:"Date",
@@ -80,8 +88,11 @@ const UserPage =()=>{
             title: 'Remarks',
             dataIndex: 'is_present',
             key: 'is_present',
-            render:(isPresent:boolean)=>{
-                if(isPresent == true){
+            render:(isPresent:boolean,item:any)=>{
+                if(item.week_day == "Saturday"||item.week_day == "Sunday"){
+                    return("Week Off")
+                }
+                else if(isPresent == true){
                     return("Present")
                 }else{
                     return("Absent")
@@ -94,18 +105,13 @@ const UserPage =()=>{
         <>
         <TopMenu/> 
             <Row>
-                <Col span={18}>
-
-                </Col>
-                <Col>
-                    <span>Name : <strong>N. Ravi Teja Reddy</strong></span>
-                </Col>
-            </Row>
-            <Row>
                 <Col>
                     <h4>Attendance Logs of Month</h4>
                     <Table rowKey={(record: any) => record.id} dataSource={userData||[]} columns={columns} />
 
+                </Col>
+
+                <Col>
                 </Col>
             </Row>
         </>

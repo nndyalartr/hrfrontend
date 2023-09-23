@@ -1,65 +1,107 @@
-import { Button, Col, Menu, MenuProps, Row, Table, message } from "antd";
-import axios from "axios";
+import { Button, Col, Menu, MenuProps, Row, message } from "antd";
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
-import { AppstoreOutlined, MailOutlined, SettingOutlined, HomeOutlined } from '@ant-design/icons';
+import { useState } from "react";
+import { HomeOutlined, SmileOutlined, UserAddOutlined,SettingOutlined } from '@ant-design/icons';
+import useCreateAttendance from "../QueryApiCalls/usePunchIn";
+import { UserInfoStore } from "../utils/useUserInfoStore";
+
 export default function TopMenu() {
 
     const navigate = useNavigate()
     const [current, setCurrent] = useState<string>("")
+    const [options, setOptions] = useState<{ getApiEnabled: boolean, userEmail: string, type: string }>({ getApiEnabled: false, userEmail: "", type: "" })
     const onClick: MenuProps['onClick'] = (e) => {
         navigate(e.key)
         setCurrent(e.key)
     };
+    const onSiningClick: MenuProps['onClick'] = (e) => {
+        console.log(e.key)
+        if (e.key == "PunchIn") {
+            setOptions({ getApiEnabled: true, userEmail: loggedInEmail, type: "POST" })
+        } else if (e.key == "PunchOut") {
+            setOptions({ getApiEnabled: true, userEmail: loggedInEmail, type: "PATCH" })
+        }
+    };
+    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
 
+    const onSuccess = (res: any) => {
+        setOptions({ ...options, getApiEnabled: false }) 
+        message.success(res.data.message)
+    }
+    const onError = (err: any) => {
+        setOptions({ ...options, getApiEnabled: false }) 
+    }
+    const { refetch } = useCreateAttendance(options, onSuccess, onError)
+    const nameOfUser = loggedInEmail.split("@")
     const items: MenuProps['items'] = [
         {
             label: 'Home',
             key: '/dashboard',
         },
         {
-            label: 'User',
-            key: '/user',
+            label: 'My Self',
+            key: 'self',
+            children: [
+                {
+                    label: "My Attendance",
+                    key: "/user-attendance"
+                },
+                {
+                    label: "My Details",
+                    key: "/user-self"
+                }
+            ]
         },
         {
             label: 'Admin',
-            key: '/admin',
+            key: 'admin',
             icon: <HomeOutlined />,
-        }]
+            children: [
+                {
+                    label: "User Details",
+                    key: "/admin"
+                },
+                {
+                    label: "Add / Edit Event",
+                    key: "/events"
+                }
+            ]
+        },
+
+    ]
+    const signInOptions: MenuProps['items'] = [
+        {
+            key: '',
+            label: nameOfUser[0],
+        },
+        {
+            
+            key: 'sigin',
+            icon: <SettingOutlined />,
+            label: "",
+            children: [
+                {
+                    label: "Punch In",
+                    key: "PunchIn",
+                    icon: <UserAddOutlined />
+
+                },
+                {
+                    label: "Punch Out",
+                    key: "PunchOut",
+                    icon: <SmileOutlined />
+                }
+            ]
+        },
+    ]
     const punchin = () => {
-        axios({
-            url: "http://127.0.0.1:8000/login/",
-            method: "POST",
-            data: {
-                "email_id": "raviteja@gmail.com"
-            }
+        setOptions({ getApiEnabled: true, userEmail: loggedInEmail, type: "POST" })
 
-        }).then((res) => {
-            console.log(res)
 
-        }).catch((err) => {
-            message.error(err.response.data.message)
-            // console.log(err.response.data.message)
-
-        })
     }
     const punchOut = () => {
-        axios({
-            url: "http://127.0.0.1:8000/login/",
-            method: "PATCH",
-            data: {
-                "email_id": "raviteja@gmail.com"
-            }
+        setOptions({ getApiEnabled: true, userEmail: loggedInEmail, type: "PATCH" })
 
-        }).then((res) => {
-            console.log(res)
-            message.success(`successfully loggedout at ${res.data.loggoff_time}`)
-
-        }).catch((err) => {
-            message.error(err.response.data.message)
-            // console.log(err.response.data.message)
-
-        })
     }
     return (
         <div >
@@ -71,8 +113,11 @@ export default function TopMenu() {
                     <Menu theme="light" onClick={onClick} mode="horizontal" items={items || []} />
 
                 </Col>
-                <Col span={4} ><Button className="me-2" onClick={punchin}>Punch In</Button>
-                    <Button onClick={punchOut}>Punch Out</Button></Col>
+                <Col span={4} >
+             
+                    <Menu theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
+                </Col>
+
             </Row>
 
         </div>

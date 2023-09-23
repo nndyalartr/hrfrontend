@@ -5,6 +5,8 @@ import UserPage from "../components/UserPage";
 import LoginPage from "../components/LoginPage";
 import { AuthProvider } from "react-auth-kit";
 import refreshApi from "../QueryApiCalls/refreshApi";
+import UserSelfPage from "../components/UserSelfPage";
+import EventsPage from "../components/Events/Events.page";
 
 function AppRoutes() {
     return (
@@ -19,7 +21,9 @@ function AppRoutes() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/" element={<LoginPage />} />
                     <Route path="/admin" element={<HomePage />} />
-                    <Route path="/user" element={<UserPage />} />
+                    <Route path="/user-attendance" element={<UserPage />} />
+                    <Route path="/user-self" element={<UserSelfPage/>}/>
+                    <Route path="/events" element={<EventsPage/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

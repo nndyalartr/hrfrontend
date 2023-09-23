@@ -1,20 +1,17 @@
 import { Card, Col, Row } from "antd";
 import TopMenu from "./TopMenu";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
+
 import useGetLeaveDetails from "../QueryApiCalls/useGetLeaveDetails";
+import { UserInfoStore } from "../utils/useUserInfoStore";
 
 const Dashboard = () => {
-    let userCookie = Cookies.get('_auth_state')
+    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
     useEffect(()=>{
-        if(userCookie){
-            let emailOpt = JSON.parse(userCookie)
-            setOptions({userEmail:emailOpt.email,getApiEnabled:true})         
-            
-        }
-    },[userCookie])
+            setOptions({userEmail:loggedInEmail,getApiEnabled:true})
+        
+    },[])
     const [attendanceData,setAttendanceData] = useState<{present:string,absent:string}>()
     const onSuccess=(res:any)=>{
         setOptions({...options,getApiEnabled:false})
@@ -24,18 +21,6 @@ const Dashboard = () => {
         console.log("err")
     }
     const {refetch} = useGetLeaveDetails(options,onSuccess,onError)
-
-    // useEffect(()=>{
-    //     axios({
-    //         url: `http://127.0.0.1:8000/leave-details/?email_id=${userEmail.email}`,
-    //         method: "GET"
-    //     }).then((res) => {
-    //         console.log(res)
-    //         setAttendanceData({present:res.data.present_days,absent:res.data.absent_days})
-    //     }).catch((err) => {
-    //         console.log(err)
-    //     })
-    // },[])
     return (
         <>
             <TopMenu />
@@ -44,7 +29,6 @@ const Dashboard = () => {
 
                 </Col>
                 <Col>
-                    <span>Hi <strong>N. Ravi Teja Reddy</strong></span>
                     <Card className="mt-3" title="My Details">
                         <Row>
                             <Col>                                
