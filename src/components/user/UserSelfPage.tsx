@@ -1,12 +1,12 @@
 import { Col, Row, Table } from "antd";
 import axios from "axios";
-import TopMenu from "./TopMenu";
+import TopMenu from "../TopMenu";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import Cookies from "js-cookie";
-import useGetAttendanceDetails from "../QueryApiCalls/useGetAttendanceDetails";
-import { UserInfoStore } from "../utils/useUserInfoStore";
-import useGetMyDetails from "../QueryApiCalls/useGetMyDetails";
+import useGetAttendanceDetails from "../../QueryApiCalls/useGetAttendanceDetails";
+import { UserInfoStore } from "../../utils/useUserInfoStore";
+import useGetMyDetails from "../../QueryApiCalls/useGetMyDetails";
 import { JsonToTable } from "react-json-to-table";
 
 const UserSelfPage =()=>{

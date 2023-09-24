@@ -49,6 +49,10 @@ export default function TopMenu() {
                 {
                     label: "My Details",
                     key: "/user-self"
+                },
+                {
+                    label: "My Leave Management",
+                    key: "/user-leaves"
                 }
             ]
         },
