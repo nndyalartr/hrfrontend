@@ -32,7 +32,12 @@ const LoginPage = () => {
                             email:values.emailId
                         }
                     })
-                    localStorage.setItem("_USER_EMAIL",values.emailId)
+                    let obj = {
+                        user_email : values.emailId,
+                        user_role:response.data.role,
+                        user_name:response.data.name
+                    }
+                    localStorage.setItem("_USER_DATA",JSON.stringify(obj))
                     const from:string = location.state?.from||"/dashboard"
                     console.log(from)
                     navigate(from,{replace:true})

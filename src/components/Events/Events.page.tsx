@@ -22,9 +22,9 @@ const EventsPage = () => {
         let reqObj = { date: pp, type: "POST", getApiEnabled: true, name: values.desc, shift: values.shift, eventType: values.type }
         setOptions(reqObj)
         eventsForm.resetFields()
-        setTimeout(()=>{
-            setOptions({...reqObj,type:"GET"})
-        },300)
+        setTimeout(() => {
+            setOptions({ ...reqObj, type: "GET" })
+        }, 300)
     }
     const onEventSuccess = (res: any) => {
         if (options.type == "GET") {
@@ -76,9 +76,9 @@ const EventsPage = () => {
     ]
     const columns = [
         {
-            title:"Date",
-            dataIndex:"date",
-            key:"date"
+            title: "Date",
+            dataIndex: "date",
+            key: "date"
         },
         {
             title: "Name",
@@ -86,14 +86,14 @@ const EventsPage = () => {
             key: "name",
         },
         {
-            title:"Event Type",
-            dataIndex:"event_type",
-            key:"event_type"
+            title: "Event Type",
+            dataIndex: "event_type",
+            key: "event_type"
         },
         {
-            title:"Shift",
-            dataIndex:"shift",
-            key:"shift"
+            title: "Shift",
+            dataIndex: "shift",
+            key: "shift"
         }
     ]
     return (
@@ -108,13 +108,13 @@ const EventsPage = () => {
                 <h4>Add Event</h4>
                 <Row gutter={8} className="ms-2 me-2">
                     <Col span={6}>
-                        <Form.Item name="type" label="Event Type" rules={[{ required: true}]}>
+                        <Form.Item name="type" label="Event Type" rules={[{ required: true }]}>
                             <Select placeholder="Please Select Type" options={eventOptions} />
                         </Form.Item>
 
                     </Col>
                     <Col span={6}>
-                        <Form.Item name="shift" label="Shift Select" rules={[{ required: true}]}>
+                        <Form.Item name="shift" label="Shift Select" rules={[{ required: true }]}>
                             <Select placeholder="Please Select Shift" options={shiftOptions} />
                         </Form.Item>
 
@@ -122,12 +122,12 @@ const EventsPage = () => {
                 </Row>
                 <Row gutter={8} className="ms-2 me-2">
                     <Col span={6}>
-                        <Form.Item name="date" label="Event Date" rules={[{ required: true}]}>
+                        <Form.Item name="date" label="Event Date" rules={[{ required: true }]}>
                             <DatePicker format="YYYY-MM-DD" style={{ width: "200px" }} placeholder="Please Select Event Date" />
                         </Form.Item>
                     </Col>
                     <Col span={6}>
-                        <Form.Item name="desc" label="Event Name" rules={[{ required: true}]}>
+                        <Form.Item name="desc" label="Event Name" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
                     </Col>
@@ -137,7 +137,10 @@ const EventsPage = () => {
                 </Row>
             </Form>
             <Row>
-                <Table rowKey={(record: any) => record.id} dataSource={events || []} columns={columns} />
+                <Col span={24}>
+                    <Table rowKey={(record: any) => record.id} dataSource={events || []} columns={columns} />
+                </Col>
+
             </Row>
         </>
     )

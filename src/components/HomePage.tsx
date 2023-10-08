@@ -11,7 +11,7 @@ export default function HomePage() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value 
     const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
     useEffect(()=>{
-        setOptions({userEmail:loggedInEmail,getApiEnabled:true})
+        setOptions({userEmail:loggedInEmail.user_email,getApiEnabled:true})
     
 },[])
     const onSuccess=(res:any)=>{

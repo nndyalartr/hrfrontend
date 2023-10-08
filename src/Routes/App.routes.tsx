@@ -8,6 +8,7 @@ import refreshApi from "../QueryApiCalls/refreshApi";
 import UserSelfPage from "../components/user/UserSelfPage";
 import EventsPage from "../components/Events/Events.page";
 import UserLeavesPage from "../components/user/UserLeavesPage";
+import LeaveApprovalPage from "../components/LeaveApprovals/LeaveApprovalPage";
 
 function AppRoutes() {
     return (
@@ -26,6 +27,7 @@ function AppRoutes() {
                     <Route path="/user-self" element={<UserSelfPage/>}/>
                     <Route path="/events" element={<EventsPage/>}/>
                     <Route path="/user-leaves" element={<UserLeavesPage/>}/>
+                    <Route path='/leave-approvals' element={<LeaveApprovalPage/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

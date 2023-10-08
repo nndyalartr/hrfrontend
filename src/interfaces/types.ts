@@ -9,3 +9,15 @@ export interface Events extends ApiParams{
     eventType:string,
 
 }
+export interface ApplyLeave extends ApiParams{
+    userEmail:string,
+    leaveType:string,
+    leaveReason:string,
+    leaves:{date:string,session:string}[]
+}
+
+export interface LeaveApproval extends ApiParams{
+    userEmail:string,
+    id?:string,
+    action?:string
+}

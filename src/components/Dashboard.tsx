@@ -9,7 +9,7 @@ const Dashboard = () => {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
     useEffect(()=>{
-            setOptions({userEmail:loggedInEmail,getApiEnabled:true})
+            setOptions({userEmail:loggedInEmail.user_email,getApiEnabled:true})
         
     },[])
     const [attendanceData,setAttendanceData] = useState<{present:string,absent:string}>()

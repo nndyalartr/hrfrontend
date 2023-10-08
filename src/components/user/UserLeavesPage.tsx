@@ -1,18 +1,27 @@
 import { Button, Col, DatePicker, Form, Input, Row, Select, Table, message } from "antd";
 import TopMenu from "../TopMenu";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { JsonToTable } from "react-json-to-table";
+import { UserInfoStore } from "../../utils/useUserInfoStore";
+import useCreateLeave from "../../QueryApiCalls/useApplyLeave";
+import { ApplyLeave } from "../../interfaces/types";
 
 const UserLeavesPage = () => {
     const [eventsForm] = Form.useForm()
+    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const { RangePicker } = DatePicker;
     const [errors, setErrors] = useState<string>("")
     const initialValues = {
 
     }
-    const [apiObj,setApiObj]=useState<{ date: string; session: string; }[]>([])
-    const [leaveSummary, setLeaveSummary] = useState<{ reason: string, noOfLeaves: number }>({ reason: "", noOfLeaves: 0 })
+    const [apiObj, setApiObj] = useState<{ date: string; session: string; }[]>([])
+    const [leaveSummary, setLeaveSummary] = useState<{ reason: string, noOfLeaves: number, leaveType: string }>({ reason: "", noOfLeaves: 0, leaveType: "" })
+    const [options, setOptions] = useState<ApplyLeave>({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+    const [tableData, setTableData] = useState<any>([])
+    useEffect(() => {
+        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: true, type: "GET" })
+    }, [])
     function getDates(startDate: Date, endDate: Date) {
         const dates = [];
         let currentDate = new Date(startDate);
@@ -25,6 +34,21 @@ const UserLeavesPage = () => {
         }
         return dates;
     }
+    const onEventSuccess = (res: any) => {
+        if (options.type == "GET") {
+            setTableData(res.data)
+            console.log(res.data)
+
+        }else{
+            message.success(res.data.message)
+        }
+        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+
+    }
+    const onEventError = (err: any) => {
+        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+    }
+    const { refetch } = useCreateLeave(options, onEventSuccess, onEventError)
     const applyLeave = (values: any) => {
         let leaveArray: { date: string, session: string }[] = []
         let leaveStartDate = moment(values.lsdate.$d).format("YYYY-MM-DD")
@@ -32,10 +56,9 @@ const UserLeavesPage = () => {
         let startSession = values.fromsession
         let endSession = values.tosession
         if (leaveStartDate == leaveEndDate) {
-            console.log(endSession.split("-")[1])
             if (endSession == "s-1" && startSession == "s-2") {
                 message.error("start session sould not be less than end")
-                setLeaveSummary({ reason: "", noOfLeaves: 0 })
+                setLeaveSummary({ reason: "", noOfLeaves: 0, leaveType: "" })
                 return
             } else {
                 let leaveObj = {
@@ -76,17 +99,36 @@ const UserLeavesPage = () => {
             }
         })
         setApiObj(leaveArray)
-        setLeaveSummary({ reason: values.reason, noOfLeaves: leaveCount })
+        setLeaveSummary({ reason: values.reason, leaveType: values.type, noOfLeaves: leaveCount })
     }
-    const leaveSubmitFn = ()=>{
-        console.log("apicall",apiObj)
+    const leaveSubmitFn = () => {
+        setOptions({ leaveReason: leaveSummary.reason, leaveType: leaveSummary.leaveType, userEmail: loggedInEmail.user_email, leaves: apiObj, getApiEnabled: true, type: "POST" })
+        setTimeout(() => {
+            setOptions({ ...options, type: "GET",getApiEnabled:true })
+        }, 300)
     }
     const leaveTypes = [
         {
             label: "Casual Leave",
             key: "causalLeave",
-            value: "CL"
+            value: "CasualLeave"
+        },
+        {
+            label: "Comp Off",
+            key: "CompOff",
+            value: "CompOff"
+        },
+        {
+            label: "Sick Leave",
+            key: "sickLeave",
+            value: "sickLeave"
+        },
+        {
+            label: "Paternity Leave",
+            key: "paternityLeave",
+            value: "paternityLeave"
         }
+
     ]
     const leaveDuration = [
         {
@@ -99,6 +141,42 @@ const UserLeavesPage = () => {
             key: "Session-2",
             value: "s-2"
         }
+    ]
+    const columns = [{
+        title: "Start Date",
+        dataIndex: "startDate",
+        key: "startDate"
+    },
+    {
+        title: "End Date",
+        dataIndex: "endDate",
+        key: "endDate",
+    },
+    {
+        title: "Leave Type",
+        dataIndex: "type",
+        key: "type"
+    },
+    {
+        title: "Leave Count",
+        dataIndex: "leaveCount",
+        key: "leaveCount"
+    },
+    {
+        title: "Approval Person",
+        dataIndex: "approver",
+        key: "approver"
+    },
+    {
+        title: "Reason",
+        dataIndex: "reason",
+        key: "reason"
+    },
+    {
+        title:"Leave Status",
+        dataIndex:"status",
+        key:"status"
+    }
     ]
     return (
         <>
@@ -153,6 +231,12 @@ const UserLeavesPage = () => {
                     </Row>
                 </>
             }
+            <Row>
+                <Col span={24}>
+                    <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} />
+                </Col>
+
+            </Row>
 
         </>
     )

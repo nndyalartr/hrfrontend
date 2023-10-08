@@ -12,7 +12,7 @@ const UserPage =()=>{
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions]=useState<{getApiEnabled:boolean,userEmail:string}>({getApiEnabled:false,userEmail:""})
     useEffect(()=>{
-            setOptions({userEmail:loggedInEmail,getApiEnabled:true})
+            setOptions({userEmail:loggedInEmail.user_email,getApiEnabled:true})
         
     },[])
     const onSuccess=(res:any)=>{
@@ -99,19 +99,21 @@ const UserPage =()=>{
                 }
                 
             }
+        },
+        {
+            title: 'Leave Details',
+            dataIndex: 'leave_details',
+            key: 'leave_details',
         }
     ];
     return(
         <>
         <TopMenu/> 
             <Row>
-                <Col>
+                <Col span={24}>
                     <h4>Attendance Logs of Month</h4>
                     <Table rowKey={(record: any) => record.id} dataSource={userData||[]} columns={columns} />
 
-                </Col>
-
-                <Col>
                 </Col>
             </Row>
         </>
