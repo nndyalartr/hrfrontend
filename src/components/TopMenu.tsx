@@ -44,10 +44,14 @@ export default function TopMenu() {
     {
         label: "My Leave Management",
         key: "/user-leaves"
+    },
+    {
+        label:"Attendance Regularize",
+        key:"/attendance-reg"
     }])
     useEffect(()=>{
         if(loggedInEmail.user_role==="Manager"){            
-            setMySelfRoles([...mySelfRoles,{label:"Pending Leave Approvals",key:"/leave-approvals"}])
+            setMySelfRoles([...mySelfRoles,{label:"Pending Leave Approvals",key:"/leave-approvals"},{label:"Pending Attendance Approvals","key":"/attendance-approvals"}])
         }
     },[])
     const items: MenuProps['items'] = [

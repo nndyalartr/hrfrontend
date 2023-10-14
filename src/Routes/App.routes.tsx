@@ -9,6 +9,8 @@ import UserSelfPage from "../components/user/UserSelfPage";
 import EventsPage from "../components/Events/Events.page";
 import UserLeavesPage from "../components/user/UserLeavesPage";
 import LeaveApprovalPage from "../components/LeaveApprovals/LeaveApprovalPage";
+import UserAttendanceRegPage from "../components/AttendanceRegularization/UserAttendanceRegPage";
+import UserAttendanceRequestApprove from "../components/AttendanceRegularization/UserAttendanceRequestApprove";
 
 function AppRoutes() {
     return (
@@ -28,6 +30,8 @@ function AppRoutes() {
                     <Route path="/events" element={<EventsPage/>}/>
                     <Route path="/user-leaves" element={<UserLeavesPage/>}/>
                     <Route path='/leave-approvals' element={<LeaveApprovalPage/>}/>
+                    <Route path='/attendance-reg' element={<UserAttendanceRegPage/>}/>
+                    <Route path='/attendance-approvals' element={<UserAttendanceRequestApprove/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

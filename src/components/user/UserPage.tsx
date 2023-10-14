@@ -84,16 +84,17 @@ const UserPage =()=>{
                 
             }
         },
+
         {
             title: 'Remarks',
-            dataIndex: 'is_present',
-            key: 'is_present',
-            render:(isPresent:boolean,item:any)=>{
-                if(item.week_day == "Saturday"||item.week_day == "Sunday"){
-                    return("Week Off")
-                }
-                else if(isPresent == true){
+            dataIndex: 'remarks',
+            key: 'remarks',
+            render:(remarks:string,item:any)=>{
+                if(item.is_present ){
                     return("Present")
+                }
+                else if(remarks != ""){
+                    return(remarks)
                 }else{
                     return("Absent")
                 }
@@ -101,7 +102,7 @@ const UserPage =()=>{
             }
         },
         {
-            title: 'Leave Details',
+            title: 'Leave Applied for',
             dataIndex: 'leave_details',
             key: 'leave_details',
         }
