@@ -1,0 +1,98 @@
+.january{
+    background-image:url("../images/jan.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    /* color: white; */
+}
+.february{
+    background-image:url("../images/feb.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+}
+.march{
+    background-image:url("../images/march.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.april{
+    background-image:url("../images/april.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.may{
+    background-image:url("../images/may.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.june{
+    background-image:url("../images/june.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.july{
+    background-image:url("../images/july.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.august{
+    background-image:url("../images/august.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    /* color: white; */
+}
+.september{
+    background-image:url("../images/september.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.october{
+    background-image:url("../images/october.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.november{
+    background-image:url("../images/november.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.december{
+    background-image:url("../images/december.jfif") ;
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+.bg{
+    background-image: linear-gradient(to bottom, #eefdff, #64560f);
+}

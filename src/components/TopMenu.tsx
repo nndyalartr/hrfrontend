@@ -32,7 +32,7 @@ export default function TopMenu() {
         setOptions({ ...options, getApiEnabled: false })
     }
     const { refetch } = useCreateAttendance(options, onSuccess, onError)
-    const nameOfUser = loggedInEmail.user_email.split("@")
+    const nameOfUser = loggedInEmail.user_name
     const [mySelfRoles, setMySelfRoles] = useState([{
         label: "My Attendance",
         key: "/user-attendance"
@@ -81,16 +81,17 @@ export default function TopMenu() {
         },
 
     ]
+    const oo = <>Hi. {nameOfUser} <SettingOutlined className="ms-2" /></>
     const signInOptions: MenuProps['items'] = [
-        {
-            key: '',
-            label: nameOfUser[0],
-        },
+        // {
+        //     key: '',
+        //     label: nameOfUser[0],
+        // },
         {
 
             key: 'sigin',
-            icon: <SettingOutlined />,
-            label: "",
+            // icon: <SettingOutlined />,
+            label: oo,
             children: [
                 {
                     label: "Punch In",
@@ -116,18 +117,18 @@ export default function TopMenu() {
 
     }
     return (
-        <div >
-            <Row align="middle">
+        <div style={{backgroundColor:"#85a2c5"}}>
+            <Row align="middle" >
                 <Col span={12} >
-                    <h4 className="ms-2 text-secondary" style={{ textAlign: "left" }}>RC Services</h4>
+                    <h4 className="ms-2" style={{ textAlign: "left", color:"white" }}>RC Services</h4>
                 </Col>
                 <Col span={8}>
-                    <Menu theme="light" onClick={onClick} mode="horizontal" items={items || []} />
+                    <Menu style={{backgroundColor:"#85a2c5",color:"white",fontWeight:500}} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
 
                 </Col>
                 <Col span={4} >
 
-                    <Menu theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
+                    <Menu style={{backgroundColor:"#85a2c5",color:"white",fontWeight:500}} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
                 </Col>
 
             </Row>

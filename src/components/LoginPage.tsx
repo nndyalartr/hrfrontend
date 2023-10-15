@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSignIn } from "react-auth-kit";
 import Cookie from "js-cookie"
 import { useLocation, useNavigate } from "react-router-dom";
+import './dashboard.css'
 const LoginPage = () => {
     const [loginForm] = Form.useForm()
     const [loginData,setLoginData]= useState<any>([])
@@ -53,7 +54,7 @@ const LoginPage = () => {
         )
     }
     return (
-        <>
+        <div >
             <Row className="ms-5 mt-5">
                 <Col span={8}>
                     <Form
@@ -75,7 +76,7 @@ const LoginPage = () => {
                 </Col>
             </Row>
 
-        </>
+        </div>
     )
 }
 
