@@ -15,14 +15,13 @@ export default function TopMenu() {
         setCurrent(e.key)
     };
     const onSiningClick: MenuProps['onClick'] = (e) => {
-        console.log(e.key)
         if (e.key == "PunchIn") {
-            setOptions({ getApiEnabled: true, userEmail: loggedInEmail.user_email, type: "POST" })
+            setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
         } else if (e.key == "PunchOut") {
-            setOptions({ getApiEnabled: true, userEmail: loggedInEmail.user_email, type: "PATCH" })
+            setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "PATCH" })
         }
     };
-    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
+    const loggedInUserDetails = UserInfoStore()?.loggedUserInfo.value
 
     const onSuccess = (res: any) => {
         setOptions({ ...options, getApiEnabled: false })
@@ -32,7 +31,7 @@ export default function TopMenu() {
         setOptions({ ...options, getApiEnabled: false })
     }
     const { refetch } = useCreateAttendance(options, onSuccess, onError)
-    const nameOfUser = loggedInEmail.user_name
+    const nameOfUser = loggedInUserDetails.user_name
     const [mySelfRoles, setMySelfRoles] = useState([{
         label: "My Attendance",
         key: "/user-attendance"
@@ -50,7 +49,7 @@ export default function TopMenu() {
         key:"/attendance-reg"
     }])
     useEffect(()=>{
-        if(loggedInEmail.user_role==="Manager"){            
+        if(loggedInUserDetails.user_role==="Manager"){            
             setMySelfRoles([...mySelfRoles,{label:"Pending Leave Approvals",key:"/leave-approvals"},{label:"Pending Attendance Approvals","key":"/attendance-approvals"}])
         }
     },[])
@@ -64,7 +63,11 @@ export default function TopMenu() {
             key: 'self',
             children: mySelfRoles
         },
-        {
+        
+
+    ]
+    if (loggedInUserDetails.user_role==="Manager"){
+        items.push({
             label: 'Admin',
             key: 'admin',
             icon: <HomeOutlined />,
@@ -74,13 +77,16 @@ export default function TopMenu() {
                     key: "/admin"
                 },
                 {
-                    label: "Add / Edit Event",
+                    label: "Events",
                     key: "/events"
+                },
+                {
+                    label:"Add User",
+                    key:"/add-user"
                 }
             ]
-        },
-
-    ]
+        },)
+    }
     const oo = <>Hi. {nameOfUser} <SettingOutlined className="ms-2" /></>
     const signInOptions: MenuProps['items'] = [
         // {
@@ -107,28 +113,19 @@ export default function TopMenu() {
             ]
         },
     ]
-    const punchin = () => {
-        setOptions({ getApiEnabled: true, userEmail: loggedInEmail, type: "POST" })
-
-
-    }
-    const punchOut = () => {
-        setOptions({ getApiEnabled: true, userEmail: loggedInEmail, type: "PATCH" })
-
-    }
     return (
-        <div style={{backgroundColor:"#85a2c5"}}>
+        <div className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"}>
             <Row align="middle" >
                 <Col span={12} >
                     <h4 className="ms-2" style={{ textAlign: "left", color:"white" }}>RC Services</h4>
                 </Col>
                 <Col span={8}>
-                    <Menu style={{backgroundColor:"#85a2c5",color:"white",fontWeight:500}} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
+                    <Menu className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"}  theme="light" onClick={onClick} mode="horizontal" items={items || []} />
 
                 </Col>
                 <Col span={4} >
 
-                    <Menu style={{backgroundColor:"#85a2c5",color:"white",fontWeight:500}} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
+                    <Menu className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
                 </Col>
 
             </Row>

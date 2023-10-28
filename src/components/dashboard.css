@@ -1,98 +1,178 @@
-.january{
-    background-image:url("../images/jan.jfif") ;
+.january {
+    background-image: url("../images/jan.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     /* color: white; */
 }
-.february{
-    background-image:url("../images/feb.jfif") ;
+
+.february {
+    background-image: url("../images/feb.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
 }
-.march{
-    background-image:url("../images/march.jfif") ;
-    background-position: center;
-    background-size: cover;
-    min-height: 250px;
-    font-weight: 500;
-    color: white;
-}
-.april{
-    background-image:url("../images/april.jfif") ;
+
+.march {
+    background-image: url("../images/march.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.may{
-    background-image:url("../images/may.jfif") ;
+
+.april {
+    background-image: url("../images/april.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.june{
-    background-image:url("../images/june.jfif") ;
+
+.may {
+    background-image: url("../images/may.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.july{
-    background-image:url("../images/july.jfif") ;
+
+.june {
+    background-image: url("../images/june.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.august{
-    background-image:url("../images/august.jfif") ;
+
+.july {
+    background-image: url("../images/july.jfif");
+    background-position: center;
+    background-size: cover;
+    min-height: 250px;
+    font-weight: 500;
+    color: white;
+}
+
+.august {
+    background-image: url("../images/august.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     /* color: white; */
 }
-.september{
-    background-image:url("../images/september.jfif") ;
+
+.september {
+    background-image: url("../images/september.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.october{
-    background-image:url("../images/october.jfif") ;
+
+.october {
+    background-image: url("../images/october.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.november{
-    background-image:url("../images/november.jfif") ;
+
+.november {
+    background-image: url("../images/november.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.december{
-    background-image:url("../images/december.jfif") ;
+
+.december {
+    background-image: url("../images/december.jfif");
     background-position: center;
     background-size: cover;
     min-height: 250px;
     font-weight: 500;
     color: white;
 }
-.bg{
+
+.bg {
     background-image: linear-gradient(to bottom, #eefdff, #64560f);
+}
+
+.bg_manager {
+    background-image: linear-gradient(to bottom, #93e5fb, #3d0f64);
+}
+
+.bg_executive {
+    background-image: linear-gradient(to bottom, #eefdff, #64560f);
+}
+
+.menu {
+    background-color: #bddfe9;
+    font-weight: 500;
+    text-align: left;
+}
+.menu_executive {
+    background-color: #bddfe9;
+    font-weight: 500;
+    text-align: left;
+}
+
+.menu_manager {
+    background-color:rgb(134 133 177);
+    font-weight: 500;
+    text-align: left;
+    color: white;
+}
+
+.card_manager{
+    background-color:#b1bac7;
+    width:100%;
+    border-radius:0;
+}
+.card_executive{
+    background-color:#d5beac;
+    width:100%;
+    border-radius:0;
+}
+.card{
+    background-color:#d5beac;
+    width:100%;
+    border-radius:0;
+}
+.login_page{
+    width: 100vw; 
+    height: 100vh; 
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    background-image: linear-gradient(150deg,#f3f7f9, #cebcdd);
+}
+.login_right{
+    background-image: url("../images/hrms-removebg-preview.png");
+    background-position: center;
+    /* background-size: cover;  */
+    background-size: 300px 200px;
+    /* position: fixed; */
+    top: 0; 
+    left: 0;
+}
+.hrms_img{
+    background-image: url("../images/images-removebg-preview.png");
+    background-position: center;
+    /* background-size: cover;  */
+    background-size: 300px 200px;
+    /* position: fixed; */
+    top: 0; 
+    left: 0;
 }

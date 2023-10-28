@@ -10,18 +10,18 @@ import { Events } from "../interfaces/types";
 import './dashboard.css'
 
 const Dashboard = () => {
-    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
+    const loggedInUserDetails = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<{ getApiEnabled: boolean, userEmail: string }>({ getApiEnabled: false, userEmail: "" })
     const [eventOptions, setEventOptions] = useState<Events>({ date: "", type: "", getApiEnabled: false, name: "", shift: "", eventType: "" })
     useEffect(() => {
-        setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true })
+        setOptions({ userEmail: loggedInUserDetails.user_email, getApiEnabled: true })
         setEventOptions({ ...eventOptions, type: "GET", getApiEnabled: true })
 
     }, [])
-    const [attendanceData, setAttendanceData] = useState<{ present: string, absent: string, leaves_remaining: number }>()
+    const [attendanceData, setAttendanceData] = useState<{ present: string, absent: string, leaves_remaining: number, leaves_utilized:number }>()
     const onSuccess = (res: any) => {
         setOptions({ ...options, getApiEnabled: false })
-        setAttendanceData({ present: res.data.present_days, absent: res.data.absent_days, leaves_remaining: res.data.leaves_remaining })
+        setAttendanceData({ present: res.data.present_days, absent: res.data.absent_days, leaves_remaining: res.data.leaves_remaining,leaves_utilized:res.data.leaves_utilized })
     }
     const onError = (err: any) => {
         console.log("err")
@@ -37,7 +37,6 @@ const Dashboard = () => {
     const [eventCalender, setEventCalender] = useState<any>({ jan: [], feb: [], mar: [], april: [], may: [], june: [], july: [], aug: [], sep: [], oct: [], nov: [], dec: [] })
     const onEventSuccess = (res: any) => {
         if (eventOptions.type == "GET") {
-            console.log(res.data)
             if (res.data.length) {
                 const januaryDates = res.data.filter((item: any) => {
                     const dateObject = new Date(item.date);
@@ -125,26 +124,28 @@ const Dashboard = () => {
             key: '/user-leaves',
         },
         {
-            label: 'My Self',
+            label: 'My Details',
             key: '/user-self',
         },
     ]
+    const background:string = loggedInUserDetails.user_role == "Executive"?"bg":loggedInUserDetails.user_role == "Manager"?"bg_manager":"bg"
     return (
-        <div className="bg">
+        <div className={background}>
             <TopMenu />
             <Row justify="start" align='top'>
                 <Col span={3}>
-                    <Menu style={{backgroundColor:"#bddfe9",fontWeight:500,textAlign:"left"}} theme="light" onClick={onClick} mode="inline" items={items || []} />
+                    <Menu className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
 
                 </Col>
                 <Col span={17}></Col>
                 <Col span={4}>
-                    <Card size="small" className="p-0" style={{backgroundColor:"#d5beac",width:"100%",borderRadius:0}} title="My Details">
+                    <Card size="small" className={loggedInUserDetails.user_role == "Executive"?"card_executive p-0":loggedInUserDetails.user_role == "Manager"?"card_manager p-0":"card p-0"} title="My Details">
                         <Row>
                             <Col>
                                 <h6 style={{ textAlign: "left" }}><span>LOP  :<strong>{attendanceData?.absent}</strong></span></h6>
                                 <h6 style={{ textAlign: "left" }}><span>Number of days present :<strong>{attendanceData?.present}</strong></span></h6>
                                 <h6 style={{ textAlign: "left" }}><span>Leaves remaining :<strong>{attendanceData?.leaves_remaining}</strong></span></h6>
+                                <h6 style={{ textAlign: "left" }}><span>Leaves Utilized :<strong>{attendanceData?.leaves_utilized}</strong></span></h6>
                             </Col>
                         </Row>
                     </Card>

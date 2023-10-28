@@ -10,14 +10,13 @@ import { Events } from "../../interfaces/types";
 
 const EventsPage = () => {
     const [eventsForm] = Form.useForm()
-    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
+    const loggedInUserDetails = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<Events>({ date: "", type: "", getApiEnabled: false, name: "", shift: "", eventType: "" })
     const [events, setEvents] = useState([])
     useEffect(() => {
         setOptions({ date: "", type: "GET", getApiEnabled: true, name: "", shift: "", eventType: "" })
     }, [])
     const addEvent = (values: any) => {
-        console.log(values.date)
         let pp = moment(values.date.$d).format("YYYY-MM-DD")
         let reqObj = { date: pp, type: "POST", getApiEnabled: true, name: values.desc, shift: values.shift, eventType: values.type }
         setOptions(reqObj)
@@ -99,7 +98,7 @@ const EventsPage = () => {
     return (
         <>
             <TopMenu />
-            <Form
+            {loggedInUserDetails.user_role == "Manager" ? <Form
                 className=""
                 form={eventsForm}
                 initialValues={initialValues}
@@ -135,7 +134,8 @@ const EventsPage = () => {
                         <Button htmlType="submit" type="primary">Create Event</Button>
                     </Col>
                 </Row>
-            </Form>
+            </Form> : <></>}
+
             <Row>
                 <Col span={24}>
                     <Table rowKey={(record: any) => record.id} dataSource={events || []} columns={columns} />

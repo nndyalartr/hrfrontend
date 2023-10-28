@@ -33,7 +33,6 @@ const LeaveApprovalPage = () => {
     }
     const { refetch } = useLeaveApproval(options, onEventSuccess, onEventError)
     const approveFn =(id:string)=>{
-        console.log(id)
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "PATCH",id:id,action:"approved" })
         setTimeout(()=>{
             setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "GET",id:"",action:"" })

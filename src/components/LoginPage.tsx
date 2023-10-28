@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Card, Col, Form, Input, Row } from "antd";
 import useVerifyLoginApi from "../QueryApiCalls/useVerifyLoginApi";
 import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
@@ -8,13 +8,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import './dashboard.css'
 const LoginPage = () => {
     const [loginForm] = Form.useForm()
-    const [loginData,setLoginData]= useState<any>([])
+    const [loginData, setLoginData] = useState<any>([])
     const { mutateAsync: loginCheck }: any = useVerifyLoginApi()
     const navigate = useNavigate()
-    const signIn:any = useSignIn()
-    const location:any=useLocation
+    const signIn: any = useSignIn()
+    const location: any = useLocation
     const loginFn = async (values: { "emailId": string, "password": string }) => {
-        
+
         const reqObj = {
             email: values.emailId,
             password: values.password
@@ -22,58 +22,67 @@ const LoginPage = () => {
         await loginCheck(reqObj, {
             onSuccess: (response: AxiosResponse) => {
                 setLoginData(response)
-                if(response&&response.data){
+                if (response && response.data) {
                     signIn({
-                        token:response.data.access,
-                        refreshToken:response.data.refresh,
-                        refreshTokenExpireIn:24,
-                        expiresIn:24,
-                        tokemType:"Bearer",
-                        authState:{
-                            email:values.emailId
+                        token: response.data.access,
+                        refreshToken: response.data.refresh,
+                        refreshTokenExpireIn: 24,
+                        expiresIn: 24,
+                        tokemType: "Bearer",
+                        authState: {
+                            email: values.emailId
                         }
                     })
                     let obj = {
-                        user_email : values.emailId,
-                        user_role:response.data.role,
-                        user_name:response.data.name
+                        user_email: values.emailId,
+                        user_role: response.data.role,
+                        user_name: response.data.name
                     }
-                    localStorage.setItem("_USER_DATA",JSON.stringify(obj))
-                    const from:string = location.state?.from||"/dashboard"
+                    localStorage.setItem("_USER_DATA", JSON.stringify(obj))
+                    const from: string = location.state?.from || "/dashboard"
                     console.log(from)
-                    navigate(from,{replace:true})
+                    navigate(from, { replace: true })
                 }
-                
+
             }, onError: (err: AxiosError) => {
                 console.log("err")
-                const from:string = location.state?.from||""
-                    console.log(from)
-                    navigate(from,{replace:true})
+                const from: string = location.state?.from || ""
+                console.log(from)
+                navigate(from, { replace: true })
             }
         }
         )
     }
     return (
-        <div >
-            <Row className="ms-5 mt-5">
-                <Col span={8}>
-                    <Form
-                        className=""
-                        form={loginForm}
-                        onFinish={loginFn}
-                    >
-                        <Form.Item name="emailId" label="Please Enter Email">
-                            
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="password" label="Please enter password">
-                            
-                            <Input />
-                        </Form.Item>
-                        <Button htmlType="submit" type="primary">Submit</Button>
-
-                    </Form>
+        <div className="login_page">
+            <Row>
+                <Col>
+                <h3 className="text-secondary mt-2 ms-5">
+                    RC Services
+                </h3>
                 </Col>
+            </Row>
+            <Row className="me-5 mt-5" justify="end">
+                <Col span={6}>
+                    <Card size="small" title="Login">
+                        <Form
+                            className=""
+                            form={loginForm}
+                            onFinish={loginFn}
+                        >
+                            <Form.Item name="emailId" label="Email">
+
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="password" label="Password">
+
+                                <Input />
+                            </Form.Item>
+                            <Button htmlType="submit" type="primary">Submit</Button>
+
+                        </Form>
+                    </Card>
+                </Col>                
             </Row>
 
         </div>
