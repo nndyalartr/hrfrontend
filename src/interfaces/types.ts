@@ -35,6 +35,19 @@ export interface AttendanceRegRequst extends ApiParams {
     status: string
 }
 
-export interface ListAttendanceRequest extends ApiParams{
+export interface ListAttendanceRequest extends ApiParams {
     userEmail: string,
+}
+export interface ApplyResignation extends ApiParams {
+    resignation_date: string,
+    personal_phone_no: string,
+    personal_mail_id: string,
+    resignation_reason: string,
+    user_email: string
+}
+export interface GetAllRegnations extends ApiParams {
+    user_email: string,
+    exit_date?: string,
+    status?: string,
+    record_id?: string
 }

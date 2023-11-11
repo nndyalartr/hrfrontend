@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { createRefresh } from "react-auth-kit"
-const intervalTime = 24*60
+const intervalTime = 3600
 const refreshApi: any = createRefresh({
     interval: intervalTime,
     // @ts-ignore

@@ -37,3 +37,28 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 767px) {
+  /* Define styles for extra small screens (phones) */
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  /* Define styles for small screens (tablets) */
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  /* Define styles for medium screens (small laptops) */
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+  /* Define styles for large screens (standard laptops) */
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1919px) {
+  /* Define styles for extra large screens (desktops) */
+}
+
+@media screen and (min-width: 1920px) {
+  /* Define styles for extra extra large screens (larger desktops) */
+}
+

@@ -1,4 +1,4 @@
-import { Card, Col, Menu, MenuProps, Row } from "antd";
+import { Card, Menu, MenuProps } from "antd";
 import TopMenu from "./TopMenu";
 import { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import useCreateorGetEvents from "../QueryApiCalls/useEventDetails";
 import { Events } from "../interfaces/types";
 import './dashboard.css'
+import { Container, Col, Row } from "react-bootstrap";
 
 const Dashboard = () => {
     const loggedInUserDetails = UserInfoStore()?.loggedUserInfo.value
@@ -18,10 +19,10 @@ const Dashboard = () => {
         setEventOptions({ ...eventOptions, type: "GET", getApiEnabled: true })
 
     }, [])
-    const [attendanceData, setAttendanceData] = useState<{ present: string, absent: string, leaves_remaining: number, leaves_utilized:number }>()
+    const [attendanceData, setAttendanceData] = useState<{ present: string, absent: string, leaves_remaining: number, leaves_utilized: number }>()
     const onSuccess = (res: any) => {
         setOptions({ ...options, getApiEnabled: false })
-        setAttendanceData({ present: res.data.present_days, absent: res.data.absent_days, leaves_remaining: res.data.leaves_remaining,leaves_utilized:res.data.leaves_utilized })
+        setAttendanceData({ present: res.data.present_days, absent: res.data.absent_days, leaves_remaining: res.data.leaves_remaining, leaves_utilized: res.data.leaves_utilized })
     }
     const onError = (err: any) => {
         console.log("err")
@@ -128,167 +129,170 @@ const Dashboard = () => {
             key: '/user-self',
         },
     ]
-    const background:string = loggedInUserDetails.user_role == "Executive"?"bg":loggedInUserDetails.user_role == "Manager"?"bg_manager":"bg"
+    const background: string = loggedInUserDetails.user_role == "Executive" ? "bg" : loggedInUserDetails.user_role == "Manager" ? "bg_manager" : "bg"
     return (
         <div className={background}>
             <TopMenu />
-            <Row justify="start" align='top'>
-                <Col span={3}>
-                    <Menu className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
+            <Container fluid style={{ margin: 0, padding: 0 }}>
+                <Row justify="space-between" align='top'>
+                    <Col xs={12} sm={8} md={6} lg={3} className="p-0">
+                        <Menu className={loggedInUserDetails.user_role == "Executive" ? "float-start menu_executive" : loggedInUserDetails.user_role == "Manager" ? "float-start menu_manager" : "float-start menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
 
-                </Col>
-                <Col span={17}></Col>
-                <Col span={4}>
-                    <Card size="small" className={loggedInUserDetails.user_role == "Executive"?"card_executive p-0":loggedInUserDetails.user_role == "Manager"?"card_manager p-0":"card p-0"} title="My Details">
-                        <Row>
-                            <Col>
-                                <h6 style={{ textAlign: "left" }}><span>LOP  :<strong>{attendanceData?.absent}</strong></span></h6>
-                                <h6 style={{ textAlign: "left" }}><span>Number of days present :<strong>{attendanceData?.present}</strong></span></h6>
-                                <h6 style={{ textAlign: "left" }}><span>Leaves remaining :<strong>{attendanceData?.leaves_remaining}</strong></span></h6>
-                                <h6 style={{ textAlign: "left" }}><span>Leaves Utilized :<strong>{attendanceData?.leaves_utilized}</strong></span></h6>
-                            </Col>
-                        </Row>
-                    </Card>
-                </Col>
-            </Row>
-            <Row className="mt-2">
-                <Col span={6}>
-                    <Card size="small" className="m-1 january" title="January">
-                        {eventCalender.jan.length ? <div >
-                            {eventCalender.jan.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </div> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 february" title="February">
-                        {eventCalender.feb.length ? <>
-                            {eventCalender.feb.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 march" title={<span style={{color:"white"}}>March</span>}>
-                        {eventCalender.mar.length ? <>
-                            {eventCalender.mar.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 april" title={<span style={{color:"white"}}>April</span>}>
-                        {eventCalender.april.length ? <>
-                            {eventCalender.april.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-            </Row>
-            <Row className="mt-2">
-                <Col span={6}>
-                    <Card size="small" className="m-1 may" title="May">
-                        {eventCalender.may.length ? <>
-                            {eventCalender.may.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 june" title={<span style={{color:"white"}}>June</span>}>
-                        {eventCalender.june.length ? <>
-                            {eventCalender.june.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 july" title="July">
-                        {eventCalender.july.length ? <>
-                            {eventCalender.july.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 august" title="August">
-                        {eventCalender.aug.length ? <>
-                            {eventCalender.aug.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-            </Row>
-            <Row className="mt-2">
-                <Col span={6}>
-                    <Card size="small" className="m-1 september" title={<span style={{color:"white"}}>September</span>}>
-                        {eventCalender.sep.length ? <>
-                            {eventCalender.sep.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 october" title="October">
-                        {eventCalender.oct.length ? <>
-                            {eventCalender.oct.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 november" title={<span style={{color:"white"}}>November</span>}>
-                        {eventCalender.nov.length ? <>
-                            {eventCalender.nov.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-                <Col span={6}>
-                    <Card size="small" className="m-1 december" title={<span style={{color:"red"}}>December</span>}>
-                        {eventCalender.dec.length ? <>
-                            {eventCalender.dec.map((x: any) => {
-                                return (<div key={Math.random()}>
-                                    <p>{x.date} - {x.event_type} :- {x.name}</p>
-                                </div>)
-                            })}
-                        </> : <p>No Events</p>}
-                    </Card>
-                </Col>
-            </Row>
+                    </Col>                   
+                    
+                    <Col xs={12} sm={16} md={18} lg={9} className="p-0">
+                        <Card size="small" style={{maxWidth:"300px"}} className={loggedInUserDetails.user_role == "Executive" ? "float-end card_executive p-0" : loggedInUserDetails.user_role == "Manager" ? "float-end card_manager p-0" : "float-end card p-0"} title="My Details">
+                            <Row>
+                                <Col>
+                                    <h6 style={{ textAlign: "left" }}><span>LOP  :<strong>{attendanceData?.absent}</strong></span></h6>
+                                    <h6 style={{ textAlign: "left" }}><span>Number of days present :<strong>{attendanceData?.present}</strong></span></h6>
+                                    <h6 style={{ textAlign: "left" }}><span>Leaves remaining :<strong>{attendanceData?.leaves_remaining}</strong></span></h6>
+                                    <h6 style={{ textAlign: "left" }}><span>Leaves Utilized :<strong>{attendanceData?.leaves_utilized}</strong></span></h6>
+                                </Col>
+                            </Row>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row className="mt-2">
+                    <Col span={6}>
+                        <Card size="small" className="m-1 january" title="January">
+                            {eventCalender.jan.length ? <div >
+                                {eventCalender.jan.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </div> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 february" title="February">
+                            {eventCalender.feb.length ? <>
+                                {eventCalender.feb.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 march" title={<span style={{ color: "white" }}>March</span>}>
+                            {eventCalender.mar.length ? <>
+                                {eventCalender.mar.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 april" title={<span style={{ color: "white" }}>April</span>}>
+                            {eventCalender.april.length ? <>
+                                {eventCalender.april.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                </Row>
+                <Row className="mt-2">
+                    <Col span={6}>
+                        <Card size="small" className="m-1 may" title="May">
+                            {eventCalender.may.length ? <>
+                                {eventCalender.may.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 june" title={<span style={{ color: "white" }}>June</span>}>
+                            {eventCalender.june.length ? <>
+                                {eventCalender.june.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 july" title="July">
+                            {eventCalender.july.length ? <>
+                                {eventCalender.july.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 august" title="August">
+                            {eventCalender.aug.length ? <>
+                                {eventCalender.aug.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                </Row>
+                <Row className="mt-2">
+                    <Col span={6}>
+                        <Card size="small" className="m-1 september" title={<span style={{ color: "white" }}>September</span>}>
+                            {eventCalender.sep.length ? <>
+                                {eventCalender.sep.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 october" title="October">
+                            {eventCalender.oct.length ? <>
+                                {eventCalender.oct.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 november" title={<span style={{ color: "white" }}>November</span>}>
+                            {eventCalender.nov.length ? <>
+                                {eventCalender.nov.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                    <Col span={6}>
+                        <Card size="small" className="m-1 december" title={<span style={{ color: "red" }}>December</span>}>
+                            {eventCalender.dec.length ? <>
+                                {eventCalender.dec.map((x: any) => {
+                                    return (<div key={Math.random()}>
+                                        <p>{x.date} - {x.event_type} :- {x.name}</p>
+                                    </div>)
+                                })}
+                            </> : <p>No Events</p>}
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+
         </div>
     )
 }

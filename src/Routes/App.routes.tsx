@@ -12,6 +12,8 @@ import LeaveApprovalPage from "../components/LeaveApprovals/LeaveApprovalPage";
 import UserAttendanceRegPage from "../components/AttendanceRegularization/UserAttendanceRegPage";
 import UserAttendanceRequestApprove from "../components/AttendanceRegularization/UserAttendanceRequestApprove";
 import AddUserPage from "../components/user/AddUserPage";
+import UserResignation from "../components/Resignation/UserResignation";
+import ResignationApprovals from "../components/Resignation/ResignationApprovals";
 
 function AppRoutes() {
     return (
@@ -34,6 +36,8 @@ function AppRoutes() {
                     <Route path='/attendance-reg' element={<UserAttendanceRegPage/>}/>
                     <Route path='/attendance-approvals' element={<UserAttendanceRequestApprove/>}/>
                     <Route path='/add-user' element={<AddUserPage/>}/>
+                    <Route path='/resignation' element={<UserResignation/>}/>
+                    <Route path='/resignation-approvals' element={<ResignationApprovals/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

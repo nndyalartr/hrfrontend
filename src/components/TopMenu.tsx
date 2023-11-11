@@ -1,4 +1,5 @@
-import { Button, Col, Menu, MenuProps, Row, message } from "antd";
+import { Button, Menu, MenuProps, message } from "antd";
+import { Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
@@ -45,14 +46,19 @@ export default function TopMenu() {
         key: "/user-leaves"
     },
     {
-        label:"Attendance Regularize",
-        key:"/attendance-reg"
-    }])
-    useEffect(()=>{
-        if(loggedInUserDetails.user_role==="Manager"){            
-            setMySelfRoles([...mySelfRoles,{label:"Pending Leave Approvals",key:"/leave-approvals"},{label:"Pending Attendance Approvals","key":"/attendance-approvals"}])
+        label: "Attendance Regularize",
+        key: "/attendance-reg"
+    },
+    {
+        label: "Resignation",
+        key: "/resignation"
+    }
+    ])
+    useEffect(() => {
+        if (loggedInUserDetails.user_role === "Manager") {
+            setMySelfRoles([...mySelfRoles, { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }])
         }
-    },[])
+    }, [])
     const items: MenuProps['items'] = [
         {
             label: 'Home',
@@ -63,10 +69,10 @@ export default function TopMenu() {
             key: 'self',
             children: mySelfRoles
         },
-        
+
 
     ]
-    if (loggedInUserDetails.user_role==="Manager"){
+    if (loggedInUserDetails.user_role === "Manager") {
         items.push({
             label: 'Admin',
             key: 'admin',
@@ -81,8 +87,8 @@ export default function TopMenu() {
                     key: "/events"
                 },
                 {
-                    label:"Add User",
-                    key:"/add-user"
+                    label: "Add User",
+                    key: "/add-user"
                 }
             ]
         },)
@@ -111,25 +117,23 @@ export default function TopMenu() {
                     icon: <SmileOutlined />
                 }
             ]
-        },
-    ]
+        }]
     return (
-        <div className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"}>
-            <Row align="middle" >
-                <Col span={12} >
-                    <h4 className="ms-2" style={{ textAlign: "left", color:"white" }}>RC Services</h4>
-                </Col>
-                <Col span={8}>
-                    <Menu className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"}  theme="light" onClick={onClick} mode="horizontal" items={items || []} />
+        <div className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"}>
+            <Container fluid>
+                <Row align="middle" justify="space-between" className="justify-content-between">
+                    <Col xs={12} sm={8} md={6} lg={4} xl={3} className="float-start">
+                        <h4 className="ms-2" style={{ textAlign: "left", color: "white" }}>RC Services</h4>
+                    </Col>
+                    <Col xs={12} sm={8} md={6} lg={2} xl={3} className="float-end">
+                        <Menu className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
+                    </Col>
+                    <Col xs={12} sm={8} md={6} lg={2} xl={3} className="text-end ms-auto me-0" >
+                        <Menu style={{ textAlign: 'right' }} className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
 
-                </Col>
-                <Col span={4} >
-
-                    <Menu className={loggedInUserDetails.user_role == "Executive"?"menu_executive":loggedInUserDetails.user_role == "Manager"?"menu_manager":"menu"} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
-                </Col>
-
-            </Row>
-
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
