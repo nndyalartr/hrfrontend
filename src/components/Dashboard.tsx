@@ -118,7 +118,7 @@ const Dashboard = () => {
         },
         {
             label: 'My Organization',
-            key: '/aboutOrg',
+            key: '/about-Org',
         },
         {
             label: 'My Leaves',

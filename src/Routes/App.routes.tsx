@@ -15,6 +15,7 @@ import AddUserPage from "../components/user/AddUserPage";
 import UserResignation from "../components/Resignation/UserResignation";
 import ResignationApprovals from "../components/Resignation/ResignationApprovals";
 import AllAttendanceDetails from "../components/AttendanceAdmin/AllAttendanceDetails";
+import OrganizationDetails from "../components/Organization/OrganizationDetails";
 
 function AppRoutes() {
     return (
@@ -40,6 +41,7 @@ function AppRoutes() {
                     <Route path='/resignation' element={<UserResignation/>}/>
                     <Route path='/resignation-approvals' element={<ResignationApprovals/>}/>
                     <Route path='/attendance-all' element={<AllAttendanceDetails/>}/>
+                    <Route path='about-org' element={<OrganizationDetails/>}/>
                 </Routes>
             </Router>
         </AuthProvider>
