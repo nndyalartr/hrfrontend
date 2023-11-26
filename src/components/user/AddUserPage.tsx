@@ -15,7 +15,6 @@ const AddUserPage = () => {
         delete apiObj.date_of_birth
         delete apiObj.date_of_joining
         apiObj = {...apiObj,date_of_birth:DOB,date_of_joining:DOJ,getApiEnabled:true}
-        console.log(apiObj)
         setOptions(apiObj)
     }
     const onSuccess = (res: any) => {

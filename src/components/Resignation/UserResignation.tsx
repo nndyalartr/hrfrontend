@@ -62,7 +62,6 @@ const UserResignation = () => {
         setResignationOptions({ ...resignationOptions, type: 'GET',getApiEnabled:true,user_email:loggedInEmail.user_email })
     }, [])
     const submitResignation = (values: any) => {
-        console.log(values)
         let resDate = moment(values.resignationDate.$d).format("YYYY-MM-DD")
         setResignationOptions({
             type: "POST", getApiEnabled: true, resignation_date: resDate,

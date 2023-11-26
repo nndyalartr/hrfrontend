@@ -89,7 +89,7 @@ export default function TopMenu() {
                 {
                     label: "Add User",
                     key: "/add-user"
-                }
+                }, { label: "Attendance Summary Report", key: "/attendance-all" }
             ]
         },)
     }

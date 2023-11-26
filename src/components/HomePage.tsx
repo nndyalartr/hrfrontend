@@ -43,7 +43,7 @@ export default function HomePage() {
     return (
         <div >
             <TopMenu/>           
-            <Table rowKey={(record: any) => record.id} dataSource={userData} columns={columns} />
+            <Table rowKey={(record: any) => record.email_id} dataSource={userData} columns={columns} />
 
         </div>
     )

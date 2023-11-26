@@ -14,6 +14,7 @@ import UserAttendanceRequestApprove from "../components/AttendanceRegularization
 import AddUserPage from "../components/user/AddUserPage";
 import UserResignation from "../components/Resignation/UserResignation";
 import ResignationApprovals from "../components/Resignation/ResignationApprovals";
+import AllAttendanceDetails from "../components/AttendanceAdmin/AllAttendanceDetails";
 
 function AppRoutes() {
     return (
@@ -38,6 +39,7 @@ function AppRoutes() {
                     <Route path='/add-user' element={<AddUserPage/>}/>
                     <Route path='/resignation' element={<UserResignation/>}/>
                     <Route path='/resignation-approvals' element={<ResignationApprovals/>}/>
+                    <Route path='/attendance-all' element={<AllAttendanceDetails/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

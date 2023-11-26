@@ -9,7 +9,7 @@ const getAllUsers: any = (options:{getApiEnabled:boolean,userEmail:string}) => {
 }
 
 const useGetAllUserDetails = (options:{getApiEnabled:boolean,userEmail:string},onSuccess:any,onError:any) => {
-    return useQuery( ["all-users-details"] ,()=>getAllUsers(options),{
+    return useQuery( ["all-users-detailssdfsdf"] ,()=>getAllUsers(options),{
         onSuccess,
         onError,
         refetchOnMount:false,

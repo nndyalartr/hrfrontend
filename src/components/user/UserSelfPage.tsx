@@ -19,9 +19,7 @@ const UserSelfPage =()=>{
     },[])
     const onSuccess=(res:any)=>{
         setOptions({...options,getApiEnabled:false})
-        // setUserData(res.data)
         setUserData(res.data)
-        console.log(res.data)
     }
     const onError = (err:any)=>{
         console.log("err")

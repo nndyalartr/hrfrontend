@@ -1,4 +1,4 @@
-interface ApiParams {
+export interface ApiParams {
     type: string,
     getApiEnabled: boolean
 }
@@ -50,4 +50,8 @@ export interface GetAllRegnations extends ApiParams {
     exit_date?: string,
     status?: string,
     record_id?: string
+}
+export interface GetAllAttendanceDet extends ApiParams {
+    toDate:string,
+    fromDate:string
 }

@@ -37,7 +37,6 @@ const UserLeavesPage = () => {
     const onEventSuccess = (res: any) => {
         if (options.type == "GET") {
             setTableData(res.data)
-            console.log(res.data)
 
         }else{
             message.success(res.data.message)
