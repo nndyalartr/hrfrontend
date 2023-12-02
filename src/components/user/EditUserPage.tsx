@@ -1,10 +1,11 @@
 import { Card, Col, Row, Modal, Select } from "antd";
-import { Table, Button, Form, Input, } from "antd";
+import { Table, Button, Form, Input } from "antd";
 import TopMenu from "../TopMenu";
 import { useState } from "react";
 import UserEditComp from "./UserEditComp";
+import moment from "moment";
 const EditUserPage = () => {
-  const [Usersearch] = Form.useForm();
+  const [usersearch] = Form.useForm();
   const [tabledata, settabledata] = useState<any>([]);
  
     
@@ -25,7 +26,7 @@ const EditUserPage = () => {
         aadhar_number: "353463",
         mobile_number: "7090089470",
         designation: "Exe AR",
-        location: "",
+        location: "Bangalore",
         department: "Holiday Calendar - Bangalore Night Shift",
         permanent_address:
           "#607,Head Bandar Road,kumta, Uttara kannada, Karnataka -581343",
@@ -83,9 +84,11 @@ const EditUserPage = () => {
   };
   const [modelOpen, setModelOpen] = useState<boolean>(false);
   const [record, setRecord] = useState<any>({});
-  const hhhh = (record: any) => {
-    console.log(record);
-    setRecord(record);
+  const hhhh = (rec: any) => {
+    console.log(rec);
+
+    setRecord({...rec,date_of_joining:moment(rec.date_of_joining),date_of_birth:moment(rec.date_of_birth)});
+    console.log("gfgdfr",record)
     setModelOpen(true);
   };
   console.log(modelOpen);
@@ -121,7 +124,7 @@ const EditUserPage = () => {
       <Row className="me-5 mt-3" justify="start">
         <Col span={6}>
           <Card size="small" title="">
-            <Form className="" form={Usersearch} onFinish={loginFn}>
+            <Form className="" form={usersearch} onFinish={loginFn}>
               <Form.Item name="Text" label="Email">
                 <Input placeholder="enter Email Id" />
               </Form.Item>
@@ -142,13 +145,13 @@ const EditUserPage = () => {
         </Col>
       </Row>
       {modelOpen && (
-        <Modal
+        <Modal   style={{minWidth: '900px' }}
           open={modelOpen}
           onCancel={() => {
             setModelOpen(false);
           }}
-        //   bodyStyle={{ overflow: "auto", maxHeight: "calc(100vh - 200px" }}
-          title="User search"
+          bodyStyle={{overflow: "auto", maxHeight: "calc(100vh - 200px"}}
+          title="Edit User"
         >
           <UserEditComp props={record} />
           

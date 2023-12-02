@@ -14,3 +14,7 @@ min-width: 180px;
     font-size:medium;
     font-style:italic;
   }
+
+ .popup{
+     min-Width:'900px';
+ }
