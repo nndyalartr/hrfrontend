@@ -12,13 +12,13 @@ export const privateAxios:any=({...options})=>{
     const onSuccess = (response:any)=> response
   
     const onError =(err:any)=>{
-        if(err.response.status===401){
-            message.error("your Session is expired")
-            window.location.href = window.location.origin+"/"
-            localStorage.clear()
-            Cookies.remove('_auth')
-            Cookies.remove('_auth_refresh')
-        }
+        // if(err.response.status===401){
+        //     message.error("your Session is expired")
+        //     window.location.href = window.location.origin+"/"
+        //     localStorage.clear()
+        //     Cookies.remove('_auth')
+        //     Cookies.remove('_auth_refresh')
+        // }
         return err
     }
     return client(options).then(onSuccess).catch(onError)

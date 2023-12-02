@@ -21,8 +21,11 @@ const Dashboard = () => {
     }, [])
     const [attendanceData, setAttendanceData] = useState<{ present: string, absent: string, leaves_remaining: number, leaves_utilized: number }>()
     const onSuccess = (res: any) => {
-        setOptions({ ...options, getApiEnabled: false })
+        if(res && res.data){
+            setOptions({ ...options, getApiEnabled: false })
         setAttendanceData({ present: res.data.present_days, absent: res.data.absent_days, leaves_remaining: res.data.leaves_remaining, leaves_utilized: res.data.leaves_utilized })
+        }
+        
     }
     const onError = (err: any) => {
         console.log("err")
@@ -38,7 +41,7 @@ const Dashboard = () => {
     const [eventCalender, setEventCalender] = useState<any>({ jan: [], feb: [], mar: [], april: [], may: [], june: [], july: [], aug: [], sep: [], oct: [], nov: [], dec: [] })
     const onEventSuccess = (res: any) => {
         if (eventOptions.type == "GET") {
-            if (res.data.length) {
+            if (res && res.data && res.data.length) {
                 const januaryDates = res.data.filter((item: any) => {
                     const dateObject = new Date(item.date);
                     return dateObject.getMonth() === 0; // January is month 0

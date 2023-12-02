@@ -72,7 +72,8 @@ export default function TopMenu() {
 
 
     ]
-    if (loggedInUserDetails.user_role === "Manager") {
+    // if (loggedInUserDetails.user_role === "Manager") {
+    if (true) {
         items.push({
             label: 'Admin',
             key: 'admin',
@@ -81,6 +82,10 @@ export default function TopMenu() {
                 {
                     label: "User Details",
                     key: "/admin"
+                },
+                {
+                    label: "User Edit",
+                    key: "/user-edit"
                 },
                 {
                     label: "Events",

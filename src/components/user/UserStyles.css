@@ -1,0 +1,16 @@
+.keyValueBlock{
+    display: block;
+    text-align:justify;
+}
+.keyValue{
+font-size: large;
+display: inline-block;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-style:italic;
+min-width: 180px;
+}
+
+.valueStyle {
+    font-size:medium;
+    font-style:italic;
+  }
