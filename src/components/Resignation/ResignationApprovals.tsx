@@ -23,7 +23,6 @@ const ResignationApprovals = () => {
     }, [])
     const onEventSuccess = (res: any) => {
         setallResignations({ ...allResignations, type: "", getApiEnabled: false })
-        console.log(res)
         setTableData(res.data.data)
 
     }

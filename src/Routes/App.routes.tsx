@@ -16,6 +16,7 @@ import UserResignation from "../components/Resignation/UserResignation";
 import ResignationApprovals from "../components/Resignation/ResignationApprovals";
 import AllAttendanceDetails from "../components/AttendanceAdmin/AllAttendanceDetails";
 import OrganizationDetails from "../components/Organization/OrganizationDetails";
+import EditUserPage from "../components/user/EditUserPage";
 
 function AppRoutes() {
     return (
@@ -29,7 +30,6 @@ function AppRoutes() {
                 <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/" element={<LoginPage />} />
-                    <Route path="/admin" element={<HomePage />} />
                     <Route path="/user-attendance" element={<UserPage />} />
                     <Route path="/user-self" element={<UserSelfPage/>}/>
                     <Route path="/events" element={<EventsPage/>}/>
@@ -42,6 +42,7 @@ function AppRoutes() {
                     <Route path='/resignation-approvals' element={<ResignationApprovals/>}/>
                     <Route path='/attendance-all' element={<AllAttendanceDetails/>}/>
                     <Route path='about-org' element={<OrganizationDetails/>}/>
+                    <Route path='/user-edit' element={<EditUserPage/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

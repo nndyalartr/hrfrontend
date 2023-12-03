@@ -40,14 +40,12 @@ const LoginPage = () => {
                     }
                     localStorage.setItem("_USER_DATA", JSON.stringify(obj))
                     const from: string = location.state?.from || "/dashboard"
-                    console.log(from)
                     navigate(from, { replace: true })
                 }
 
             }, onError: (err: AxiosError) => {
                 console.log("err")
                 const from: string = location.state?.from || ""
-                console.log(from)
                 navigate(from, { replace: true })
             }
         }

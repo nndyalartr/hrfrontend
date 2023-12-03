@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
 import useCreateAttendance from "../QueryApiCalls/usePunchIn";
 import { UserInfoStore } from "../utils/useUserInfoStore";
+import { AxiosResponse } from "axios";
 
 export default function TopMenu() {
 
@@ -26,10 +27,16 @@ export default function TopMenu() {
 
     const onSuccess = (res: any) => {
         setOptions({ ...options, getApiEnabled: false })
-        message.success(res.data.message)
+        if (!res.message) {
+            message.success(res.data.message)
+        } else {
+            message.error("First Punch In")
+        }
+
     }
     const onError = (err: any) => {
         setOptions({ ...options, getApiEnabled: false })
+        message.success(err.data.message)
     }
     const { refetch } = useCreateAttendance(options, onSuccess, onError)
     const nameOfUser = loggedInUserDetails.user_name
@@ -56,7 +63,7 @@ export default function TopMenu() {
     ])
     useEffect(() => {
         if (loggedInUserDetails.user_role === "Manager") {
-            setMySelfRoles([...mySelfRoles, { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }])
+            setMySelfRoles([...mySelfRoles,])
         }
     }, [])
     const items: MenuProps['items'] = [
@@ -80,7 +87,7 @@ export default function TopMenu() {
             children: [
                 {
                     label: "User Details",
-                    key: "/admin"
+                    key: "/user-edit"
                 },
                 {
                     label: "Events",
@@ -92,6 +99,16 @@ export default function TopMenu() {
                 }, { label: "Attendance Summary Report", key: "/attendance-all" }
             ]
         },)
+        items.push(
+            {
+                label: 'Approvals',
+                key: 'approvals',
+                icon: <HomeOutlined />,
+                children: [
+                    { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
+                ]
+            }
+        )
     }
     const oo = <>Hi. {nameOfUser} <SettingOutlined className="ms-2" /></>
     const signInOptions: MenuProps['items'] = [
@@ -125,7 +142,7 @@ export default function TopMenu() {
                     <Col xs={12} sm={8} md={6} lg={4} xl={3} className="float-start">
                         <h4 className="ms-2" style={{ textAlign: "left", color: "white" }}>RC Services</h4>
                     </Col>
-                    <Col xs={12} sm={8} md={6} lg={2} xl={3} className="float-end">
+                    <Col xs={12} sm={10} md={12} lg={4} xl={6} className="float-end">
                         <Menu className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
                     </Col>
                     <Col xs={12} sm={8} md={6} lg={2} xl={3} className="text-end ms-auto me-0" >
