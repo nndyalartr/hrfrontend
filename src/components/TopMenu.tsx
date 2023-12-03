@@ -6,6 +6,8 @@ import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined } from '@
 import useCreateAttendance from "../QueryApiCalls/usePunchIn";
 import { UserInfoStore } from "../utils/useUserInfoStore";
 import { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
+import { useSignOut } from "react-auth-kit";
 
 export default function TopMenu() {
 
@@ -16,10 +18,20 @@ export default function TopMenu() {
         navigate(e.key)
         setCurrent(e.key)
     };
+    const cookieAllData = Cookies.get()
+    const signOut = useSignOut()
     const onSiningClick: MenuProps['onClick'] = (e) => {
         if (e.key == "PunchIn") {
             setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
-        } else if (e.key == "PunchOut") {
+        } else if(e.key == "Logout"){
+            for (let key in cookieAllData){
+                Cookies.remove(key)
+            }
+            signOut()
+            navigate('/')
+
+        }
+        else if (e.key == "PunchOut") {
             setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "PATCH" })
         }
     };
@@ -132,6 +144,10 @@ export default function TopMenu() {
                     label: "Punch Out",
                     key: "PunchOut",
                     icon: <SmileOutlined />
+                },
+                {
+                    label: "Log Out",
+                    key: "Logout"
                 }
             ]
         }]
