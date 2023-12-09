@@ -2,7 +2,7 @@ import { Button, Menu, MenuProps, message } from "antd";
 import { Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined ,SolutionOutlined} from '@ant-design/icons';
 import useCreateAttendance from "../QueryApiCalls/usePunchIn";
 import { UserInfoStore } from "../utils/useUserInfoStore";
 import { AxiosResponse } from "axios";
@@ -27,6 +27,7 @@ export default function TopMenu() {
             for (let key in cookieAllData){
                 Cookies.remove(key)
             }
+            localStorage.clear();
             signOut()
             navigate('/')
 
@@ -115,7 +116,7 @@ export default function TopMenu() {
             {
                 label: 'Approvals',
                 key: 'approvals',
-                icon: <HomeOutlined />,
+                icon: <SolutionOutlined />,
                 children: [
                     { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
                 ]

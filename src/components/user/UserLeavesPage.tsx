@@ -17,10 +17,10 @@ const UserLeavesPage = () => {
     }
     const [apiObj, setApiObj] = useState<{ date: string; session: string; }[]>([])
     const [leaveSummary, setLeaveSummary] = useState<{ reason: string, noOfLeaves: number, leaveType: string }>({ reason: "", noOfLeaves: 0, leaveType: "" })
-    const [options, setOptions] = useState<ApplyLeave>({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+    const [options, setOptions] = useState<ApplyLeave>({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email,leave_count:0, leaves: [], getApiEnabled: false, type: "" })
     const [tableData, setTableData] = useState<any>([])
     useEffect(() => {
-        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: true, type: "GET" })
+        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email,leave_count:0, leaves: [], getApiEnabled: true, type: "GET" })
     }, [])
     function getDates(startDate: Date, endDate: Date) {
         const dates = [];
@@ -41,11 +41,11 @@ const UserLeavesPage = () => {
         }else{
             message.success(res.data.message)
         }
-        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+        setOptions({ leaveReason: "",leave_count:0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
 
     }
     const onEventError = (err: any) => {
-        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+        setOptions({ leaveReason: "",leave_count:0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
     }
     const { refetch } = useCreateLeave(options, onEventSuccess, onEventError)
     const applyLeave = (values: any) => {
@@ -101,7 +101,7 @@ const UserLeavesPage = () => {
         setLeaveSummary({ reason: values.reason, leaveType: values.type, noOfLeaves: leaveCount })
     }
     const leaveSubmitFn = () => {
-        setOptions({ leaveReason: leaveSummary.reason, leaveType: leaveSummary.leaveType, userEmail: loggedInEmail.user_email, leaves: apiObj, getApiEnabled: true, type: "POST" })
+        setOptions({ leaveReason: leaveSummary.reason, leaveType: leaveSummary.leaveType, userEmail: loggedInEmail.user_email, leaves: apiObj, getApiEnabled: true, type: "POST",leave_count:leaveSummary.noOfLeaves })
         setTimeout(() => {
             setOptions({ ...options, type: "GET",getApiEnabled:true })
         }, 300)

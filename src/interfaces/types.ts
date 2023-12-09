@@ -13,6 +13,7 @@ export interface ApplyLeave extends ApiParams {
     userEmail: string,
     leaveType: string,
     leaveReason: string,
+    leave_count:number,
     leaves: { date: string, session: string }[]
 }
 

@@ -40,7 +40,7 @@ const EditUserPage = () => {
             title: "Employe Name",
             dataIndex: "emp_name",
             key: "emp_name",
-            width: 150
+            width: 220
         },
         {
             title: "Date Of Joining",
@@ -49,12 +49,18 @@ const EditUserPage = () => {
             width: 150,
             render: (date_of_joining: string) => {
                 if (date_of_joining) {
-                    const formattedDate = moment(date_of_joining, 'YYYY MM DD').format('Do MMMM YYYY');
+                    const formattedDate = moment(date_of_joining, 'YYYY MM DD').format('DD-MM-YYYY');
                     return (formattedDate)
                 } else {
                     return ("Not Available")
                 }
             }
+        },
+        {
+            title: "Reporting To",
+            dataIndex: "reporting_to",
+            key: "reporting_to",
+            width: 220,
         },
         {
             title: "Date Of Birth",
@@ -63,7 +69,8 @@ const EditUserPage = () => {
             width: 150,
             render: (date_of_birth: string) => {
                 if (date_of_birth) {
-                    const formattedDate = moment(date_of_birth, 'YYYY MM DD').format('Do MMMM YYYY');
+                    // const formattedDate = moment(date_of_birth, 'YYYY MM DD').format('Do MMMM YYYY');
+                    const formattedDate = moment(date_of_birth, 'YYYY MM DD').format('DD-MM-YYYY');
                     return (formattedDate)
                 } else {
                     return ("Not Available")
@@ -80,7 +87,7 @@ const EditUserPage = () => {
             title: "Email Id",
             dataIndex: "email_id",
             key: "email_id",
-            width: 150
+            width: 250
         },
         {
             title: "Gender",
@@ -92,7 +99,7 @@ const EditUserPage = () => {
             title: "Phone No",
             dataIndex: "mobile_number",
             key: "mobile_number",
-            width: 120
+            width: 200
         },
         {
             title: "Role",
@@ -123,7 +130,7 @@ const EditUserPage = () => {
             title: "Name as AADHAR",
             dataIndex: "name_as_aadhar",
             key: "name_as_aadhar",
-            width: 150
+            width: 220
         },
         {
             title: "AADHAR No",
@@ -135,7 +142,10 @@ const EditUserPage = () => {
             title: "PAN No",
             dataIndex: "pan",
             key: "pan",
-            width: 100
+            width: 160,
+            render:(item:string)=>{
+                return(<span>{item.toUpperCase()}</span>)
+            }
         },
         {
             title: "Martial Status",
@@ -147,13 +157,13 @@ const EditUserPage = () => {
             title: "Emergency Contact No",
             dataIndex: "emergency_contact",
             key: "emergency_contact",
-            width: 150
+            width: 220
         },
         {
             title: "Emergency Contact Person",
             dataIndex: "emergency_contact_name",
             key: "emergency_contact_name",
-            width: 150
+            width: 220
         },
         {
             title: "Blood Group",
@@ -229,7 +239,7 @@ const EditUserPage = () => {
                     <>
                         <Button onClick={() => {
                             searchUserFn(record);
-                        }} type="primary" icon={<EditOutlined />}></Button>
+                        }} type="primary" icon={<EditOutlined />}>Edit</Button>
 
                     </>
                 );
@@ -305,7 +315,7 @@ const EditUserPage = () => {
                         bodyStyle={{ overflow: "auto", maxHeight: "calc(100vh - 200px" }}
                         title="User Edit"
                     >
-                        <UserEditComp props={{ record, setModelOpen }} />
+                        <UserEditComp props={{ record, setModelOpen,setOptions }} />
                     </Modal>
 
 

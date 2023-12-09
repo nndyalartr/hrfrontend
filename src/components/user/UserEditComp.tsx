@@ -20,6 +20,7 @@ const UserEditComp = (props: any) => {
     const onSuccess = (res: any) => {
         setOptions({ ...options, getApiEnabled: false })
         props.props.setModelOpen(false)
+        props.props.setOptions({ getApiEnabled: true, userEmail: "", project: "" })
     }
     const onError = (err: any) => {
         setOptions({ ...options, getApiEnabled: false })

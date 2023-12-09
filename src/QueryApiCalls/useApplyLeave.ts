@@ -10,7 +10,8 @@ const createLeave: any = (options:ApplyLeave) => {
             email:options.userEmail,
             leaves:options.leaves,
             leave_type:options.leaveType,
-            leave_reason:options.leaveReason
+            leave_reason:options.leaveReason,
+            leave_count:options.leave_count
         }
     })
 }
