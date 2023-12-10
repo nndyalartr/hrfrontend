@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import { departmentOptions, designationOptions, genderOptions, mariatialStatusOptions } from "./AddUserPage";
 import useEditUser from "../../QueryApiCalls/useUserEdit";
 import moment from "moment";
+import useLeaderList from "../../QueryApiCalls/useLeaderList";
 const UserEditComp = (props: any) => {
     const [usersearch] = Form.useForm();
     const [options, setOptions] = useState<{ getApiEnabled: boolean, data:any ,id:string}>({ getApiEnabled: false, data:{},id:"" })
+    const [leaderOptions, setleaderOptions] = useState<{ getApiEnabled: boolean}>({ getApiEnabled: false })
     const { TextArea } = Input;
+    const [reportingToOptions , setreportingToOptions] = useState([])
     const [editUserData, setEditUserData] = useState<any>({})
     const editUser = (values: any) => {
         const userData = {...values}
@@ -25,6 +28,17 @@ const UserEditComp = (props: any) => {
     const onError = (err: any) => {
         setOptions({ ...options, getApiEnabled: false })
     }
+    useEffect(()=>{
+        setleaderOptions({...leaderOptions,getApiEnabled:true})
+    },[])
+    const onLeaderSuccess = (res: any) => {
+        setreportingToOptions(res.data)
+        setleaderOptions({...leaderOptions,getApiEnabled:true})
+    }
+    const onLeaderError = (err: any) => {
+        setleaderOptions({...leaderOptions,getApiEnabled:true})
+    }
+    const {data} = useLeaderList(leaderOptions, onLeaderSuccess,onLeaderError)
     const { refetch } = useEditUser(options, onSuccess, onError)
     return (
         <>
@@ -162,6 +176,11 @@ const UserEditComp = (props: any) => {
                     <Col span={12}>
                         <Form.Item name="ctc" label="CTC">
                             <Input />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name="reporting_to" label="Reporting To">
+                            <Select placeholder="Please Select Type" options={reportingToOptions} />
                         </Form.Item>
                     </Col>
                 </Row>

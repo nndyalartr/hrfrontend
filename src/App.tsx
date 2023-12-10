@@ -34,7 +34,7 @@ function App() {
     if (userAuthRefreshToken) {
       const intervalId = setInterval(() => {
         ref()
-      }, 10 * 60 * 1000);
+      }, 1000000);
 
       return () => clearInterval(intervalId);
     }

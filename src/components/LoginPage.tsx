@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Input, Row } from "antd";
+import { Button, Card, Col, Form, Input, Row, message } from "antd";
 import useVerifyLoginApi from "../QueryApiCalls/useVerifyLoginApi";
 import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
@@ -41,6 +41,8 @@ const LoginPage = () => {
                     localStorage.setItem("_USER_DATA", JSON.stringify(obj))
                     const from: string = location.state?.from || "/dashboard"
                     navigate(from, { replace: true })
+                }else{
+                    message.error("In-Valid Login Credentials")
                 }
 
             }, onError: (err: AxiosError) => {

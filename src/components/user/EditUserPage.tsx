@@ -1,4 +1,4 @@
-import { Card, Col, Row, Modal, Select, Tag } from "antd";
+import { Card, Col, Row, Modal, Select, Tag, Drawer } from "antd";
 import { Table, Button, Form, Input, } from "antd";
 import { EditOutlined } from '@ant-design/icons';
 import TopMenu from "../TopMenu";
@@ -33,7 +33,7 @@ const EditUserPage = () => {
             title: "Employe ID",
             dataIndex: "emp_no",
             key: "emp_no",
-            width: 100
+            width: 140
         },
 
         {
@@ -151,7 +151,7 @@ const EditUserPage = () => {
             title: "Martial Status",
             dataIndex: "maritial_status",
             key: "maritial_status",
-            width: 100
+            width: 130
         },
         {
             title: "Emergency Contact No",
@@ -239,8 +239,7 @@ const EditUserPage = () => {
                     <>
                         <Button onClick={() => {
                             searchUserFn(record);
-                        }} type="primary" icon={<EditOutlined />}>Edit</Button>
-
+                        }} type="primary" icon={<EditOutlined />}>Edit</Button>                        
                     </>
                 );
             },
@@ -305,18 +304,21 @@ const EditUserPage = () => {
             </Row>
             {
                 modelOpen && (
-                    <Modal
-                        style={{ minWidth: '900px' }}
+                    <Drawer
+                        // style={{ minWidth: '900px' }}
+                        width={800}
                         open={modelOpen}
-                        onCancel={() => {
+                        placement="right"
+                        onClose={() => {
+                            setOptions({...options,getApiEnabled:true});
                             setModelOpen(false);
                         }}
                         footer={null}
-                        bodyStyle={{ overflow: "auto", maxHeight: "calc(100vh - 200px" }}
+                        // bodyStyle={{ overflow: "auto", maxHeight: "calc(100vh - 200px" }}
                         title="User Edit"
                     >
                         <UserEditComp props={{ record, setModelOpen,setOptions }} />
-                    </Modal>
+                    </Drawer>
 
 
                 )

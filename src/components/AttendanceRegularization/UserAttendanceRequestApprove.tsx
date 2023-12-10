@@ -39,6 +39,12 @@ const UserAttendanceRequestApprove = () => {
             setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "GET", id: "", action: "" })
         }, 300)
     }
+    const rejectFn = (id: string) => {
+        setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "PATCH", id: id, action: "rejected" })
+        setTimeout(() => {
+            setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "GET", id: "", action: "" })
+        }, 300)
+    }
     const columns = [
         {
             title: "Date",
@@ -79,7 +85,7 @@ const UserAttendanceRequestApprove = () => {
                 return (
                     <>
                         <Button onClick={() => approveFn(ids)} className="me-2" type="primary">Approve</Button>
-                        <Button type="primary" danger>Reject</Button>
+                        <Button type="primary" onClick={() => rejectFn(ids)} danger>Reject</Button>
                     </>
                 )
             }

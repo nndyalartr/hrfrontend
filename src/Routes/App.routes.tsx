@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "../components/HomePage";
 import Dashboard from "../components/Dashboard";
 import UserPage from "../components/user/UserPage";
@@ -17,8 +17,13 @@ import ResignationApprovals from "../components/Resignation/ResignationApprovals
 import AllAttendanceDetails from "../components/AttendanceAdmin/AllAttendanceDetails";
 import OrganizationDetails from "../components/Organization/OrganizationDetails";
 import EditUserPage from "../components/user/EditUserPage";
+import { UserInfoStore } from "../utils/useUserInfoStore";
+import { useNavigate } from 'react-router-dom';
+import HrPolicyPage from "../components/HrPolicy/HrPolicyPage";
 
 function AppRoutes() {
+    const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
+    const shouldRestrictRoute = loggedInEmail.user_role === 'Executive';
     return (
         <AuthProvider
             authType="cookie"
@@ -36,13 +41,14 @@ function AppRoutes() {
                     <Route path="/user-leaves" element={<UserLeavesPage/>}/>
                     <Route path='/leave-approvals' element={<LeaveApprovalPage/>}/>
                     <Route path='/attendance-reg' element={<UserAttendanceRegPage/>}/>
-                    <Route path='/attendance-approvals' element={<UserAttendanceRequestApprove/>}/>
-                    <Route path='/add-user' element={<AddUserPage/>}/>
+                    <Route path='/attendance-approvals' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<UserAttendanceRequestApprove/>}/>
+                    <Route path='/add-user' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<AddUserPage/>}/>
                     <Route path='/resignation' element={<UserResignation/>}/>
-                    <Route path='/resignation-approvals' element={<ResignationApprovals/>}/>
-                    <Route path='/attendance-all' element={<AllAttendanceDetails/>}/>
+                    <Route path='/resignation-approvals' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<ResignationApprovals/>}/>
+                    <Route path='/attendance-all' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<AllAttendanceDetails/>}/>
                     <Route path='about-org' element={<OrganizationDetails/>}/>
-                    <Route path='/user-edit' element={<EditUserPage/>}/>
+                    <Route path="/hrpolicy" element={<HrPolicyPage/>}/>
+                    <Route path='/user-edit' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<EditUserPage/>}/>
                 </Routes>
             </Router>
         </AuthProvider>
