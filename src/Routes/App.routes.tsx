@@ -20,6 +20,7 @@ import EditUserPage from "../components/user/EditUserPage";
 import { UserInfoStore } from "../utils/useUserInfoStore";
 import { useNavigate } from 'react-router-dom';
 import HrPolicyPage from "../components/HrPolicy/HrPolicyPage";
+import UserDailyLogs from "../components/DailyLogs/UserDailyLogs";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
@@ -49,6 +50,7 @@ function AppRoutes() {
                     <Route path='about-org' element={<OrganizationDetails/>}/>
                     <Route path="/hrpolicy" element={<HrPolicyPage/>}/>
                     <Route path='/user-edit' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<EditUserPage/>}/>
+                    <Route path='/user-logs' element={shouldRestrictRoute?<Navigate to="/dashboard"/>:<UserDailyLogs/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

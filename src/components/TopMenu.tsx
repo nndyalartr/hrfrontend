@@ -2,13 +2,14 @@ import { Button, Menu, MenuProps, message } from "antd";
 import { Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined ,SolutionOutlined} from '@ant-design/icons';
+import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons';
 import useCreateAttendance from "../QueryApiCalls/usePunchIn";
 import { UserInfoStore } from "../utils/useUserInfoStore";
 import { AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useSignOut } from "react-auth-kit";
-
+import axios from "axios";
+import useCreateDailyLogs from "../QueryApiCalls/useCreateDailyLogs";
 export default function TopMenu() {
 
     const navigate = useNavigate()
@@ -20,11 +21,54 @@ export default function TopMenu() {
     };
     const cookieAllData = Cookies.get()
     const signOut = useSignOut()
+    const [apioptions, setapioptions] = useState<{ getApiEnabled: boolean, userEmail: string, type: string, data: any }>({ getApiEnabled: false, userEmail: "", type: "", data: {} })
+    const extractUserData = () => {
+        const bucketIdRemote = `aw-watcher-window_DESKTOP-M3VRFSN`;
+        const todayDate = new Date();
+        const yesterday = new Date(todayDate);
+        yesterday.setDate(todayDate.getDate() - 1);
+        const dayStart = new Date(todayDate);
+        dayStart.setHours(0, 0, 0, 0);
+        const dayEnd = new Date(todayDate);
+        dayEnd.setHours(23, 59, 59, 999);
+
+        const formattedDayStart = dayStart.toISOString();
+        const formattedDayEnd = dayEnd.toISOString();
+
+        const url = 'http://127.0.0.1:5600/api/0/buckets/aw-watcher-window_DESKTOP-M3VRFSN/events';
+        const params = new URLSearchParams({ start: formattedDayStart, end: formattedDayEnd });
+        const timeout = 10000;
+
+        axios.get(`${url}?${params}`).then((res) => {
+            const events = res.data;
+
+            // Initialize objects to store durations
+            const durationsByApplication = new Map();
+            const lockTime = new Map();
+            let totalActiveTime = 0; // Duration in seconds
+            let totalLockTime = 0; // Duration in seconds
+            const totalDurations: any = {};
+            events.forEach((entry: any) => {
+                if (!totalDurations.hasOwnProperty(entry.data.app)) {
+                    totalDurations[entry.data.app] = 0;
+                }
+                totalDurations[entry.data.app] += (entry.duration);
+            });
+            const result = Object.keys(totalDurations).map((app) => ({
+                application: app,
+                duration: totalDurations[app],
+            }));
+            setapioptions({ ...apioptions, getApiEnabled: true, type: "POST", data: { "logs_data": result, "user_email": loggedInUserDetails.user_email } })
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     const onSiningClick: MenuProps['onClick'] = (e) => {
+        extractUserData()
         if (e.key == "PunchIn") {
             setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
-        } else if(e.key == "Logout"){
-            for (let key in cookieAllData){
+        } else if (e.key == "Logout") {
+            for (let key in cookieAllData) {
                 Cookies.remove(key)
             }
             localStorage.clear();
@@ -51,6 +95,14 @@ export default function TopMenu() {
         setOptions({ ...options, getApiEnabled: false })
         message.success(err.data.message)
     }
+    const onLogsSuccess = (res: any) => {
+        setapioptions({ ...apioptions, getApiEnabled: false })
+    }
+    const onLogsError = (err: any) => {
+        console.log(err)
+        setapioptions({ ...apioptions, getApiEnabled: false })
+    }
+    const { data } = useCreateDailyLogs(apioptions, onLogsSuccess, onLogsError)
     const { refetch } = useCreateAttendance(options, onSuccess, onError)
     const nameOfUser = loggedInUserDetails.user_name
     const [mySelfRoles, setMySelfRoles] = useState([{
@@ -109,7 +161,8 @@ export default function TopMenu() {
                 {
                     label: "Add User",
                     key: "/add-user"
-                }, { label: "Attendance Summary Report", key: "/attendance-all" }
+                }, { label: "Attendance Summary Report", key: "/attendance-all" },
+                { label: "User Logs", key: "/user-logs" }
             ]
         },)
         items.push(

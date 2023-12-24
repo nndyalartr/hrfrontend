@@ -13,8 +13,16 @@ export interface ApplyLeave extends ApiParams {
     userEmail: string,
     leaveType: string,
     leaveReason: string,
-    leave_count:number,
+    leave_count: number,
     leaves: { date: string, session: string }[]
+}
+export interface CreateLogs extends ApiParams {
+    userEmail: string,
+    data: any
+}
+export interface GetTimeLogs extends ApiParams {
+    userEmail: string,
+    logsDate:string
 }
 
 export interface LeaveApproval extends ApiParams {
@@ -53,6 +61,6 @@ export interface GetAllRegnations extends ApiParams {
     record_id?: string
 }
 export interface GetAllAttendanceDet extends ApiParams {
-    toDate:string,
-    fromDate:string
+    toDate: string,
+    fromDate: string
 }
