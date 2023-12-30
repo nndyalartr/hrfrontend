@@ -35,7 +35,7 @@ export default function TopMenu() {
         const formattedDayStart = dayStart.toISOString();
         const formattedDayEnd = dayEnd.toISOString();
 
-        const url = 'http://127.0.0.1:5600/api/0/buckets/aw-watcher-window_DESKTOP-M3VRFSN/events';
+        const url = 'http://172.20.10.2:5600/api/0/buckets/aw-watcher-window_DESKTOP-M3VRFSN/events';
         const params = new URLSearchParams({ start: formattedDayStart, end: formattedDayEnd });
         const timeout = 10000;
 
@@ -64,7 +64,7 @@ export default function TopMenu() {
         })
     }
     const onSiningClick: MenuProps['onClick'] = (e) => {
-        extractUserData()
+        // extractUserData()
         if (e.key == "PunchIn") {
             setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
         } else if (e.key == "Logout") {

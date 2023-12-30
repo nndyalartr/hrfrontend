@@ -26,8 +26,8 @@ const LoginPage = () => {
                     signIn({
                         token: response.data.access,
                         refreshToken: response.data.refresh,
-                        refreshTokenExpireIn: 24,
-                        expiresIn: 24,
+                        refreshTokenExpireIn: 24 * 3600,
+                        expiresIn: 24 * 3600,
                         tokemType: "Bearer",
                         authState: {
                             email: values.emailId

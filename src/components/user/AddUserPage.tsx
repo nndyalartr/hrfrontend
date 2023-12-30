@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, DatePicker, Form, Input, Row, Select } from "antd"
+import { Button, Checkbox, Col, DatePicker, Form, Input, Row, Select, message } from "antd"
 import TopMenu from "../TopMenu"
 import moment from "moment";
 import { useState } from "react";
@@ -13,6 +13,11 @@ export const designationOptions = [
         label: "Manager",
         key: "manager",
         value: "Manager"
+    },
+    {
+        label: "TL",
+        key: "TL",
+        value: "TL"
     }
 ]
 export const genderOptions = [
@@ -94,11 +99,13 @@ const AddUserPage = () => {
         setOptions(apiObj)
     }
     const onSuccess = (res: any) => {
-       
+        userAddForm.resetFields()
+        message.success("Successfully Added USer")
         setOptions({ ...options, getApiEnabled: false })
 
     }
     const onError = (err: any) => {
+        message.error("Something Went Wrong")
         setOptions({ ...options, getApiEnabled: false })
         console.log("err")
     }
@@ -221,12 +228,12 @@ const AddUserPage = () => {
                         </Form.Item>
                     </Col>
                     <Col span={6}>
-                        <Form.Item name="martial_status" label="Martial Status">
+                        <Form.Item name="maritial_status" label="Martial Status">
                             <Select placeholder="Please Select Type" options={mariatialStatusOptions} />
                         </Form.Item>
                     </Col>
                     <Col span={6}>
-                        <Form.Item name="cts" label="CTC">
+                        <Form.Item name="ctc" label="CTC">
                             <Input />
                         </Form.Item>
                     </Col>
