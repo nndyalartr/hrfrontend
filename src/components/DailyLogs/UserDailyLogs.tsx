@@ -142,7 +142,7 @@ const UserDailyLogs = () => {
         setOptions({ ...options, getApiEnabled: true, userEmail: values.user, logsDate: logDate })
     }
     return <>
-        <TopMenu />
+        {/* <TopMenu /> */}
         <Form
             className=""
             form={userLogs}
