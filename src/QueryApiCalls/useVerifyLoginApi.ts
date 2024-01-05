@@ -3,7 +3,7 @@ import axios from "axios";
 const verifyLogin: any = (values: { "email": string, "password": string }) => {
     const config = {
         method:"POST",
-        url:"http://127.0.0.1:8000/user-login/",
+        url:"https://backend.rcservices.co/user-login/",
         data:values
     }
     return axios(config).then((res)=>{
