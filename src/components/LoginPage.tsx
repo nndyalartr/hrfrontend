@@ -21,7 +21,8 @@ const LoginPage = () => {
         }
         await loginCheck(reqObj, {
             onSuccess: (response: AxiosResponse) => {
-                setLoginData(response)
+                setLoginData(response);
+
                 if (response && response.data) {
                     signIn({
                         token: response.data.access,
@@ -37,11 +38,15 @@ const LoginPage = () => {
                         user_email: values.emailId.toLowerCase(),
                         user_role: response.data.role,
                         user_name: response.data.name
+                    };
+                    localStorage.setItem("_USER_DATA", JSON.stringify(obj));
+                    if (response?.data?.Is_first_login) {
+                        navigate('/change-password', { replace: true });
+                    } else {
+                        const from: string = location.state?.from || "/dashboard";
+                        navigate("/dashboard", { replace: true });
                     }
-                    localStorage.setItem("_USER_DATA", JSON.stringify(obj))
-                    const from: string = location.state?.from || "/dashboard"
-                    navigate(from, { replace: true })
-                }else{
+                } else {
                     message.error("In-Valid Login Credentials")
                 }
 
@@ -57,9 +62,9 @@ const LoginPage = () => {
         <div className="login_page">
             <Row>
                 <Col>
-                <h3 className="text-secondary mt-2 ms-5">
-                    RC Services
-                </h3>
+                    <h3 className="text-secondary mt-2 ms-5">
+                        RC Services
+                    </h3>
                 </Col>
             </Row>
             <Row className="me-5 mt-5" justify="end">
@@ -82,7 +87,7 @@ const LoginPage = () => {
 
                         </Form>
                     </Card>
-                </Col>                
+                </Col>
             </Row>
 
         </div>
