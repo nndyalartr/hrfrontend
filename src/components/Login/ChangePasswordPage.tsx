@@ -5,7 +5,7 @@ import ChangePasswordComponent from './ChangePasswordComponent'
 
 const ChangePasswordPage = () => {
     return <div className="change_password_container">
-        <TopMenu />
+        {/* <TopMenu /> */}
         <ChangePasswordComponent />
     </div>
 }
