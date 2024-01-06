@@ -204,9 +204,9 @@ const EditUserPage = () => {
             width: 120,
             render: (shift: boolean) => {
                 if (shift) {
-                    return (<span>Day Shift</span>)
-                } else {
                     return (<span>Night Shift</span>)
+                } else {
+                    return (<span>Day Shift</span>)
                 }
             }
         },

@@ -144,7 +144,7 @@ export default function TopMenu() {
 
 
     ]
-    if (loggedInUserDetails.user_role === "Manager") {
+    if (loggedInUserDetails.user_role === "HR") {
         items.push({
             label: 'Admin',
             key: 'admin',
@@ -165,6 +165,18 @@ export default function TopMenu() {
                 { label: "User Logs", key: "/user-logs" }
             ]
         },)
+        items.push(
+            {
+                label: 'Approvals',
+                key: 'approvals',
+                icon: <SolutionOutlined />,
+                children: [
+                    { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
+                ]
+            }
+        )
+    }
+    if (loggedInUserDetails.user_role === "Manager"){
         items.push(
             {
                 label: 'Approvals',

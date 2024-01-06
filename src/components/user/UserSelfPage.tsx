@@ -46,7 +46,7 @@ const UserSelfPage =()=>{
                 <Col span={8}>
                 <span className="keyValueBlock m-3"><span className="keyValue me-2">Father Name :</span><span className="valueStyle">{userData.father_name} </span></span>
                 <span className="keyValueBlock m-3"><span className="keyValue me-2">Date Of Joining :</span><span className="valueStyle">{userData.date_of_joining} </span></span>
-                <span className="keyValueBlock m-3"><span className="keyValue me-2">Pan :</span><span className="valueStyle">{userData.Pan} </span></span>
+                <span className="keyValueBlock m-3"><span className="keyValue me-2">Pan :</span><span className="valueStyle">{userData.pan} </span></span>
                 <span className="keyValueBlock m-3"><span className="keyValue me-2">Project Name :</span><span className="valueStyle">{userData.project_name} </span></span>
                 <span className="keyValueBlock m-3"><span className="keyValue me-2">Role :</span><span className="valueStyle">{userData.role} </span></span>
                 <span className="keyValueBlock m-3"><span className="keyValue me-2">Ctc :</span><span className="valueStyle">{userData.ctc} </span></span>

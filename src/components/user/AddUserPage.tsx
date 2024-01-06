@@ -3,11 +3,103 @@ import TopMenu from "../TopMenu"
 import moment from "moment";
 import { useState } from "react";
 import useUserRegistration from "../../QueryApiCalls/useUserRegistration";
-export const designationOptions = [
+export const designationOptions =[
     {
-        label: "Executive",
-        key: "executive",
-        value: "Executive"
+        label: "Accounts Executive",
+        key: "AccountsExecutive",
+        value: "AccountsExecutive"
+    },
+    {
+        label: "Assistant Ligtning Designer",
+        key: "AsstLigtningDesigner",
+        value: "AsstLigtningDesigner"
+    },
+    {
+        label: "Assistant Manager - Design",
+        key: "A.MDesign",
+        value: "A.MDesign"
+    },
+    {
+        label: "Assistant Manager - Finanace",
+        key: "A.MFinance",
+        value: "A.MFinance"
+    },
+    {
+        label: "Assosiate Director",
+        key: "A.D",
+        value: "A.D"
+    },
+    {
+        label: "Assistant Manager - Logistics",
+        key: "A.MLogistics",
+        value: "A.MLogistics"
+    },
+    {
+        label: "Design Lead",
+        key: "Design Lead",
+        value: "Design Lead"
+    },
+    {
+        label: "Executive - Store",
+        key: "ExecutiveStore",
+        value: "ExecutiveStore"
+    },
+    {
+        label: "Manager - Design",
+        key: "ManagerDesign",
+        value: "ManagerDesign"
+    },
+    {
+        label: "Manager - HR",
+        key: "ManagerHR",
+        value: "ManagerHR"
+    },
+    {
+        label: "Purchase - Executive",
+        key: "PurchaseExe",
+        value: "PurchaseExe"
+    },
+    {
+        label: "Sales - Executive",
+        key: "SalesExecutive",
+        value: "SalesExecutive"
+    },
+    {
+        label: "Sales - Manager",
+        key: "SalesManager",
+        value: "SalesManager"
+    },
+    {
+        label: "Service - Technician",
+        key: "ServiceTech",
+        value: "ServiceTech"
+    },
+    {
+        label: "Technician",
+        key: "Technician",
+        value: "Technician"
+    },
+    {
+        label: "Office - Assistant",
+        key: "OfficeAsst",
+        value: "OfficeAsst"
+    },
+    {
+        label: "CEO",
+        key: "CEO",
+        value: "CEO"
+    },
+    {
+        label: "COO",
+        key: "COO",
+        value: "COO"
+    }
+]
+export const roleOptions = [
+    {
+        label: "Employee",
+        key: "Employee",
+        value: "Employee"
     },
     {
         label: "Manager",
@@ -15,9 +107,9 @@ export const designationOptions = [
         value: "Manager"
     },
     {
-        label: "TL",
-        key: "TL",
-        value: "TL"
+        label: "HR",
+        key: "HR",
+        value: "HR"
     }
 ]
 export const genderOptions = [

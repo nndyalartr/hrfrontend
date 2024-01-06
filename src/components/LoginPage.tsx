@@ -16,7 +16,7 @@ const LoginPage = () => {
     const loginFn = async (values: { "emailId": string, "password": string }) => {
 
         const reqObj = {
-            email: values.emailId,
+            email: values.emailId.toLowerCase(),
             password: values.password
         }
         await loginCheck(reqObj, {
@@ -34,7 +34,7 @@ const LoginPage = () => {
                         }
                     })
                     let obj = {
-                        user_email: values.emailId,
+                        user_email: values.emailId.toLowerCase(),
                         user_role: response.data.role,
                         user_name: response.data.name
                     }
