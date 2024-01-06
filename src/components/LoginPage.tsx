@@ -40,7 +40,7 @@ const LoginPage = () => {
                         user_name: response.data.name
                     };
                     localStorage.setItem("_USER_DATA", JSON.stringify(obj));
-                    if (response?.data?.Is_first_login) {
+                    if (response?.data?.is_first_login) {
                         navigate('/change-password', { replace: true });
                     } else {
                         const from: string = location.state?.from || "/dashboard";
