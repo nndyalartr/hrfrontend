@@ -98,7 +98,7 @@ const EventsPage = () => {
     return (
         <>
             <TopMenu />
-            {loggedInUserDetails.user_role == "Manager" ? <Form
+            {loggedInUserDetails.user_role == "HR" ? <Form
                 className=""
                 form={eventsForm}
                 initialValues={initialValues}
