@@ -6,6 +6,7 @@ import { ConfigProvider, message } from 'antd';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { privateAxios } from './utils/AxiosUtils';
+import { themeConfig } from './utils/AntdThemeConfig';
 
 function App() {
   message.config({
@@ -42,7 +43,9 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <ConfigProvider >
+      <ConfigProvider
+        theme={themeConfig}
+      >
         <AppRoutes />
       </ConfigProvider>
     </div>

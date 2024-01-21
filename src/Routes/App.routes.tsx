@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import HomePage from "../components/HomePage";
 import Dashboard from "../components/Dashboard";
 import UserPage from "../components/user/UserPage";
-import LoginPage from "../components/LoginPage";
+// import LoginPage from "../components/LoginPage";
 import { AuthProvider } from "react-auth-kit";
 import refreshApi from "../QueryApiCalls/refreshApi";
 import UserSelfPage from "../components/user/UserSelfPage";
@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import HrPolicyPage from "../components/HrPolicy/HrPolicyPage";
 import UserDailyLogs from "../components/DailyLogs/UserDailyLogs";
 import ChangePasswordPage from "../components/Login/ChangePasswordPage";
-// import LoginPage from "../components/Login/LoginPage";
+import LoginPage from "../components/Login/LoginPage";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;

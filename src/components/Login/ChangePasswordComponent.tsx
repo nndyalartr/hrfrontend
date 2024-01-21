@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { Button, Card, Form, Input, message } from 'antd';
+import { Button, Card, Col, Form, Input, Row, message } from 'antd';
 import useChangePassword from '../../QueryApiCalls/Login/useChangePassword';
 import { useSignOut } from 'react-auth-kit';
 import './ChangePasswordPage.style.css'
+import { Link } from 'react-router-dom';
 
 const ChangePasswordComponent: React.FC = () => {
     const [changePasswordForm] = Form.useForm()
@@ -13,18 +14,18 @@ const ChangePasswordComponent: React.FC = () => {
 
 
     const layout = {
-        labelCol: { span: 6 },
-        wrapperCol: { span: 18 },
+        labelCol: { span: 8 },
+        wrapperCol: { span: 16 },
     };
     const onFinish = async (values: any) => {
-        if(values.confirmnewPassword === values.newPassword){
+        if (values.confirmnewPassword === values.newPassword) {
             const reqObj: any = {
                 email: userData?.user_email || "",
                 oldPassword: values?.oldPassword,
                 newPassword: values?.newPassword
             }
             await mutateChangePassword(reqObj, {
-    
+
                 onSuccess: (response: any) => {
                     if (response?.status === 200) {
                         message.success(response?.data?.message || "Password changed successfully.");
@@ -37,10 +38,10 @@ const ChangePasswordComponent: React.FC = () => {
                     message.error(err?.response?.data?.message || "Something went wrong");
                 }
             })
-        }else{
+        } else {
             message.error("New Password & Confirm Password Doesnot Match")
         }
-        
+
     };
     return (
         <div className='change_password_container_form'>
@@ -123,14 +124,29 @@ const ChangePasswordComponent: React.FC = () => {
                             placeholder='Ex: Example@123'
                         />
                     </Form.Item>
+                    <div className='submit_hidden'>
 
-                    <Form.Item
-                        className='d-flex justify-content-end'
-                    >
-                        <Button loading={changePasswordLoading} type="primary" htmlType="submit">
-                            Change Password
-                        </Button>
-                    </Form.Item>
+                        <Form.Item
+                            label="submit"
+                        >
+
+                            <Row justify={'space-between'}>
+                                <Col>
+                                    <Link to='/' >
+                                        <Button>
+                                            Login
+                                        </Button>
+                                    </Link>
+                                </Col>
+                                <Col>
+                                    <Button loading={changePasswordLoading} type="primary" htmlType="submit">
+                                        Change Password
+                                    </Button>
+                                </Col>
+                            </Row>
+
+                        </Form.Item>
+                    </div>
                 </Form>
             </Card>
 
