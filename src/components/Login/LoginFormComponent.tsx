@@ -26,24 +26,25 @@ const LoginFormComponent: React.FC = () => {
                 setLoginData(response);
 
                 if (response && response.data) {
+                    let obj = {
+                        user_email: values.emailId.toLowerCase(),
+                        user_role: response.data.role,
+                        user_name: response.data.name,
+                        first_login:response.data.is_first_login
+                    };
+                    localStorage.setItem("_USER_DATA", JSON.stringify(obj));
+                    signIn({
+                        token: response.data.access,
+                        refreshToken: response.data.refresh,
+                        refreshTokenExpireIn: 24 * 3600,
+                        expiresIn: 24 * 3600,
+                        tokemType: "Bearer",
+                        authState: {
+                            email: values.emailId
+                        }
+                    })                        
+                    const from: string = location.state?.from || "/dashboard";
                     if (!response?.data?.is_first_login) {
-                        signIn({
-                            token: response.data.access,
-                            refreshToken: response.data.refresh,
-                            refreshTokenExpireIn: 24 * 3600,
-                            expiresIn: 24 * 3600,
-                            tokemType: "Bearer",
-                            authState: {
-                                email: values.emailId
-                            }
-                        })
-                        let obj = {
-                            user_email: values.emailId.toLowerCase(),
-                            user_role: response.data.role,
-                            user_name: response.data.name
-                        };
-                        localStorage.setItem("_USER_DATA", JSON.stringify(obj));
-                        const from: string = location.state?.from || "/dashboard";
                         navigate("/dashboard", { replace: true });
                     } else {
                         navigate('/change-password', { replace: true });
