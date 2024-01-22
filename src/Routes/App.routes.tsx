@@ -39,6 +39,7 @@ function AppRoutes() {
 
                 {!isFirstLogin ? <Routes>
                     <Route path="/" element={<LoginPage />} />
+                    <Route path="/change-password" element={<ChangePasswordPage />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/user-attendance" element={<UserPage />} />
                     <Route path="/user-self" element={<UserSelfPage />} />
