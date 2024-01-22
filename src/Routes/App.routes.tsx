@@ -27,6 +27,8 @@ import LoginPage from "../components/Login/LoginPage";
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
     const shouldRestrictRoute = loggedInEmail.user_role === 'Executive';
+    const isFirstLogin = loggedInEmail.first_login
+    console.log(isFirstLogin, "loggg")
     return (
         <AuthProvider
             authType="cookie"
@@ -35,9 +37,9 @@ function AppRoutes() {
             cookieSecure={window.location.protocol === "https:"}
             refresh={refreshApi}>
             <Router>
-                <Routes>
+
+                {!isFirstLogin ? <Routes>
                     <Route path="/" element={<LoginPage />} />
-                    <Route path="/change-password" element={<ChangePasswordPage />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/user-attendance" element={<UserPage />} />
                     <Route path="/user-self" element={<UserSelfPage />} />
@@ -54,7 +56,19 @@ function AppRoutes() {
                     <Route path="/hrpolicy" element={<HrPolicyPage />} />
                     <Route path='/user-edit' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <EditUserPage />} />
                     <Route path='/user-logs' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <UserDailyLogs />} />
+                </Routes> : <Routes>
+
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/change-password" element={<ChangePasswordPage />} />
+                    <Route
+                        path="*"
+                        element={
+                                <Navigate to="/change-password" />
+                            
+                        }
+                    />
                 </Routes>
+                }
             </Router>
         </AuthProvider>
 
