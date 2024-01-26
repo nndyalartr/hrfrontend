@@ -4,39 +4,44 @@ import { UserInfoStore } from "../../utils/useUserInfoStore"
 import { useEffect, useState } from "react"
 import { LeaveApproval } from "../../interfaces/types"
 import TopMenu from "../TopMenu"
+import useLeaveApprovalGet from "../../QueryApiCalls/useLeaveApprovalGet"
+import { AxiosError, AxiosResponse } from "axios"
 
 const LeaveApprovalPage = () => {
 
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<LeaveApproval>({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
+    const [getOptions, setGetOptions] = useState<LeaveApproval>({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
     const [tableData, setTableData] = useState<any>([])
     useEffect(() => {
-        setOptions({ ...options, type: "GET", getApiEnabled: true })
+        setGetOptions({ ...options, type: "GET", getApiEnabled: true })
     }, [])
     const onEventSuccess = (res: any) => {
-
-        if (options.type == "GET") {
-            setTableData(res.data)
-
-        } else if(options.type == "PATCH"){
+        if (options.type == "PATCH") {
             message.success(res.data.message)
         }
-         else {
+        else {
             // message.success(res.data.message)
         }
+        setGetOptions({ ...options, type: "GET", getApiEnabled: true })
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
 
     }
     const onEventError = (err: any) => {
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
-        
+
     }
+    const onSuccess = (res:AxiosResponse)=>{
+        setGetOptions({ ...options, type: "GET", getApiEnabled: false })
+        setTableData(res.data)
+    }
+    const onError = (err:AxiosError)=>{
+        setGetOptions({ ...options, type: "GET", getApiEnabled: false })
+    }
+    useLeaveApprovalGet(getOptions, onSuccess, onError)
     const { refetch } = useLeaveApproval(options, onEventSuccess, onEventError)
-    const approveFn =(id:string)=>{
-        setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "PATCH",id:id,action:"approved" })
-        setTimeout(()=>{
-            setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "GET",id:"",action:"" })
-        },300)
+    const approveFn = (id: string) => {
+        setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "PATCH", id: id, action: "approved" })
     }
     const columns = [{
         title: "Applied By",
@@ -74,16 +79,16 @@ const LeaveApprovalPage = () => {
         key: "reason"
     },
     {
-        title:"Action",
-        dataIndex:"id",
-        key:"id",
-        render:(id:string)=>{
+        title: "Action",
+        dataIndex: "id",
+        key: "id",
+        render: (id: string) => {
             let ids = id
-            return(
+            return (
                 <>
-            <Button onClick={()=>approveFn(ids)} className="me-2" type="primary">Approve</Button>
-            <Button type="primary" danger>Reject</Button>
-            </>
+                    <Button onClick={() => approveFn(ids)} className="me-2" type="primary">Approve</Button>
+                    <Button type="primary" danger>Reject</Button>
+                </>
             )
         }
     }

@@ -122,6 +122,10 @@ export default function TopMenu() {
         key: "/attendance-reg"
     },
     {
+        label: "Advance",
+        key: "/advance"
+    },
+    {
         label: "Resignation",
         key: "/resignation"
     }

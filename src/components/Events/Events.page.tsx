@@ -1,34 +1,31 @@
 import { Button, Col, DatePicker, Form, Input, Radio, Row, Select, Switch, Table } from "antd";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import TopMenu from "../TopMenu";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { UserInfoStore } from "../../utils/useUserInfoStore";
 import useCreateorGetEvents from "../../QueryApiCalls/useEventDetails";
 import { Events } from "../../interfaces/types";
+import useGetEvents from "../../QueryApiCalls/useGetEvents";
 
 
 const EventsPage = () => {
     const [eventsForm] = Form.useForm()
     const loggedInUserDetails = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<Events>({ date: "", type: "", getApiEnabled: false, name: "", shift: "", eventType: "" })
+    const [getOptions,setGetoptions] = useState<{getApiEnabled: boolean}>({getApiEnabled: false})
     const [events, setEvents] = useState([])
     useEffect(() => {
-        setOptions({ date: "", type: "GET", getApiEnabled: true, name: "", shift: "", eventType: "" })
+        setGetoptions({...getOptions,getApiEnabled:true})
     }, [])
     const addEvent = (values: any) => {
         let pp = moment(values.date.$d).format("YYYY-MM-DD")
         let reqObj = { date: pp, type: "POST", getApiEnabled: true, name: values.desc, shift: values.shift, eventType: values.type }
         setOptions(reqObj)
         eventsForm.resetFields()
-        setTimeout(() => {
-            setOptions({ ...reqObj, type: "GET" })
-        }, 300)
     }
     const onEventSuccess = (res: any) => {
-        if (options.type == "GET") {
-            setEvents(res.data)
-        }
+        setGetoptions({...getOptions,getApiEnabled:true})
         setOptions({ ...options, type: "", getApiEnabled: false })
 
     }
@@ -36,7 +33,15 @@ const EventsPage = () => {
         setOptions({ ...options, getApiEnabled: false })
         console.log("err")
     }
-    const { refetch } = useCreateorGetEvents(options, onEventSuccess, onEventError)
+    const onSuccess = (res:AxiosResponse)=>{
+        setEvents(res.data)
+        setGetoptions({...getOptions,getApiEnabled:false})
+    }
+    const onError = (err:AxiosError)=>{
+        setGetoptions({...getOptions,getApiEnabled:false})
+    }
+    useGetEvents(getOptions,onSuccess,onError)
+    useCreateorGetEvents(options, onEventSuccess, onEventError)
     const initialValues = {
         type: "Holiday",
         shift: "ALLShifts",

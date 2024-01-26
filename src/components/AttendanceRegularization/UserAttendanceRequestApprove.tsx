@@ -5,26 +5,26 @@ import { useEffect, useState } from "react"
 import { LeaveApproval } from "../../interfaces/types"
 import TopMenu from "../TopMenu"
 import useAttendanceApproval from "../../QueryApiCalls/useAttendanceApproval"
+import useAttendanceApprovalGetList from "../../QueryApiCalls/useAttendaceReqApprovalGetList"
+import { AxiosError, AxiosResponse } from "axios"
 
 const UserAttendanceRequestApprove = () => {
 
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<LeaveApproval>({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
+    const [getOptions, setGetOptions] = useState<LeaveApproval>({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
     const [tableData, setTableData] = useState<any>([])
     useEffect(() => {
-        setOptions({ ...options, type: "GET", getApiEnabled: true })
+        setGetOptions({ ...options, type: "GET", getApiEnabled: true })
     }, [])
     const onEventSuccess = (res: any) => {
-
-        if (options.type == "GET") {
-            setTableData(res.data)
-
-        } else if (options.type == "PATCH") {
+        if (options.type == "PATCH") {
             message.success(res.data.message)
         }
         else {
             // message.success(res.data.message)
         }
+        setGetOptions({ ...getOptions, type: "GET", getApiEnabled: true })
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
 
     }
@@ -32,18 +32,21 @@ const UserAttendanceRequestApprove = () => {
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: false, type: "" })
 
     }
+    const onSuccess = (res: AxiosResponse) => {
+        setGetOptions({ ...getOptions, type: "GET", getApiEnabled: false })
+        setTableData(res.data)
+    }
+    const onError = (err: AxiosError) => {
+        setGetOptions({ ...getOptions, type: "GET", getApiEnabled: false })
+    }
+    useAttendanceApprovalGetList(getOptions, onSuccess, onError)
     const { refetch } = useAttendanceApproval(options, onEventSuccess, onEventError)
     const approveFn = (id: string) => {
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "PATCH", id: id, action: "approved" })
-        setTimeout(() => {
-            setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "GET", id: "", action: "" })
-        }, 300)
+
     }
     const rejectFn = (id: string) => {
         setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "PATCH", id: id, action: "rejected" })
-        setTimeout(() => {
-            setOptions({ userEmail: loggedInEmail.user_email, getApiEnabled: true, type: "GET", id: "", action: "" })
-        }, 300)
     }
     const columns = [
         {
@@ -67,15 +70,15 @@ const UserAttendanceRequestApprove = () => {
             key: "working_hours"
         },
         {
-            title:"Applied By",
-            dataIndex:"applied_by",
-            key:"applied_by"
+            title: "Applied By",
+            dataIndex: "applied_by",
+            key: "applied_by"
         },
         {
             title: "Reason",
             dataIndex: "reason",
             key: "reason"
-        },        
+        },
         {
             title: "Action",
             dataIndex: "id",

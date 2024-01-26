@@ -94,7 +94,7 @@ const ResignationApprovals = () => {
     return (
         <>
             <TopMenu />
-            <h3>Pending Attendance Request of your Team</h3>
+            <h3>Pending Resignation Approvals of your Team</h3>
             <Row>
                 <Col span={24}>
                     <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} />

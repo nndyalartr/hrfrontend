@@ -54,6 +54,15 @@ export interface ApplyResignation extends ApiParams {
     resignation_reason: string,
     user_email: string
 }
+export interface ApplyAdvance extends ApiParams {
+    advance_date: string,
+    personal_phone_no: string,
+    personal_mail_id: string,
+    advance_reason: string,
+    user_email: string,
+    advance_amount:string,
+    address:string
+}
 export interface GetAllRegnations extends ApiParams {
     user_email: string,
     exit_date?: string,
