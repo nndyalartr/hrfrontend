@@ -3,8 +3,8 @@ import Cookies from "js-cookie";
 import { message } from "antd";
 
 const client = axios.create({
-    // baseURL:"https://backend.rcservices.co"
-    baseURL:"http://127.0.0.1:8000"
+    baseURL:"https://backend.rcservices.co"
+    // baseURL:"http://127.0.0.1:8000"
 })
 
 export const privateAxios:any=({...options})=>{
