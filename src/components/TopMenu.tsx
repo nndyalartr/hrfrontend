@@ -180,7 +180,7 @@ export default function TopMenu() {
             }
         )
     }
-    if (loggedInUserDetails.user_role === "Manager"){
+    if (loggedInUserDetails.user_role === "Manager") {
         items.push(
             {
                 label: 'Approvals',
@@ -222,17 +222,17 @@ export default function TopMenu() {
             ]
         }]
     return (
-        <div className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"}>
+        <div className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "menu_manager" : "menu"}>
             <Container fluid>
                 <Row align="middle" justify="space-between" className="justify-content-between">
                     <Col xs={12} sm={8} md={6} lg={4} xl={3} className="float-start">
                         <h4 className="ms-2" style={{ textAlign: "left", color: "white" }}>RC Services</h4>
                     </Col>
                     <Col xs={12} sm={10} md={12} lg={4} xl={6} className="float-end">
-                        <Menu className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
+                        <Menu className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "menu_manager" : "menu"} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
                     </Col>
                     <Col xs={12} sm={8} md={6} lg={2} xl={3} className="text-end ms-auto me-0" >
-                        <Menu style={{ textAlign: 'right' }} className={loggedInUserDetails.user_role == "Executive" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" ? "menu_manager" : "menu"} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
+                        <Menu style={{ textAlign: 'right' }} className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "menu_manager" : "menu"} theme="light" onClick={onSiningClick} mode="horizontal" items={signInOptions || []} />
 
                     </Col>
                 </Row>

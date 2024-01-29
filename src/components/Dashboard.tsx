@@ -129,19 +129,19 @@ const Dashboard = () => {
             key: '/user-self',
         },
     ]
-    const background: string = loggedInUserDetails.user_role == "Executive" ? "bg" : loggedInUserDetails.user_role == "Manager" ? "bg_manager" : "bg"
+    const background: string = loggedInUserDetails.user_role == "Employee" ? "bg" : loggedInUserDetails.user_role == "Manager" || "HR" ? "bg_manager" : "bg"
     return (
         <div className={background}>
             <TopMenu />
             <Container fluid style={{ margin: 0, padding: 0 }}>
                 <Row justify="space-between" align='top'>
                     <Col xs={12} sm={6} md={4} lg={2} className="p-0 float-start">
-                        <Menu className={loggedInUserDetails.user_role == "Executive" ? "float-start menu_executive" : loggedInUserDetails.user_role == "Manager" ? "float-start menu_manager" : "float-start menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
+                        <Menu className={loggedInUserDetails.user_role == "Employee" ? "float-start menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "float-start menu_manager" : "float-start menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
 
-                    </Col>             
+                    </Col>
                     <Col lg={1} md={1}></Col>
                     <Col xs={12} sm={16} md={7} lg={9} className="p-0 float-end">
-                        <Card size="small" style={{maxWidth:"300px"}} className={loggedInUserDetails.user_role == "Executive" ? "float-end card_executive p-0" : loggedInUserDetails.user_role == "Manager" ? "float-end card_manager p-0" : "float-end card p-0"} title="My Details">
+                        <Card size="small" style={{ maxWidth: "300px" }} className={loggedInUserDetails.user_role == "Executive" ? "float-end card_executive p-0" : loggedInUserDetails.user_role == "Manager" ? "float-end card_manager p-0" : "float-end card p-0"} title="My Details">
                             <Row>
                                 <Col>
                                     <h6 style={{ textAlign: "left" }}><span>LOP  :<strong>{attendanceData?.absent}</strong></span></h6>
