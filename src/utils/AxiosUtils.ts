@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { message } from "antd";
 
 const client = axios.create({
-    baseURL:"https://backend.rcservices.co"
+    baseURL:"http://13.127.146.76:8000"
     // baseURL:"http://127.0.0.1:8000"
 })
 
