@@ -24,6 +24,7 @@ import UserDailyLogs from "../components/DailyLogs/UserDailyLogs";
 import ChangePasswordPage from "../components/Login/ChangePasswordPage";
 import LoginPage from "../components/Login/LoginPage";
 import AdvanceRequestPage from "../components/Advance/AdvanceRequestPage";
+import ProductionReportsPage from "../components/ProductionReports/ProductionReportaPage";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
@@ -56,6 +57,7 @@ function AppRoutes() {
                     <Route path='about-org' element={<OrganizationDetails />} />
                     <Route path="/hrpolicy" element={<HrPolicyPage />} />
                     <Route path='/user-edit' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <EditUserPage />} />
+                    <Route path='/reports' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <ProductionReportsPage />} />
                     <Route path='/user-logs' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <UserDailyLogs />} />
                     <Route path='/advance' element={shouldRestrictRoute ? <Navigate to="/advance" /> : <AdvanceRequestPage />} />
                 </Routes> : <Routes>

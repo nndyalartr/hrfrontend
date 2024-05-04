@@ -179,6 +179,16 @@ export default function TopMenu() {
                 ]
             }
         )
+        items.push(
+            {
+                label: 'Reports',
+                key: 'reports',
+                icon: <SolutionOutlined />,
+                children: [
+                    { label: "Production Reports", key: "/reports" }
+                ]
+            }
+        )
     }
     if (loggedInUserDetails.user_role === "Manager") {
         items.push(

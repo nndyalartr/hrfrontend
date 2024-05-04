@@ -22,7 +22,7 @@ export interface CreateLogs extends ApiParams {
 }
 export interface GetTimeLogs extends ApiParams {
     userEmail: string,
-    logsDate:string
+    logsDate: string
 }
 
 export interface LeaveApproval extends ApiParams {
@@ -33,6 +33,14 @@ export interface LeaveApproval extends ApiParams {
 export interface AttendanceReg extends ApiParams {
     userEmail: string
 }
+export interface ProdReportsGet {
+    year: string,
+    client: string,
+    month: string,
+    shift: string,
+    getApiEnabled : boolean
+}
+
 export interface AttendanceRegRequst extends ApiParams {
     userEmail: string,
     attendance_id: string,
@@ -60,8 +68,8 @@ export interface ApplyAdvance extends ApiParams {
     personal_mail_id: string,
     advance_reason: string,
     user_email: string,
-    advance_amount:string,
-    address:string
+    advance_amount: string,
+    address: string
 }
 export interface GetAllRegnations extends ApiParams {
     user_email: string,

@@ -1,0 +1,15 @@
+.bg {
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    overflow-x: hidden;
+}
+.prod_count{
+    height: 50px;
+    background-color: #AAB7B8;
+    border-left: 4px solid #283747 ;
+    border-radius: 0 20px 20px 0;
+    font-weight: 500;
+    padding-right: 30px;
+    padding-left: 10px;
+    min-width: 100px;
+    display: inline-block;
+}
