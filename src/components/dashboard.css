@@ -1,5 +1,6 @@
 .january {
-    background-image: url("../images/jan.jfif");
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    /* background-image: url("../images/jan.jfif"); */
     background-position: center;
     background-size: cover;
     min-height: 250px;
@@ -8,7 +9,8 @@
 }
 
 .february {
-    background-image: url("../images/feb.jfif");
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    /* background-image: url("../images/feb.jfif"); */
     background-position: center;
     background-size: cover;
     min-height: 250px;
@@ -16,7 +18,8 @@
 }
 
 .march {
-    background-image: url("../images/march.jfif");
+    /* background-image: url("../images/march.jfif"); */
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
     background-position: center;
     background-size: cover;
     min-height: 250px;
@@ -25,7 +28,8 @@
 }
 
 .april {
-    background-image: url("../images/april.jfif");
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    /* background-image: url("../images/april.jfif"); */
     background-position: center;
     background-size: cover;
     min-height: 250px;
@@ -106,15 +110,21 @@
 }
 
 .bg {
-    background-image: linear-gradient(to bottom, #eefdff, #64560f);
+    min-height: 750px;
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    /* background-image: linear-gradient(to bottom, #eefdff, #64560f); */
 }
 
 .bg_manager {
-    background-image: linear-gradient(to bottom, #93e5fb, #3d0f64);
+    min-height: 700px;
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    /* background-image: linear-gradient(to bottom, #93e5fb, #3d0f64); */
 }
 
 .bg_executive {
-    background-image: linear-gradient(to bottom, #eefdff, #64560f);
+    min-height: 700px;
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    /* background-image: linear-gradient(to bottom, #eefdff, #64560f); */
 }
 
 .menu {
@@ -136,17 +146,23 @@
 }
 
 .card_manager{
-    background-color:#b1bac7;
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
+    width:100%;
+    border-radius:0;
+}
+.card_new{
+    font-weight: bolder;
+    background-image: linear-gradient(to bottom,  #b8c4cc, #feffff);
     width:100%;
     border-radius:0;
 }
 .card_executive{
-    background-color:#d5beac;
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
     width:100%;
     border-radius:0;
 }
 .card{
-    background-color:#d5beac;
+    background-image: linear-gradient(to bottom, #feffff, #b8c4cc);
     width:100%;
     border-radius:0;
 }

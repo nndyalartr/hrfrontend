@@ -9,6 +9,11 @@ export interface Events extends ApiParams {
     eventType: string,
 
 }
+export interface ItTicketCreate extends ApiParams {
+    created_by: string,
+    title: string,
+    desc: string
+}
 export interface ApplyLeave extends ApiParams {
     userEmail: string,
     leaveType: string,
@@ -38,7 +43,7 @@ export interface ProdReportsGet {
     client: string,
     month: string,
     shift: string,
-    getApiEnabled : boolean
+    getApiEnabled: boolean
 }
 
 export interface AttendanceRegRequst extends ApiParams {

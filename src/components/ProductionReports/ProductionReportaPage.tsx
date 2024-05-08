@@ -13,7 +13,7 @@ function ProductionReportsPage() {
         <div className="bg">
             <TopMenu />
             <Tabs tabPosition="left">
-                <TabPane tab="BRLI" key="1">
+                <TabPane tab="XIFIN" key="1">
                     <BrliReports />
                 </TabPane>
                 <TabPane tab="BRLI New" key="2">

@@ -76,7 +76,6 @@ const LoginPage = () => {
                             onFinish={loginFn}
                         >
                             <Form.Item name="emailId" label="Email">
-
                                 <Input />
                             </Form.Item>
                             <Form.Item name="password" label="Password">

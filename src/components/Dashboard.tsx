@@ -136,7 +136,7 @@ const Dashboard = () => {
             <Container fluid style={{ margin: 0, padding: 0 }}>
                 <Row justify="space-between" align='top'>
                     <Col xs={12} sm={6} md={4} lg={2} className="p-0 float-start">
-                        <Menu className={loggedInUserDetails.user_role == "Employee" ? "float-start menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "float-start menu_manager" : "float-start menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
+                        <Menu className="card_new" theme="light" style={{ textAlign: 'left' }} onClick={onClick} mode="inline" items={items || []} />
 
                     </Col>
                     <Col lg={1} md={1}></Col>
@@ -153,7 +153,7 @@ const Dashboard = () => {
                         </Card>
                     </Col>
                 </Row>
-                <Row className="mt-2">
+                {/* <Row className="mt-2">
                     <Col span={6}>
                         <Card size="small" className="m-1 january" title="January">
                             {eventCalender.jan.length ? <div >
@@ -290,7 +290,7 @@ const Dashboard = () => {
                             </> : <p>No Events</p>}
                         </Card>
                     </Col>
-                </Row>
+                </Row> */}
             </Container>
 
         </div>

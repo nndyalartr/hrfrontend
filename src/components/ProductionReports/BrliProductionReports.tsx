@@ -1,5 +1,5 @@
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Button, Card, Col, Form, Input, Row, Select } from "antd";
+import { Button, Card, Col, Form, Input, Row, Select, message } from "antd";
 import {
     Chart as ChartJS,
     BarElement,
@@ -11,7 +11,7 @@ import {
     PointElement
 } from "chart.js"
 import { Bar, Line } from "react-chartjs-2"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BRLIDATA } from './data';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ProdReportsGet } from '../../interfaces/types';
@@ -45,11 +45,13 @@ function BrliProductionReports() {
             {
                 label: 'Target',
                 backgroundColor: '#566573',
+                // barThickness: 50, 
                 data: brliTargetDataRaw // Example data for no of tested for each process name
             },
             {
                 label: 'Achieved',
                 backgroundColor: '#CA6F1E',
+                // barThickness: 50, 
                 data: brliAchievedDataRaw // Example data for no of errors for each process name
             }
         ]
@@ -60,11 +62,13 @@ function BrliProductionReports() {
             {
                 label: 'Met',
                 backgroundColor: '#1A5276',
+                // barThickness: 50, 
                 data: productionSlaMet // Example data for no of tested for each process name
             },
             {
                 label: 'Not Met',
                 backgroundColor: '#EB984E ',
+                // barThickness: 50, 
                 data: productionSlaNotMet // Example data for no of errors for each process name
             }
         ]
@@ -75,11 +79,13 @@ function BrliProductionReports() {
             {
                 label: 'Met',
                 backgroundColor: '#1A5276',
+                // barThickness: 50, 
                 data: qualitySlaMet // Example data for no of tested for each process name
             },
             {
                 label: 'Not Met',
                 backgroundColor: '#EB984E ',
+                // barThickness: 50, 
                 data: qualitySlaNotMet // Example data for no of errors for each process name
             }
         ]
@@ -94,7 +100,7 @@ function BrliProductionReports() {
                 backgroundColor: "#AF7AC5",
                 borderColor: "black",
                 borderWidth: 0,
-                // barThickness: 20
+                // barThickness: 50
             }
         ]
     };
@@ -107,6 +113,7 @@ function BrliProductionReports() {
                 backgroundColor: "#AF7AC5",
                 borderColor: "black",
                 borderWidth: 0,
+                // barThickness: 50
                 // barThickness: 20
             }
         ]
@@ -115,11 +122,15 @@ function BrliProductionReports() {
     const achevedProduction: any = {
         scales: {
             x: {
+                barPercentage: 0.8, // Adjust the width of bars
+                categoryPercentage: 0.9, // Adjust the gap between bars
                 grid: {
                     display: false // Disable x grid lines
                 }
             },
             y: {
+                barPercentage: 0.8, // Adjust the width of bars
+                categoryPercentage: 0.9, // Adjust the gap between bars
                 grid: {
                     display: false // Disable y grid lines
                 }
@@ -144,47 +155,54 @@ function BrliProductionReports() {
     };
     const options: any = {
         scales: {
-            y: {
-                max: 100,
-                grid: {
-                    display: false // Disable y grid lines
-                } // Set the maximum value of the y-axis to 100
+          y: {
+            max: 100,
+            grid: {
+              display: false // Disable y grid lines
             },
-            x: {
-                grid: {
-                    display: false // Disable y grid lines
-                } // Set the maximum value of the y-axis to 100
+            barPercentage:1, // Adjust the width of bars
+            categoryPercentage: 0.9 // Adjust the gap between bars
+          },
+          x: {
+            grid: {
+              display: false // Disable x grid lines
             },
+            barPercentage: 0.2, // Adjust the width of bars
+            categoryPercentage: 0.9 // Adjust the gap between bars
+          },
         },
         plugins: {
-            datalabels: {
-                display: true,
-                color: 'white',
-                align: 'center',
-                anchor: 'center', // Position labels at the end of each bar
-                font: {
-                    weight: 'bold'
-                },
-                formatter: (value: any, context: any) => {
-                    return value + '%'; // Display value with '%' symbol
-                },
-                clamp: true, // Ensure labels are fully visible
-                offset: 8,
-            }
+          datalabels: {
+            display: true,
+            color: 'white',
+            align: 'center',
+            anchor: 'center',
+            font: {
+              weight: 'bold'
+            },
+            formatter: (value: any, context: any) => {
+              return value + '%'; // Display value with '%' symbol
+            },
+            clamp: true,
+            offset: 8,
+          }
         }
-    };
+      };
+      
     const prductionSlaMetOptions: any = {
         indexAxis: 'y',
         scales: {
             y: {
                 max: 100,
-                grid: {
+                categoryPercentage: 0.6,
+                grid: {                    
                     display: false // Disable y grid lines
                 } // Set the maximum value of the y-axis to 100
             },
             x: {
+                categoryPercentage: 0.6,
                 grid: {
-                    display: false // Disable y grid lines
+                    display: false, // Disable y grid lines
                 } // Set the maximum value of the y-axis to 100
             },
         },
@@ -209,50 +227,7 @@ function BrliProductionReports() {
     const monthOptions = [{ "lable": "January", "key": "JAN", "value": "January" }, { "lable": "February", "key": "FEB", "value": "February" }, { "lable": "March", "key": "March", "value": "March" }]
     const shiftOptions = [{ "lable": "All", "key": "All", "value": "All" }, { "lable": "Day", "key": "Day", "value": "Day" }, { "lable": "Night", "key": "Night", "value": "Night" }]
     const filterSearch = (values: any) => {
-
-        if (values.Month === "January") {
-            setBrliTargetDataRaw([BRLIDATA.January.targetVsAchieved.target.creditBalence, BRLIDATA.January.targetVsAchieved.target.dataEntry, BRLIDATA.January.targetVsAchieved.target.paymentPosting])
-            setBrliAchievedDataRaw([BRLIDATA.January.targetVsAchieved.achieved.creditBalence, BRLIDATA.January.targetVsAchieved.achieved.dataEntry, BRLIDATA.January.targetVsAchieved.achieved.paymentPosting])
-            setproductionSlaMet([BRLIDATA.January.productionSlaMetNotMet.met.creditBalence, BRLIDATA.January.productionSlaMetNotMet.met.dataEntry, BRLIDATA.January.productionSlaMetNotMet.met.paymentPosting])
-            setproductionSlaNotMet([BRLIDATA.January.productionSlaMetNotMet.notMet.creditBalence, BRLIDATA.January.productionSlaMetNotMet.notMet.dataEntry, BRLIDATA.January.productionSlaMetNotMet.notMet.paymentPosting])
-            setaudit([BRLIDATA.January.auditVsErrors.audit.creditBalence, BRLIDATA.January.auditVsErrors.audit.dataEntry, BRLIDATA.January.auditVsErrors.audit.paymentPosting])
-            setauditErrors([BRLIDATA.January.auditVsErrors.errors.creditBalence, BRLIDATA.January.auditVsErrors.errors.dataEntry, BRLIDATA.January.auditVsErrors.errors.paymentPosting])
-            setqualitySlaMet([BRLIDATA.January.qualitySlaMetNotMet.met.creditBalence, BRLIDATA.January.qualitySlaMetNotMet.met.dataEntry, BRLIDATA.January.qualitySlaMetNotMet.met.paymentPosting])
-            setqualitySlaNotMet([BRLIDATA.January.qualitySlaMetNotMet.notMet.creditBalence, BRLIDATA.January.qualitySlaMetNotMet.notMet.dataEntry, BRLIDATA.January.qualitySlaMetNotMet.notMet.paymentPosting])
-            setBrliDataRaw([BRLIDATA.January.productionByProcess.creditBalence, BRLIDATA.January.productionByProcess.dataEntry, BRLIDATA.January.productionByProcess.paymentPosting])
-            setaccuracyByProcess([BRLIDATA.January.accuracyByProcess.creditBalence, BRLIDATA.January.accuracyByProcess.dataEntry, BRLIDATA.January.accuracyByProcess.paymentPosting])
-            setMainData(BRLIDATA.January.mainData)
-        }
-        if (values.Month === "February") {
-            setBrliTargetDataRaw([BRLIDATA.February.targetVsAchieved.target.creditBalence, BRLIDATA.February.targetVsAchieved.target.dataEntry, BRLIDATA.February.targetVsAchieved.target.paymentPosting])
-            setBrliAchievedDataRaw([BRLIDATA.February.targetVsAchieved.achieved.creditBalence, BRLIDATA.February.targetVsAchieved.achieved.dataEntry, BRLIDATA.February.targetVsAchieved.achieved.paymentPosting])
-            setproductionSlaMet([BRLIDATA.February.productionSlaMetNotMet.met.creditBalence, BRLIDATA.February.productionSlaMetNotMet.met.dataEntry, BRLIDATA.February.productionSlaMetNotMet.met.paymentPosting])
-            setproductionSlaNotMet([BRLIDATA.February.productionSlaMetNotMet.notMet.creditBalence, BRLIDATA.February.productionSlaMetNotMet.notMet.dataEntry, BRLIDATA.February.productionSlaMetNotMet.notMet.paymentPosting])
-            setaudit([BRLIDATA.February.auditVsErrors.audit.creditBalence, BRLIDATA.February.auditVsErrors.audit.dataEntry, BRLIDATA.February.auditVsErrors.audit.paymentPosting])
-            setauditErrors([BRLIDATA.February.auditVsErrors.errors.creditBalence, BRLIDATA.February.auditVsErrors.errors.dataEntry, BRLIDATA.February.auditVsErrors.errors.paymentPosting])
-            setqualitySlaMet([BRLIDATA.February.qualitySlaMetNotMet.met.creditBalence, BRLIDATA.February.qualitySlaMetNotMet.met.dataEntry, BRLIDATA.February.qualitySlaMetNotMet.met.paymentPosting])
-            setqualitySlaNotMet([BRLIDATA.February.qualitySlaMetNotMet.notMet.creditBalence, BRLIDATA.February.qualitySlaMetNotMet.notMet.dataEntry, BRLIDATA.February.qualitySlaMetNotMet.notMet.paymentPosting])
-            setBrliDataRaw([BRLIDATA.February.productionByProcess.creditBalence, BRLIDATA.February.productionByProcess.dataEntry, BRLIDATA.February.productionByProcess.paymentPosting])
-            setaccuracyByProcess([BRLIDATA.February.accuracyByProcess.creditBalence, BRLIDATA.February.accuracyByProcess.dataEntry, BRLIDATA.February.accuracyByProcess.paymentPosting])
-            setMainData(BRLIDATA.February.mainData)
-        }
-        if (values.Month === "March") {
-            setBrliTargetDataRaw([BRLIDATA.March.targetVsAchieved.target.creditBalence, BRLIDATA.March.targetVsAchieved.target.dataEntry, BRLIDATA.March.targetVsAchieved.target.paymentPosting])
-            setBrliAchievedDataRaw([BRLIDATA.March.targetVsAchieved.achieved.creditBalence, BRLIDATA.March.targetVsAchieved.achieved.dataEntry, BRLIDATA.March.targetVsAchieved.achieved.paymentPosting])
-            setproductionSlaMet([BRLIDATA.March.productionSlaMetNotMet.met.creditBalence, BRLIDATA.March.productionSlaMetNotMet.met.dataEntry, BRLIDATA.March.productionSlaMetNotMet.met.paymentPosting])
-            setproductionSlaNotMet([BRLIDATA.March.productionSlaMetNotMet.notMet.creditBalence, BRLIDATA.March.productionSlaMetNotMet.notMet.dataEntry, BRLIDATA.March.productionSlaMetNotMet.notMet.paymentPosting])
-            setaudit([BRLIDATA.March.auditVsErrors.audit.creditBalence, BRLIDATA.March.auditVsErrors.audit.dataEntry, BRLIDATA.March.auditVsErrors.audit.paymentPosting])
-            setauditErrors([BRLIDATA.March.auditVsErrors.errors.creditBalence, BRLIDATA.March.auditVsErrors.errors.dataEntry, BRLIDATA.March.auditVsErrors.errors.paymentPosting])
-            setqualitySlaMet([BRLIDATA.March.qualitySlaMetNotMet.met.creditBalence, BRLIDATA.March.qualitySlaMetNotMet.met.dataEntry, BRLIDATA.March.qualitySlaMetNotMet.met.paymentPosting])
-            setqualitySlaNotMet([BRLIDATA.March.qualitySlaMetNotMet.notMet.creditBalence, BRLIDATA.March.qualitySlaMetNotMet.notMet.dataEntry, BRLIDATA.March.qualitySlaMetNotMet.notMet.paymentPosting])
-            setBrliDataRaw([BRLIDATA.March.productionByProcess.creditBalence, BRLIDATA.March.productionByProcess.dataEntry, BRLIDATA.March.productionByProcess.paymentPosting])
-            setaccuracyByProcess([BRLIDATA.March.accuracyByProcess.creditBalence, BRLIDATA.March.accuracyByProcess.dataEntry, BRLIDATA.March.accuracyByProcess.paymentPosting])
-            setMainData(BRLIDATA.March.mainData)
-        } else {
-            setBrliTargetDataRaw([1800, 3000, 1356])
-            setBrliAchievedDataRaw([1500, 2540, 1100])
-            setBrliDataRaw([56, 98, 78])
-        }
+        setFetchApiOptions({...fetchApiOptions,getApiEnabled:true, year:values.Year, month:values.Month, shift:values.Shift})
     }
     const auditVsErrorsData: any = {
         labels: ["Data Entry"],
@@ -263,6 +238,7 @@ function BrliProductionReports() {
                 data: auditErrors,
                 fill: false,
                 borderColor: '#E74C3C',
+                // barThickness: 50, 
                 borderWidth: 1,
                 yAxisID: 'y1'
             },
@@ -271,6 +247,7 @@ function BrliProductionReports() {
                 label: 'Audit',
                 data: audit,
                 backgroundColor: "#1F618D ",
+                // barThickness: 50, 
                 borderColor: "black",
                 borderWidth: 0,
             }
@@ -282,6 +259,8 @@ function BrliProductionReports() {
         responsive: true,
         scales: {
             y: {
+                barPercentage: 0.8,
+                categoryPercentage: 0.6,
                 position: 'left', // Position Y-axis on the left side
                 min: 0, // Set the minimum value of the Y-axis for bars
                 max: 100, // Set the maximum value of the Y-axis for bars
@@ -295,6 +274,8 @@ function BrliProductionReports() {
                 }
             },
             y1: {
+                barPercentage: 0.8,
+                categoryPercentage: 0.6,
                 position: 'right', // Position Y-axis on the right side
                 min: 0, // Set the minimum value of the Y-axis for errors
                 max: 1.5, // Set the maximum value of the Y-axis for errors
@@ -310,6 +291,8 @@ function BrliProductionReports() {
                 }
             },
             x: {
+                barPercentage: 0.8,
+                categoryPercentage: 0.6,
                 grid: {
                     display: false
                 }
@@ -332,10 +315,29 @@ function BrliProductionReports() {
             }
         }
     };
+    useEffect(()=>{
+        setFetchApiOptions({...fetchApiOptions,getApiEnabled:true})
+    },[])
     const onSuccess = (res: AxiosResponse) => {
-        
+        setFetchApiOptions({...fetchApiOptions,getApiEnabled:false})
+        if (res.status === 200){
+            setBrliTargetDataRaw([res.data.report.targetVsAchieved.target.dataEntry])
+            setBrliAchievedDataRaw([res.data.report.targetVsAchieved.achieved.dataEntry])
+            setproductionSlaMet([res.data.report.productionSlaMetNotMet.met.dataEntry])
+            setproductionSlaNotMet([res.data.report.productionSlaMetNotMet.notMet.dataEntry])
+            setaudit([res.data.report.auditVsErrors.audit.dataEntry])
+            setauditErrors([res.data.report.auditVsErrors.errors.dataEntry])
+            setqualitySlaMet([res.data.report.qualitySlaMetNotMet.met.dataEntry])
+            setqualitySlaNotMet([res.data.report.qualitySlaMetNotMet.notMet.dataEntry])
+            setBrliDataRaw([res.data.report.productionByProcess.dataEntry])
+            setaccuracyByProcess([res.data.report.accuracyByProcess.dataEntry])
+            setMainData(res.data.report.mainData)
+        }else{
+            message.error("No Data Founf For This Combination")
+        }
     }
     const onError = (err: AxiosError) => {
+        setFetchApiOptions({...fetchApiOptions,getApiEnabled:false})
     }
     useGetProdReports(fetchApiOptions, onSuccess, onError)
     return (
@@ -368,10 +370,15 @@ function BrliProductionReports() {
 
                 </Row>
             </Form>
-            <Row gutter={16} justify="space-between" className='mb-4'>
+            <Row gutter={16} justify="space-between" className='mb-4 me-4'>
                 <Col>
                     <div className='prod_count'>
                         <span>Production</span><br></br><span>{mainData.production}</span>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='prod_count'>
+                        <span>Target</span><br></br><span>{mainData.target}</span>
                     </div>
                 </Col>
                 <Col>
@@ -399,12 +406,12 @@ function BrliProductionReports() {
                         <span>Users </span><br></br><span>{mainData.users}</span>
                     </div>
                 </Col>
-                <Col span={3}></Col>
+                {/* <Col span={3}></Col> */}
             </Row>
             <Row>
-                <Col span={12}>
+                <Col span={8}>
                     <h6>Production By Process</h6>
-                    <div style={{ maxWidth: "500px" }}>
+                    <div style={{ maxWidth: "400px" }}>
                         <Bar
                             data={brliData}
                             options={options}
@@ -412,10 +419,10 @@ function BrliProductionReports() {
                         />
                     </div>
                 </Col>
-                <Col span={12}>
+                <Col span={8}>
 
                     <h6>Target VS Achieved</h6>
-                    <div style={{ maxWidth: "500px" }}>
+                    <div style={{ maxWidth: "400px" }}>
                         <Bar
                             data={brliQAData}
                             options={achevedProduction}
@@ -424,12 +431,9 @@ function BrliProductionReports() {
                     </div>
 
                 </Col>
-            </Row>
-            <Row gutter={16} className='mt-4'>
-
-                <Col span={12}>
+                <Col span={8}>
                     <h6>Production SLA Met And Not Met</h6>
-                    <div style={{ maxWidth: "500px" }}>
+                    <div style={{ maxWidth: "400px" }}>
                         <Bar
                             data={productionSlaData}
                             options={prductionSlaMetOptions}
@@ -437,10 +441,14 @@ function BrliProductionReports() {
                         />
                     </div>
                 </Col>
-                <Col span={12}>
+            </Row>
+            <Row gutter={16} className='mt-4'>
+
+                
+                <Col span={8}>
 
                     <h6>Quality SLA Met And Not Met</h6>
-                    <div style={{ maxWidth: "500px" }}>
+                    <div style={{ maxWidth: "400px" }}>
                         <Bar
                             data={qualitySlaData}
                             options={prductionSlaMetOptions}
@@ -448,11 +456,9 @@ function BrliProductionReports() {
                         />
                     </div>
                 </Col>
-            </Row>
-            <Row gutter={16} className='mt-3'>
-                <Col span={12}>
+                <Col span={8}>
                     <h6>Audit VS Errors</h6>
-                    <div style={{ maxWidth: "500px", minHeight: "240px" }}>
+                    <div style={{ maxWidth: "400px", minHeight: "240px" }}>
                         <Bar
                             data={auditVsErrorsData}
                             options={auditVsErrorsOptions}
@@ -460,9 +466,9 @@ function BrliProductionReports() {
                         />
                     </div>
                 </Col>
-                <Col span={12}>
+                <Col span={8}>
                     <h6>Accuracy By Process</h6>
-                    <div style={{ maxWidth: "500px" }}>
+                    <div style={{ maxWidth: "400px" }}>
                         <Bar
                             data={accuracyByProcessData}
                             options={options}
@@ -470,11 +476,7 @@ function BrliProductionReports() {
                         />
                     </div>
                 </Col>
-
             </Row>
-
-
-
         </div>
     )
 }

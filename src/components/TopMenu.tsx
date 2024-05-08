@@ -2,7 +2,7 @@ import { Button, Menu, MenuProps, message } from "antd";
 import { Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons';
+import { HomeOutlined, SmileOutlined, UserAddOutlined, SettingOutlined, SolutionOutlined, UserSwitchOutlined, BarChartOutlined } from '@ant-design/icons';
 import useCreateAttendance from "../QueryApiCalls/usePunchIn";
 import { UserInfoStore } from "../utils/useUserInfoStore";
 import { AxiosResponse } from "axios";
@@ -130,11 +130,6 @@ export default function TopMenu() {
         key: "/resignation"
     }
     ])
-    useEffect(() => {
-        if (loggedInUserDetails.user_role === "Manager") {
-            setMySelfRoles([...mySelfRoles,])
-        }
-    }, [])
     const items: MenuProps['items'] = [
         {
             label: 'Home',
@@ -148,6 +143,12 @@ export default function TopMenu() {
 
 
     ]
+
+    useEffect(() => {
+        if (loggedInUserDetails.user_role === "Manager") {
+            setMySelfRoles([...mySelfRoles,])
+        }
+    }, [])
     if (loggedInUserDetails.user_role === "HR") {
         items.push({
             label: 'Admin',
@@ -183,12 +184,17 @@ export default function TopMenu() {
             {
                 label: 'Reports',
                 key: 'reports',
-                icon: <SolutionOutlined />,
+                icon: <BarChartOutlined />,
                 children: [
                     { label: "Production Reports", key: "/reports" }
                 ]
             }
         )
+        items.push({
+            label: 'IT Support',
+            key: '/it-ticket',
+            icon: <UserSwitchOutlined />
+        })
     }
     if (loggedInUserDetails.user_role === "Manager") {
         items.push(
@@ -201,6 +207,18 @@ export default function TopMenu() {
                 ]
             }
         )
+        items.push({
+            label: 'IT Support',
+            key: '/it-ticket',
+            icon: <UserSwitchOutlined />
+        })
+    }
+    if (loggedInUserDetails.user_role === "IT") {
+        items.push({
+            label: 'IT Support',
+            key: '/it-ticket',
+            icon: <UserSwitchOutlined />
+        })
     }
     const oo = <>Hi. {nameOfUser} <SettingOutlined className="ms-2" /></>
     const signInOptions: MenuProps['items'] = [
@@ -236,7 +254,7 @@ export default function TopMenu() {
             <Container fluid>
                 <Row align="middle" justify="space-between" className="justify-content-between">
                     <Col xs={12} sm={8} md={6} lg={4} xl={3} className="float-start">
-                        <h4 className="ms-2" style={{ textAlign: "left", color: "white" }}>RC Services</h4>
+                        <h4 className="" style={{ textAlign: "left", color: "white", margin: "0" }}>Optimize RCM</h4>
                     </Col>
                     <Col xs={12} sm={10} md={12} lg={4} xl={6} className="float-end">
                         <Menu className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "menu_manager" : "menu"} theme="light" onClick={onClick} mode="horizontal" items={items || []} />

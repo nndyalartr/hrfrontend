@@ -384,10 +384,15 @@ function BrliReports() {
 
                 </Row>
             </Form>
-            <Row gutter={16} justify="space-between" className='mb-4'>
+            <Row gutter={16} justify="space-between" className='mb-4 me-4'>
                 <Col>
                     <div className='prod_count'>
                         <span>Production</span><br></br><span>{mainData.production}</span>
+                    </div>
+                </Col>
+                <Col>
+                    <div className='prod_count'>
+                        <span>Target</span><br></br><span>{mainData.target}</span>
                     </div>
                 </Col>
                 <Col>
@@ -415,7 +420,7 @@ function BrliReports() {
                         <span>Users </span><br></br><span>{mainData.users}</span>
                     </div>
                 </Col>
-                <Col span={3}></Col>
+                {/* <Col span={3}></Col> */}
             </Row>
             <Row>
                 <Col span={12}>
