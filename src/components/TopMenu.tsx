@@ -167,7 +167,8 @@ export default function TopMenu() {
                     label: "Add User",
                     key: "/add-user"
                 }, { label: "Attendance Summary Report", key: "/attendance-all" },
-                { label: "User Logs", key: "/user-logs" }
+                { label: "User Logs", key: "/user-logs" },
+                { label: "Offer Initiation", key: "/offer-initiation" }
             ]
         },)
         items.push(

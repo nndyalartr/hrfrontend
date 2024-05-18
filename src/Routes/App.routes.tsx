@@ -26,6 +26,8 @@ import LoginPage from "../components/Login/LoginPage";
 import AdvanceRequestPage from "../components/Advance/AdvanceRequestPage";
 import ProductionReportsPage from "../components/ProductionReports/ProductionReportaPage";
 import RaiseTicket from "../components/ITSupport/RaiseTicket";
+import OnBoardForm from "../components/OnBoardForm/onBoardForm";
+import OnBoardRequest from "../components/OnBoardForm/onBoardRequest";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
@@ -42,6 +44,7 @@ function AppRoutes() {
 
                 {!isFirstLogin ? <Routes>
                     <Route path="/" element={<LoginPage />} />
+                    <Route path="/on-board" element={<OnBoardForm />} />
                     <Route path="/change-password" element={<ChangePasswordPage />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/user-attendance" element={<UserPage />} />
@@ -62,9 +65,11 @@ function AppRoutes() {
                     <Route path='/reports' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <ProductionReportsPage />} />
                     <Route path='/user-logs' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <UserDailyLogs />} />
                     <Route path='/advance' element={shouldRestrictRoute ? <Navigate to="/advance" /> : <AdvanceRequestPage />} />
+                    <Route path='/offer-initiation' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <OnBoardRequest />} />
                 </Routes> : <Routes>
 
                     <Route path="/" element={<LoginPage />} />
+                    <Route path="/on-board" element={<OnBoardForm />} />
                     <Route path="/change-password" element={<ChangePasswordPage />} />
                     <Route
                         path="*"

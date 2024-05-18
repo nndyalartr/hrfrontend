@@ -14,6 +14,14 @@ export interface ItTicketCreate extends ApiParams {
     title: string,
     desc: string
 }
+export interface OnBoardUser extends ApiParams {
+    name : String,
+    email : String,
+    doj : String,
+    designation : String,
+    ctc : String,
+    location : String
+}
 export interface ApplyLeave extends ApiParams {
     userEmail: string,
     leaveType: string,
