@@ -1,4 +1,4 @@
-import { Col, Row, Form, Input, Button, DatePicker } from "antd"
+import { Col, Row, Form, Input, Button, DatePicker, message } from "antd"
 import TopMenu from "../TopMenu"
 import { useState } from "react"
 import { OnBoardUser } from "../../interfaces/types"
@@ -28,8 +28,8 @@ const OnBoardRequest = () => {
         link.setAttribute('download', `${apiData.name}.pdf`); // Set the desired file name here
         document.body.appendChild(link);
         link.click();
-        console.log(res.data)
         setApiData({ ...apiData, getApiEnabled: false })
+        message.success("Successfully Generated Offer Letter")
     }
     const onError = (err: AxiosError) => {
         setApiData({ ...apiData, getApiEnabled: false })

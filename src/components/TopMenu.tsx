@@ -22,47 +22,7 @@ export default function TopMenu() {
     const cookieAllData = Cookies.get()
     const signOut = useSignOut()
     const [apioptions, setapioptions] = useState<{ getApiEnabled: boolean, userEmail: string, type: string, data: any }>({ getApiEnabled: false, userEmail: "", type: "", data: {} })
-    const extractUserData = () => {
-        const bucketIdRemote = `aw-watcher-window_DESKTOP-M3VRFSN`;
-        const todayDate = new Date();
-        const yesterday = new Date(todayDate);
-        yesterday.setDate(todayDate.getDate() - 1);
-        const dayStart = new Date(todayDate);
-        dayStart.setHours(0, 0, 0, 0);
-        const dayEnd = new Date(todayDate);
-        dayEnd.setHours(23, 59, 59, 999);
 
-        const formattedDayStart = dayStart.toISOString();
-        const formattedDayEnd = dayEnd.toISOString();
-
-        const url = 'http://172.20.10.2:5600/api/0/buckets/aw-watcher-window_DESKTOP-M3VRFSN/events';
-        const params = new URLSearchParams({ start: formattedDayStart, end: formattedDayEnd });
-        const timeout = 10000;
-
-        axios.get(`${url}?${params}`).then((res) => {
-            const events = res.data;
-
-            // Initialize objects to store durations
-            const durationsByApplication = new Map();
-            const lockTime = new Map();
-            let totalActiveTime = 0; // Duration in seconds
-            let totalLockTime = 0; // Duration in seconds
-            const totalDurations: any = {};
-            events.forEach((entry: any) => {
-                if (!totalDurations.hasOwnProperty(entry.data.app)) {
-                    totalDurations[entry.data.app] = 0;
-                }
-                totalDurations[entry.data.app] += (entry.duration);
-            });
-            const result = Object.keys(totalDurations).map((app) => ({
-                application: app,
-                duration: totalDurations[app],
-            }));
-            setapioptions({ ...apioptions, getApiEnabled: true, type: "POST", data: { "logs_data": result, "user_email": loggedInUserDetails.user_email } })
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
     const onSiningClick: MenuProps['onClick'] = (e) => {
         // extractUserData()
         if (e.key == "PunchIn") {
@@ -254,9 +214,6 @@ export default function TopMenu() {
         <div className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "menu_manager" : "menu"}>
             <Container fluid>
                 <Row align="middle" justify="space-between" className="justify-content-between">
-                    <Col xs={12} sm={8} md={6} lg={4} xl={3} className="float-start">
-                        <h4 className="" style={{ textAlign: "left", color: "white", margin: "0" }}>Optimize RCM</h4>
-                    </Col>
                     <Col xs={12} sm={10} md={12} lg={4} xl={6} className="float-end">
                         <Menu className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "menu_manager" : "menu"} theme="light" onClick={onClick} mode="horizontal" items={items || []} />
                     </Col>

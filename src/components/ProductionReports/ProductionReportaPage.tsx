@@ -10,7 +10,7 @@ import BrliProductionReports from "./BrliProductionReports";
 const { TabPane } = Tabs;
 function ProductionReportsPage() {
     return (
-        <div className="bg">
+        <div className="">
             <TopMenu />
             <Tabs tabPosition="left">
                 <TabPane tab="XIFIN" key="1">

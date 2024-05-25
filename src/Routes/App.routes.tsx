@@ -28,6 +28,7 @@ import ProductionReportsPage from "../components/ProductionReports/ProductionRep
 import RaiseTicket from "../components/ITSupport/RaiseTicket";
 import OnBoardForm from "../components/OnBoardForm/onBoardForm";
 import OnBoardRequest from "../components/OnBoardForm/onBoardRequest";
+import NewDashBoard from "../components/NewDashboard";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
@@ -46,7 +47,7 @@ function AppRoutes() {
                     <Route path="/" element={<LoginPage />} />
                     <Route path="/on-board" element={<OnBoardForm />} />
                     <Route path="/change-password" element={<ChangePasswordPage />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/dashboard" element={<NewDashBoard />} />
                     <Route path="/user-attendance" element={<UserPage />} />
                     <Route path="/user-self" element={<UserSelfPage />} />
                     <Route path="/events" element={<EventsPage />} />

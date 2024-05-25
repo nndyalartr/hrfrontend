@@ -1,4 +1,4 @@
-import { Card, Menu, MenuProps } from "antd";
+import { Card, Menu, MenuProps, theme } from "antd";
 import TopMenu from "./TopMenu";
 import { useEffect, useState } from "react";
 
@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import useCreateorGetEvents from "../QueryApiCalls/useEventDetails";
 import { Events } from "../interfaces/types";
 import './dashboard.css'
+import { Calendar, Badge } from 'antd';
+import moment from 'moment';
 import { Container, Col, Row } from "react-bootstrap";
 
 const Dashboard = () => {
     const loggedInUserDetails = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<{ getApiEnabled: boolean, userEmail: string }>({ getApiEnabled: false, userEmail: "" })
     const [eventOptions, setEventOptions] = useState<Events>({ date: "", type: "", getApiEnabled: false, name: "", shift: "", eventType: "" })
+    const [events, setEvents] = useState<any>([])
     useEffect(() => {
         setOptions({ userEmail: loggedInUserDetails.user_email, getApiEnabled: true })
         setEventOptions({ ...eventOptions, type: "GET", getApiEnabled: true })
@@ -37,7 +40,9 @@ const Dashboard = () => {
 
     const [eventCalender, setEventCalender] = useState<any>({ jan: [], feb: [], mar: [], april: [], may: [], june: [], july: [], aug: [], sep: [], oct: [], nov: [], dec: [] })
     const onEventSuccess = (res: any) => {
+
         if (eventOptions.type == "GET") {
+            setEvents(res.data)
             if (res.data.length) {
                 const januaryDates = res.data.filter((item: any) => {
                     const dateObject = new Date(item.date);
@@ -129,7 +134,35 @@ const Dashboard = () => {
             key: '/user-self',
         },
     ]
+    const getListData = (value: any) => {
+        const dateStr = value.format('YYYY-MM-DD');
+        return events.filter((event: any) => event.date === dateStr);
+    };
+
+    const cellRender = (current: any, info: any) => {
+        if (info.type === 'date') {
+            const listData = getListData(current);
+            return (
+                <ul className="events">
+                    {listData.map((item: any) => (
+                        <li key={item.id}>
+                            <span className={`event-dot ${item.event_type.toLowerCase()}`} />
+                            <span className="event-text">{item.name}</span>
+                        </li>
+                    ))}
+                </ul>
+            );
+        }
+        return info.originNode;
+    };
     const background: string = loggedInUserDetails.user_role == "Employee" ? "bg" : loggedInUserDetails.user_role == "Manager" || "HR" ? "bg_manager" : "bg"
+    const { token } = theme.useToken();
+    const wrapperStyle: React.CSSProperties = {
+        width: 300,
+        border: `1px solid ${token.colorBorderSecondary}`,
+        borderRadius: token.borderRadiusLG,
+        backgroundColor: "transparent"
+    };
     return (
         <div className={background}>
             <TopMenu />
@@ -141,13 +174,24 @@ const Dashboard = () => {
                     </Col>
                     <Col lg={1} md={1}></Col>
                     <Col xs={12} sm={16} md={7} lg={9} className="p-0 float-end">
-                        <Card size="small" style={{ maxWidth: "300px" }} className={loggedInUserDetails.user_role == "Executive" ? "float-end card_executive p-0" : loggedInUserDetails.user_role == "Manager" ? "float-end card_manager p-0" : "float-end card p-0"} title="My Details">
+                        <Card size="small" style={{ maxWidth: "370px", backgroundColor: 'transparent', border: 'none' }} className={loggedInUserDetails.user_role == "Executive" ? "float-end card_executive p-0" : loggedInUserDetails.user_role == "Manager" ? "float-end card_manager p-0" : "float-end card p-0"} title="My Details">
                             <Row>
                                 <Col>
                                     <h6 style={{ textAlign: "left" }}><span>LOP  :<strong>{attendanceData?.absent}</strong></span></h6>
                                     <h6 style={{ textAlign: "left" }}><span>Number of days present :<strong>{attendanceData?.present}</strong></span></h6>
                                     <h6 style={{ textAlign: "left" }}><span>Leaves remaining :<strong>{attendanceData?.leaves_remaining}</strong></span></h6>
                                     <h6 style={{ textAlign: "left" }}><span>Leaves Utilized :<strong>{attendanceData?.leaves_utilized}</strong></span></h6>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Card className="mt-5" size="small" title="Events Calender" style={{ maxWidth: "400px", backgroundColor: 'transparent', border: 'none' }}>
+                                        <span className="green"></span><span className="me-4">Holiday</span>
+                                        <span className="orange"></span><span>Event</span>
+                                        <div className="mt-3" style={wrapperStyle}>
+                                            <Calendar fullscreen={false} className="custom-calendar" cellRender={cellRender} />
+                                        </div>
+                                    </Card>
                                 </Col>
                             </Row>
                         </Card>
