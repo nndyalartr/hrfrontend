@@ -196,8 +196,12 @@
 .new_menu {
     font-weight: 400;
     text-align: left;
-    color: black;
+    color: white;
     max-width: 200px;
+    min-height: 650px;
+    background-color: #4477CE;
+    border-radius: 0 30px 0 0;
+
 }
 
 .apply_for_menu {
@@ -329,7 +333,46 @@
     display: inline;
     /* Show event text on hover */
 }
-
+.attendance_data{
+    margin-top: 30px;
+    border: 2px solid grey;
+    min-height: 40px;
+    border-radius: 20px;
+    vertical-align: middle;
+}
+.orange_calendar{
+    color: orange;
+    font-weight: 500;
+}
+.green_calendar{
+    color: green;
+    font-weight: 500;
+}
+.red_calendar{
+    color: maroon;
+    font-weight: 500;
+}
+.blue_calendar{
+    color: blue;
+    font-weight: 500;
+}
+.violet_calendar{
+    color: violet;
+    font-weight: 500;
+}
+.violet {
+    display: inline-block;
+    width: 6px;
+    /* Adjust the size as needed */
+    height: 6px;
+    /* Adjust the size as needed */
+    background-color: violet;
+    /* Green color */
+    border-radius: 50%;
+    /* Make it circular */
+    margin-right: 5px;
+    /* Space between the dot and text */
+}
 .green {
     display: inline-block;
     width: 6px;
@@ -350,7 +393,7 @@
     /* Adjust the size as needed */
     height: 6px;
     /* Adjust the size as needed */
-    background-color: red;
+    background-color: maroon;
     /* Green color */
     border-radius: 50%;
     /* Make it circular */
