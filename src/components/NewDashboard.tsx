@@ -438,57 +438,72 @@ const NewDashBoard = () => {
                             Leaves Remaining : <strong>{attendanceData?.leaves_remaining}</strong>
                         </Col>
                     </Row>
-                    <Row gutter={20} className="mt-4">
-                        <Col span={12}>
-                            <h6>Production Report</h6>
-                            {/* <div>Target : 
+                    {/* user role specific reports */}
+
+                    {loggedInUserDetails.user_role === "Employee" || loggedInUserDetails.user_role === "Manager" ?
+                        <>
+                            <Row gutter={20} className="mt-4">
+                                <Col span={12}>
+                                    <h6>Production Report</h6>
+                                    {/* <div>Target : 
                             <Progress percent={90} strokeColor={twoColors} showInfo={false} />
                             </div> */}
-                            <div style={{ maxWidth: "400px", minHeight: "100px" }}>
-                                <Bar
-                                    data={brliData}
-                                    options={optionss}
-                                    plugins={[ChartDataLabels]}
-                                />
-                            </div>
-                        </Col>
-                        <Col span={12}>
-                            <h6>Quality Report</h6>
-                            <Progress type="dashboard" percent={95} strokeColor={twoColors} />
-                        </Col>
-                    </Row>
-                    <Row gutter={8}>
-                        <Col span={24}>
-                            <h5 className="mt-3" style={{ textAlign: 'left', color: "#FFC96F" }}>Score Card - 4</h5>
-                            {/* <Progress percent={90} strokeColor={twoColors} format={() => 4.5} /> */}
-                            <Row>
-                                <Col span={23}>
-                                    <Steps current={3}
-                                        progressDot
-                                        items={[
-                                            {
-                                                title: 'NI',
-
-                                            },
-                                            {
-                                                title: 'PME',
-
-                                            },
-                                            {
-                                                title: 'ME',
-                                            },
-                                            {
-                                                title: 'AE',
-                                            },
-                                            {
-                                                title: 'EE',
-                                            },
-                                        ]}
-                                    />
+                                    <div style={{ maxWidth: "400px", minHeight: "100px" }}>
+                                        <Bar
+                                            data={brliData}
+                                            options={optionss}
+                                            plugins={[ChartDataLabels]}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col span={12}>
+                                    <h6>Quality Report</h6>
+                                    <Progress type="dashboard" percent={95} strokeColor={twoColors} />
                                 </Col>
                             </Row>
-                        </Col>
-                    </Row>
+                            <Row gutter={8}>
+                                <Col span={24}>
+                                    <h5 className="mt-3" style={{ textAlign: 'left', color: "#FFC96F" }}>Score Card - 4</h5>
+                                    {/* <Progress percent={90} strokeColor={twoColors} format={() => 4.5} /> */}
+                                    <Row>
+                                        <Col span={23}>
+                                            <Steps current={3}
+                                                progressDot
+                                                items={[
+                                                    {
+                                                        title: 'NI',
+
+                                                    },
+                                                    {
+                                                        title: 'PME',
+
+                                                    },
+                                                    {
+                                                        title: 'ME',
+                                                    },
+                                                    {
+                                                        title: 'AE',
+                                                    },
+                                                    {
+                                                        title: 'EE',
+                                                    },
+                                                ]}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </>
+                        : <Row className="hr_score_card">
+                            <Col span={24}>
+                                <Card title="Score Card">
+                                    <h4>Comming Soon......</h4>
+                                </Card>
+                            </Col>
+                        </Row>}
+
+
+                    {/* user role specific reports */}
                     <Row className="mt-4" gutter={16}>
                         <Col span={12}>
                             <Card title="Quick Links" style={{ textAlign: "left", minHeight: "220px" }}>

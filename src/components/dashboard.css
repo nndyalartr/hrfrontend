@@ -137,13 +137,13 @@
 }
 
 .menu {
-    background-color: #bddfe9;
+    background-color: #4477CE;
     font-weight: 500;
     text-align: left;
 }
 
 .menu_executive {
-    background-color: #bddfe9;
+    background-color: #4477CE;
     font-weight: 500;
     text-align: left;
 }
@@ -165,7 +165,7 @@
 }
 
 .menu_manager {
-    background-color: rgb(134 133 177);
+    background-color: #4477CE;
     font-weight: 500;
     text-align: left;
     color: white;
@@ -192,7 +192,10 @@
 .margin_top {
     margin-top: 20px;
 }
-
+.hr_score_card{
+    padding-top: 20px;
+    min-height: 280px;
+}
 .new_menu {
     font-weight: 400;
     text-align: left;
