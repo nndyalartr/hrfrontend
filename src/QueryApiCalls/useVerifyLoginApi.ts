@@ -4,7 +4,7 @@ const verifyLogin: any = (values: { "email": string, "password": string }) => {
     const config = {
         method:"POST",
         // url:"http://13.127.146.76:8000/user-login/",
-        url:"http://65.2.30.183:8000/user-login/",
+        url:"http://35.154.66.101:8000/user-login/",
         data:values
     }
     return axios(config).then((res)=>{
