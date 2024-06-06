@@ -16,7 +16,7 @@ const OnBoardForm = () => {
             }
         });
         // Send formData to your backend API endpoint using fetch or Axios
-        fetch('http://127.0.0.1:8001/api/curie/test/', {
+        fetch('http://65.2.30.183:8000/api/curie/test/', {
             method: 'POST',
             body: formData,
         })

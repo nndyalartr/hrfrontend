@@ -7,7 +7,7 @@ const refreshApi: any = createRefresh({
     // @ts-ignore
     refreshApiCallback: async ({ refreshToken }) => {
         let userAuthRefreshToken = Cookies.get('_auth_refresh')        
-        await axios.post("http://127.0.0.1:8000/api/token/refresh/", {
+        await axios.post("http://65.2.30.183:8000/api/token/refresh/", {
 
             data:{refresh:userAuthRefreshToken} 
         }).then(({ data }) => {
