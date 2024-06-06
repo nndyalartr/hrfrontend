@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/hrfrontend/static/css/main.95ac149e.css",
+    "main.js": "/hrfrontend/static/js/main.da7bbb7a.js",
+    "static/js/787.32e0190a.chunk.js": "/hrfrontend/static/js/787.32e0190a.chunk.js",
+    "static/media/bg.jpg": "/hrfrontend/static/media/bg.6070b271b068ce31ccff.jpg",
+    "static/media/images-removebg-preview.png": "/hrfrontend/static/media/images-removebg-preview.2681c16f0af3590fd7b4.png",
+    "static/media/hrms-removebg-preview.png": "/hrfrontend/static/media/hrms-removebg-preview.0c07d2c64d32dfc6ec12.png",
+    "static/media/december.jfif": "/hrfrontend/static/media/december.8163e1b727421d9598a6.jfif",
+    "static/media/november.jfif": "/hrfrontend/static/media/november.243aea86d0e59c5fc098.jfif",
+    "static/media/july.jfif": "/hrfrontend/static/media/july.b5f8b37b42bc806d293f.jfif",
+    "static/media/may.jfif": "/hrfrontend/static/media/may.a7362ecabb9dd630bbf4.jfif",
+    "static/media/october.jfif": "/hrfrontend/static/media/october.7365b4ce47a22e966cb5.jfif",
+    "static/media/september.jfif": "/hrfrontend/static/media/september.393ec43efd4414da91d1.jfif",
+    "static/media/august.jfif": "/hrfrontend/static/media/august.ac9d6891ecb890c1f4c4.jfif",
+    "static/media/june.jfif": "/hrfrontend/static/media/june.2567be99c81ff13ee6fa.jfif",
+    "index.html": "/hrfrontend/index.html",
+    "main.95ac149e.css.map": "/hrfrontend/static/css/main.95ac149e.css.map",
+    "main.da7bbb7a.js.map": "/hrfrontend/static/js/main.da7bbb7a.js.map",
+    "787.32e0190a.chunk.js.map": "/hrfrontend/static/js/787.32e0190a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.95ac149e.css",
+    "static/js/main.da7bbb7a.js"
+  ]
+}
