@@ -6,8 +6,8 @@ const refreshApi: any = createRefresh({
     interval: 60,
     // @ts-ignore
     refreshApiCallback: async ({ refreshToken }) => {
-        let userAuthRefreshToken = Cookies.get('_auth_refresh')        
-        await axios.post("http://65.2.30.183:8000/api/token/refresh/", {
+        let userAuthRefreshToken = Cookies.get('_auth_refresh')
+        await axios.post("http://35.154.66.101:8000/api/token/refresh/", {
 
             data:{refresh:userAuthRefreshToken} 
         }).then(({ data }) => {
