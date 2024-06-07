@@ -403,60 +403,57 @@ const NewDashBoard = () => {
     return (
         <>
             <Row gutter={16} className="mt-2 mb-3">
-                <Col span={2}>
+                <Col xs={4} sm={3} md={2}>
                     Logo
                 </Col>
-                <Col span={14}>
-                    <h6><strong>Optimize RCM</strong></h6>
+                <Col xs={12} sm={10} md={14}>
+                    <h6><strong>RCS</strong></h6>
                 </Col>
-                <Col span={4}>
+                <Col xs={6} sm={6} md={4}>
                     <span className="me-2">{userBasicDetails.location}</span>
                     <span>{currentDate}</span>
                 </Col>
-                <Col span={2}>
+                <Col xs={1} sm={2} md={2}>
                     <span><NotificationOutlined /> Notifications</span>
                 </Col>
-                <Col span={2}>
+                <Col xs={1} sm={3} md={2}>
                     <span className="logout" onClick={logoutFunction}><LogoutOutlined className="me-1" />Logout</span>
                 </Col>
             </Row>
-            <Row gutter={16} className="mt-4" >
-                <Col span={4}>
-                    <Menu className={loggedInUserDetails.user_role == "Employee" ? "menu_executive" : loggedInUserDetails.user_role == "Manager" || "HR" ? "new_menu" : "menu"} theme="light" onClick={onClick} mode="inline" items={items || []} />
-                    {/* <Calendar fullscreen={false} className="custom-calendar" cellRender={cellRender} /> */}
+            <Row gutter={16} className="mt-4">
+                <Col xs={24} sm={6} md={4}>
+                    <Menu
+                        className={loggedInUserDetails.user_role === "Employee" ? "menu_executive" : loggedInUserDetails.user_role === "Manager" || loggedInUserDetails.user_role === "HR" ? "new_menu" : "menu"}
+                        theme="light"
+                        onClick={onClick}
+                        mode="inline"
+                        items={items || []}
+                    />
                 </Col>
-                <Col span={10} className="grey_bg" >
+                <Col xs={24} sm={12} md={10} className="grey_bg">
                     <h4 style={{ textAlign: 'left', color: "#80BCBD" }}>Dashboard</h4>
                     <Row align="middle" className="attendance_data">
                         <Col span={8}>
-                            Present Days : <strong>{attendanceData?.present}</strong>
+                            Present Days: <strong>{attendanceData?.present}</strong>
                         </Col>
                         <Col span={8}>
-                            Loss Of Pay : <strong>{attendanceData?.absent}</strong>
+                            Loss Of Pay: <strong>{attendanceData?.absent}</strong>
                         </Col>
                         <Col span={8}>
-                            Leaves Remaining : <strong>{attendanceData?.leaves_remaining}</strong>
+                            Leaves Remaining: <strong>{attendanceData?.leaves_remaining}</strong>
                         </Col>
                     </Row>
-                    {/* user role specific reports */}
 
-                    {loggedInUserDetails.user_role === "Employee" || loggedInUserDetails.user_role === "Manager" ?
+                    {loggedInUserDetails.user_role === "Employee" || loggedInUserDetails.user_role === "Manager" ? (
                         <>
                             <Row gutter={20} className="mt-4">
-                                <Col span={12}>
+                                <Col xs={24} sm={12}>
                                     <h6>Production Report</h6>
-                                    {/* <div>Target : 
-                            <Progress percent={90} strokeColor={twoColors} showInfo={false} />
-                            </div> */}
                                     <div style={{ maxWidth: "400px", minHeight: "100px" }}>
-                                        <Bar
-                                            data={brliData}
-                                            options={optionss}
-                                            plugins={[ChartDataLabels]}
-                                        />
+                                        <Bar data={brliData} options={optionss} plugins={[ChartDataLabels]} />
                                     </div>
                                 </Col>
-                                <Col span={12}>
+                                <Col xs={24} sm={12}>
                                     <h6>Quality Report</h6>
                                     <Progress type="dashboard" percent={95} strokeColor={twoColors} />
                                 </Col>
@@ -464,29 +461,17 @@ const NewDashBoard = () => {
                             <Row gutter={8}>
                                 <Col span={24}>
                                     <h5 className="mt-3" style={{ textAlign: 'left', color: "#FFC96F" }}>Score Card - 4</h5>
-                                    {/* <Progress percent={90} strokeColor={twoColors} format={() => 4.5} /> */}
                                     <Row>
                                         <Col span={23}>
-                                            <Steps current={3}
+                                            <Steps
+                                                current={3}
                                                 progressDot
                                                 items={[
-                                                    {
-                                                        title: 'NI',
-
-                                                    },
-                                                    {
-                                                        title: 'PME',
-
-                                                    },
-                                                    {
-                                                        title: 'ME',
-                                                    },
-                                                    {
-                                                        title: 'AE',
-                                                    },
-                                                    {
-                                                        title: 'EE',
-                                                    },
+                                                    { title: 'NI' },
+                                                    { title: 'PME' },
+                                                    { title: 'ME' },
+                                                    { title: 'AE' },
+                                                    { title: 'EE' },
                                                 ]}
                                             />
                                         </Col>
@@ -494,27 +479,27 @@ const NewDashBoard = () => {
                                 </Col>
                             </Row>
                         </>
-                        : <Row className="hr_score_card">
+                    ) : (
+                        <Row className="hr_score_card">
                             <Col span={24}>
                                 <Card title="Score Card">
-                                    <h4>Comming Soon......</h4>
+                                    <h4>Coming Soon......</h4>
                                 </Card>
                             </Col>
-                        </Row>}
+                        </Row>
+                    )}
 
-
-                    {/* user role specific reports */}
                     <Row className="mt-4" gutter={16}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12}>
                             <Card title="Quick Links" style={{ textAlign: "left", minHeight: "220px" }}>
                                 <ul>
                                     <li>Raise Ticket</li>
                                     <li>Raise Query</li>
-                                    <li>Apraisal Rating</li>
+                                    <li>Appraisal Rating</li>
                                 </ul>
                             </Card>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={24} sm={12}>
                             <Card title="Wishes" style={{ textAlign: "left", minHeight: "220px" }}>
                                 <ul>
                                     <li>Work Anniversary</li>
@@ -526,55 +511,65 @@ const NewDashBoard = () => {
                         </Col>
                     </Row>
                 </Col>
-                <Col span={5} className="grey_bg">
-                    <Card title="Calender">
+                <Col xs={24} sm={6} md={5} className="grey_bg">
+                    <Card title="Calendar">
                         <Calender
                             onChange={onChange}
                             value={value}
                             tileClassName={tileClassName}
                         />
                         <hr />
-                        <span className="green"></span><span className="me-4">Present</span><span className="orange"></span><span className="me-4">Abscent</span><span className="violet"></span><span>Leave</span><br></br>
-                        <span className="red"></span><span className="me-4">Holiday</span><span className="blue"></span><span className="me-4"> Event</span>
+                        <span className="green"></span><span className="me-4">Present</span>
+                        <span className="orange"></span><span className="me-4">Absent</span>
+                        <span className="violet"></span><span>Leave</span><br />
+                        <span className="red"></span><span className="me-4">Holiday</span>
+                        <span className="blue"></span><span className="me-4">Event</span>
                     </Card>
-                    <Card className="upcomming_events" title="Upcomming Events">
+                    <Card className="upcoming_events" title="Upcoming Events">
                         <h4>Annual Day</h4>
                         <h6>July 06<sup>th</sup> 2024, Saturday</h6>
                     </Card>
                 </Col>
-                <Col span={5}>
-                    <Avatar size={64} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" className="mb-4" /><br></br>
-                    <span className="user_det"><span>{userBasicDetails.user_name}</span></span>
-                    <span className="user_det"><span>{userBasicDetails.designation}</span></span>
-                    <span className="user_det"><span><strong>My Profile / </strong><strong className="login_button" onClick={loginFunction}>Check-In</strong></span></span>
+                <Col xs={24} sm={12} md={5}>
+                    <Avatar size={64} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" className="mb-4" /><br />
+                    <span className="user_det">{userBasicDetails.user_name}</span><br />
+                    <span className="user_det">{userBasicDetails.designation}</span><br />
+                    <span className="user_det">
+                        <strong>My Profile / </strong>
+                        <strong className="login_button" onClick={loginFunction}>Check-In</strong>
+                    </span>
                     <hr />
                     <Row style={{ textAlign: 'left' }}>
                         <Col span={8}>
-                            <span className="user_det">Employe ID :</span>
-                            <span className="user_det">Department :</span>
-                            <span className="user_det">Designation :</span>
-                            <span className="user_det">Location :</span>
-                            <span className="user_det">Reporting To :</span>
-                            <span className="user_det">Shift :</span>
-                            <span className="user_det">Leave Balence :</span>
+                            <span className="user_det">Employee ID :</span><br />
+                            <span className="user_det">Department :</span><br />
+                            <span className="user_det">Designation :</span><br />
+                            <span className="user_det">Location :</span><br />
+                            <span className="user_det">Reporting To :</span><br />
+                            <span className="user_det">Shift :</span><br />
+                            <span className="user_det">Leave Balance :</span><br />
                         </Col>
                         <Col span={16}>
-                            <strong className="user_det">{userBasicDetails.empl_id}</strong>
-                            <strong className="user_det">{userBasicDetails.department}</strong>
-                            <strong className="user_det">{userBasicDetails.designation}</strong>
-                            <strong className="user_det">{userBasicDetails.location}</strong>
-                            <strong className="user_det">{userBasicDetails.reporting_to}</strong>
-                            <strong className="user_det">{userBasicDetails.shift}</strong>
-                            <strong className="user_det">{userBasicDetails.leaves_remaining}</strong>
+                            <strong className="user_det">{userBasicDetails.empl_id}</strong><br />
+                            <strong className="user_det">{userBasicDetails.department}</strong><br />
+                            <strong className="user_det">{userBasicDetails.designation}</strong><br />
+                            <strong className="user_det">{userBasicDetails.location}</strong><br />
+                            <strong className="user_det">{userBasicDetails.reporting_to}</strong><br />
+                            <strong className="user_det">{userBasicDetails.shift}</strong><br />
+                            <strong className="user_det">{userBasicDetails.leaves_remaining}</strong><br />
                         </Col>
                     </Row>
-                    <Col>
-                        <Menu className={loggedInUserDetails.user_role == "Employee" ? "apply_for_menu" : loggedInUserDetails.user_role == "Manager" || "HR" ? "apply_for_menu" : "apply_for_menu"} theme="light" onClick={onClick} mode="inline" items={myApplyFor || []} />
-                    </Col>
-
+                    <Menu
+                        className={loggedInUserDetails.user_role === "Employee" ? "apply_for_menu" : loggedInUserDetails.user_role === "Manager" || loggedInUserDetails.user_role === "HR" ? "apply_for_menu" : "apply_for_menu"}
+                        theme="light"
+                        onClick={onClick}
+                        mode="inline"
+                        items={myApplyFor || []}
+                    />
                 </Col>
             </Row>
         </>
+
     )
 }
 export default NewDashBoard;

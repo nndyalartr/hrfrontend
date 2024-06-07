@@ -14,7 +14,7 @@ const LoginPage = () => {
 
             <Col className='login_page_wraper_left' span={12}>
                 <div className="login_page_wraper_left_logo">
-                    <img src="/assets/logo-no-background.png" width={250} height={250} alt="Optimize RCM" className='img-fluid' />
+                    <img src="/assets/logo-no-background.png" width={250} height={250} alt="RCS" className='img-fluid' />
 
                 </div>
 

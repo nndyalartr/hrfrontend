@@ -1,6 +1,5 @@
 {
   "name": "hrfrontend",
-  "homepage": "https://nndyalartr.github.io/hrfrontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
