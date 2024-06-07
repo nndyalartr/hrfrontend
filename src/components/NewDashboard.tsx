@@ -261,6 +261,7 @@ const NewDashBoard = () => {
     }
     const cookieAllData = Cookies.get()
     const logoutFunction = () => {
+        setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
         for (let key in cookieAllData) {
             Cookies.remove(key)
         }
@@ -281,6 +282,9 @@ const NewDashBoard = () => {
     }
     const loginFunction = () => {
         setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
+    }
+    const goToAttendance = ()=>{
+        navigate("/user-attendance")
     }
     useGetMeDetails(mySelfOptions, onSuccess, onError)
     const onLoginSuccess = (res: any) => {
@@ -538,6 +542,7 @@ const NewDashBoard = () => {
                         <strong>My Profile / </strong>
                         <strong className="login_button" onClick={loginFunction}>Check-In</strong>
                     </span>
+                    <span><strong className="login_button" onClick={goToAttendance}>View Attendance</strong></span>
                     <hr />
                     <Row style={{ textAlign: 'left' }}>
                         <Col span={8}>
