@@ -261,7 +261,6 @@ const NewDashBoard = () => {
     }
     const cookieAllData = Cookies.get()
     const logoutFunction = () => {
-        setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
         for (let key in cookieAllData) {
             Cookies.remove(key)
         }
@@ -283,7 +282,10 @@ const NewDashBoard = () => {
     const loginFunction = () => {
         setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "POST" })
     }
-    const goToAttendance = ()=>{
+    const checkOutFunction = () => {
+        setOptions({ getApiEnabled: true, userEmail: loggedInUserDetails.user_email, type: "PATCH" })
+    }
+    const goToAttendance = () => {
         navigate("/user-attendance")
     }
     useGetMeDetails(mySelfOptions, onSuccess, onError)
@@ -541,8 +543,13 @@ const NewDashBoard = () => {
                     <span className="user_det">
                         <strong>My Profile / </strong>
                         <strong className="login_button" onClick={loginFunction}>Check-In</strong>
+                        <strong> / </strong>
+                        <strong className="login_button" onClick={checkOutFunction}>Check-Out</strong>
                     </span>
-                    <span><strong className="login_button" onClick={goToAttendance}>View Attendance</strong></span>
+                    <span className="user_det">
+
+                        <strong className="login_button" onClick={goToAttendance}>View Attendance</strong>
+                    </span>
                     <hr />
                     <Row style={{ textAlign: 'left' }}>
                         <Col span={8}>
