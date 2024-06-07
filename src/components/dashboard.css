@@ -170,7 +170,9 @@
     text-align: left;
     color: white;
 }
-
+.upcoming_events{
+    background-color: #80B9AD;
+}
 .logout:hover {
     color: red;
     font-weight: 500;
