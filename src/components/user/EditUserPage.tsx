@@ -12,10 +12,10 @@ const EditUserPage = () => {
     const [tabledata, settabledata] = useState<any>([]);
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value
     const [options, setOptions] = useState<{ getApiEnabled: boolean, userEmail: string, project: string }>({ getApiEnabled: false, userEmail: "", project: "" })
-    const [count,setCount] = useState<number>(0)
-    useEffect(()=>{
-        setOptions({...options,getApiEnabled:true})
-    },[])
+    const [count, setCount] = useState<number>(0)
+    useEffect(() => {
+        setOptions({ ...options, getApiEnabled: true })
+    }, [])
     const loginFn = (values: any) => {
         setOptions({ getApiEnabled: true, userEmail: values.text, project: values.project })
 
@@ -143,8 +143,8 @@ const EditUserPage = () => {
             dataIndex: "pan",
             key: "pan",
             width: 160,
-            render:(item:string)=>{
-                return(<span>{item.toUpperCase()}</span>)
+            render: (item: string) => {
+                return (<span>{item.toUpperCase()}</span>)
             }
         },
         {
@@ -239,7 +239,7 @@ const EditUserPage = () => {
                     <>
                         <Button onClick={() => {
                             searchUserFn(record);
-                        }} type="primary" icon={<EditOutlined />}>Edit</Button>                        
+                        }} type="primary" icon={<EditOutlined />}>Edit</Button>
                     </>
                 );
             },
@@ -254,9 +254,9 @@ const EditUserPage = () => {
         setOptions({ ...options, getApiEnabled: false })
     }
     const { refetch } = useSearchUser(options, onSuccess, onError)
-    const onClear =()=>{
+    const onClear = () => {
         Usersearch.resetFields()
-        setOptions({ ...options,userEmail:"",project:"", getApiEnabled: true })
+        setOptions({ ...options, userEmail: "", project: "", getApiEnabled: true })
     }
     return (
         <>
@@ -264,32 +264,34 @@ const EditUserPage = () => {
 
             <Form className="" form={Usersearch} onFinish={loginFn}>
                 <Row className="me-5 m-3" justify="space-between" gutter={16}>
-                    <Col span={6}>
-
+                    <Col xs={24} sm={24} md={12} lg={6}>
                         <Form.Item name="text" label="Search User">
-                            <Input placeholder="enter name / ID" />
+                            <Input placeholder="Enter name / ID" />
                         </Form.Item>
-
-
                     </Col>
-                    <Col span={6}>
+                    <Col xs={24} sm={24} md={12} lg={6}>
                         <Form.Item name="project" label="Search By Project">
-                            <Input placeholder="enter project" />
-
+                            <Input placeholder="Enter project" />
                         </Form.Item>
                     </Col>
-                    <Col span={4}>
-                        <Button htmlType="submit" type="primary">
-                            Search
-                        </Button>
-                        <Button className="ms-3" type="primary" onClick={()=>{onClear()}}>
-                            Clear
-                        </Button>
+                    <Col xs={24} sm={12} md={12} lg={3}>
+                        <Form.Item>
+                            <Button htmlType="submit" type="primary" className="w-100">
+                                Search
+                            </Button>
+                        </Form.Item>
                     </Col>
-                    <Col span={4}>
-                        <Tag color="green">User Count : {count}</Tag>
+                    <Col xs={24} sm={12} md={12} lg={3}>
+                        <Form.Item>
+                            <Button className="ms-0 ms-sm-3" type="primary" onClick={onClear} style={{ width: '100%' }}>
+                                Clear
+                            </Button>
+                        </Form.Item>
                     </Col>
-                </Row >
+                    <Col xs={24} sm={12} md={12} lg={3}>
+                        <Tag color="green" className="d-block text-center">User Count: {count}</Tag>
+                    </Col>
+                </Row>
             </Form >
 
             <Row>
@@ -310,14 +312,14 @@ const EditUserPage = () => {
                         open={modelOpen}
                         placement="right"
                         onClose={() => {
-                            setOptions({...options,getApiEnabled:true});
+                            setOptions({ ...options, getApiEnabled: true });
                             setModelOpen(false);
                         }}
                         footer={null}
                         // bodyStyle={{ overflow: "auto", maxHeight: "calc(100vh - 200px" }}
                         title="User Edit"
                     >
-                        <UserEditComp props={{ record, setModelOpen,setOptions }} />
+                        <UserEditComp props={{ record, setModelOpen, setOptions }} />
                     </Drawer>
 
 
