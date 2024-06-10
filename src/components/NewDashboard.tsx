@@ -448,7 +448,7 @@ const NewDashBoard = () => {
                 </Col>
             </Row>
             <Row gutter={16} className="mt-4">
-                <Col xs={24} sm={6} md={4}>
+                <Col xs={24} sm={6} md={4} className="menu_column">
                     <Menu
                         className={loggedInUserDetails.user_role === "Employee" ? "menu_executive" : loggedInUserDetails.user_role === "Manager" || loggedInUserDetails.user_role === "HR" ? "new_menu" : "menu"}
                         theme="light"
@@ -552,7 +552,7 @@ const NewDashBoard = () => {
                         <span className="red"></span><span className="me-4">Holiday</span>
                         <span className="blue"></span><span className="me-4">Half Day</span>
                     </Card>
-                    <Card className="upcoming_events" title="Upcoming Events">
+                    <Card className="upcoming_events mt-2" title="Upcoming Events">
                         <h4>{events.name}</h4>
                         <h6>{moment(events.date).format('dddd Do MMMM, YYYY')}</h6>
                     </Card>
