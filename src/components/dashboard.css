@@ -326,6 +326,7 @@
 
 .custom-calendar .event-dot.holiday {
     background-color: green;
+    font-weight: 500;
     /* Color for holidays */
 }
 

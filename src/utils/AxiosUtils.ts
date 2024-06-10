@@ -1,10 +1,10 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { message } from "antd";
-
+const backendUrl = process.env.REACT_APP_BACKEND_URL
 const client = axios.create({
     // baseURL:"http://13.127.146.76:8000"
-    baseURL:"http://35.154.66.101:8000/"
+    baseURL:`${backendUrl}`
 })
 
 export const privateAxios:any=({...options})=>{

@@ -91,15 +91,15 @@ const UserPage = () => {
             dataIndex: 'remarks',
             key: 'remarks',
             render: (remarks: string, item: any) => {
-                if (item.is_present) {
+                if (remarks != "") {
+                    return (remarks)
+                } 
+                else if (item.is_present) {
                     return ("Present")
                 }
-                else if (remarks != "") {
-                    return (remarks)
-                } else {
+                else {
                     return ("Absent")
                 }
-
             }
         },
         {
