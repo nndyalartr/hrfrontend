@@ -30,6 +30,11 @@ const UserPage = () => {
             title: "Date",
             dataIndex: "created_at",
             key: "Date",
+            render:(date:string)=>{
+                return(
+                    <span>{moment(date).format('Do MMMM, YYYY')}</span>
+                )
+            }
         },
         {
             title: "Week",
@@ -101,11 +106,6 @@ const UserPage = () => {
                     return ("Absent")
                 }
             }
-        },
-        {
-            title: 'Leave Applied for',
-            dataIndex: 'leave_details',
-            key: 'leave_details',
         }
     ];
     const filterSearch = (values: any) => {
