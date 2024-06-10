@@ -17,10 +17,10 @@ const UserLeavesPage = () => {
     }
     const [apiObj, setApiObj] = useState<{ date: string; session: string; }[]>([])
     const [leaveSummary, setLeaveSummary] = useState<{ reason: string, noOfLeaves: number, leaveType: string }>({ reason: "", noOfLeaves: 0, leaveType: "" })
-    const [options, setOptions] = useState<ApplyLeave>({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email,leave_count:0, leaves: [], getApiEnabled: false, type: "" })
+    const [options, setOptions] = useState<ApplyLeave>({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leave_count: 0, leaves: [], getApiEnabled: false, type: "" })
     const [tableData, setTableData] = useState<any>([])
     useEffect(() => {
-        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email,leave_count:0, leaves: [], getApiEnabled: true, type: "GET" })
+        setOptions({ leaveReason: "", leaveType: "", userEmail: loggedInEmail.user_email, leave_count: 0, leaves: [], getApiEnabled: true, type: "GET" })
     }, [])
     function getDates(startDate: Date, endDate: Date) {
         const dates = [];
@@ -38,14 +38,14 @@ const UserLeavesPage = () => {
         if (options.type == "GET") {
             setTableData(res.data)
 
-        }else{
+        } else {
             message.success(res.data.message)
         }
-        setOptions({ leaveReason: "",leave_count:0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+        setOptions({ leaveReason: "", leave_count: 0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
 
     }
     const onEventError = (err: any) => {
-        setOptions({ leaveReason: "",leave_count:0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
+        setOptions({ leaveReason: "", leave_count: 0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
     }
     const { refetch } = useCreateLeave(options, onEventSuccess, onEventError)
     const applyLeave = (values: any) => {
@@ -101,9 +101,9 @@ const UserLeavesPage = () => {
         setLeaveSummary({ reason: values.reason, leaveType: values.type, noOfLeaves: leaveCount })
     }
     const leaveSubmitFn = () => {
-        setOptions({ leaveReason: leaveSummary.reason, leaveType: leaveSummary.leaveType, userEmail: loggedInEmail.user_email, leaves: apiObj, getApiEnabled: true, type: "POST",leave_count:leaveSummary.noOfLeaves })
+        setOptions({ leaveReason: leaveSummary.reason, leaveType: leaveSummary.leaveType, userEmail: loggedInEmail.user_email, leaves: apiObj, getApiEnabled: true, type: "POST", leave_count: leaveSummary.noOfLeaves })
         setTimeout(() => {
-            setOptions({ ...options, type: "GET",getApiEnabled:true })
+            setOptions({ ...options, type: "GET", getApiEnabled: true })
         }, 300)
     }
     const leaveTypes = [
@@ -172,9 +172,9 @@ const UserLeavesPage = () => {
         key: "reason"
     },
     {
-        title:"Leave Status",
-        dataIndex:"status",
-        key:"status"
+        title: "Leave Status",
+        dataIndex: "status",
+        key: "status"
     }
     ]
     return (
@@ -187,7 +187,7 @@ const UserLeavesPage = () => {
                 onFinish={applyLeave}
             >
                 <Row gutter={8} className="ms-2 me-2">
-                    <Col span={6}>
+                    <Col xs={24} sm={12} md={12} lg={6}>
                         <Form.Item name="type" label="Leave Type" rules={[{ required: true }]}>
                             <Select placeholder="Please Select Type" options={leaveTypes} />
                         </Form.Item>
@@ -195,25 +195,28 @@ const UserLeavesPage = () => {
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={24} sm={12} md={12} lg={6}>
                         <Form.Item name="lsdate" label="Leave Start Date" rules={[{ required: true }]}>
-                            <DatePicker format="YYYY-MM-DD" style={{ width: "200px" }} placeholder="Please Select Leave Date" />
+                            <DatePicker format="YYYY-MM-DD" style={{ width: "100%" }} placeholder="Please Select Leave Date" />
                         </Form.Item>
                         <Form.Item name="fromsession" label="Start Session" rules={[{ required: true }]}>
                             <Select options={leaveDuration} />
                         </Form.Item>
-
                     </Col>
-                    <Col span={6}>
+                    <Col xs={24} sm={12} md={12} lg={6}>
                         <Form.Item name="ledate" label="Leave End Date" rules={[{ required: true }]}>
-                            <DatePicker format="YYYY-MM-DD" style={{ width: "200px" }} placeholder="Please Select Leave Date" />
+                            <DatePicker format="YYYY-MM-DD" style={{ width: "100%" }} placeholder="Please Select Leave Date" />
                         </Form.Item>
                         <Form.Item name="tosession" label="End Session" rules={[{ required: true }]}>
                             <Select options={leaveDuration} />
                         </Form.Item>
                     </Col>
-                    <Col>
-                        <Button htmlType="submit" type="primary">Calculate Leave</Button>
+                    <Col >
+                        <Form.Item>
+                            <Button htmlType="submit" type="primary" className="w-100">
+                                Calculate Leave
+                            </Button>
+                        </Form.Item>
                     </Col>
                 </Row>
             </Form>
@@ -232,7 +235,7 @@ const UserLeavesPage = () => {
             }
             <Row>
                 <Col span={24}>
-                    <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} />
+                    <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} scroll={{ x: 'max-content' }} />
                 </Col>
 
             </Row>

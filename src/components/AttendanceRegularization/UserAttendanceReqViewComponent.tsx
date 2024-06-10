@@ -59,7 +59,7 @@ const UserAttendanceReqViewComponent = () => {
     return (
         <>
             <h2>View Pending Regularizations</h2>
-            <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} />
+            <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} scroll={{ x: 'max-content' }}/>
 
         </>
     )

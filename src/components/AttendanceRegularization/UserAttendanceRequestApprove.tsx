@@ -100,7 +100,7 @@ const UserAttendanceRequestApprove = () => {
             <h3>Pending Attendance Request of your Team</h3>
             <Row>
                 <Col span={24}>
-                    <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} />
+                    <Table rowKey={(record: any) => record.id} dataSource={tableData || []} columns={columns} scroll={{ x: 'max-content' }}/>
                 </Col>
 
             </Row>

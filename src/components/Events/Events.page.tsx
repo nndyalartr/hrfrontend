@@ -143,7 +143,7 @@ const EventsPage = () => {
 
             <Row>
                 <Col span={24}>
-                    <Table rowKey={(record: any) => record.id} dataSource={events || []} columns={columns} />
+                    <Table rowKey={(record: any) => record.id} dataSource={events || []} columns={columns} scroll={{ x: 'max-content' }}/>
                 </Col>
 
             </Row>

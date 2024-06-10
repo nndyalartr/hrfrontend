@@ -171,7 +171,7 @@ const UserDailyLogs = () => {
             <Col span={12}>
                 <h6>User Name : {totalTime.userName}</h6>
                 <h6>Active Time :- {totalTime.totalActiveTime}</h6>
-                <Table rowKey={(record: any) => record} dataSource={logs || []} columns={columns} />
+                <Table rowKey={(record: any) => record} dataSource={logs || []} columns={columns} scroll={{ x: 'max-content' }}/>
             </Col>
             <Col span={12}>
                 <div>

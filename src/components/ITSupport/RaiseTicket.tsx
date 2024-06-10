@@ -148,7 +148,7 @@ const RaiseTicket = () => {
             >
                 <h4>IT Support</h4>
                 <Row gutter={16} className="m-4">
-                    <Col span={6}>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4}>
                         <Form.Item name="title" label="Title" rules={[
                             {
                                 required: true
@@ -157,7 +157,7 @@ const RaiseTicket = () => {
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4}>
                         <Form.Item name="description" label="Description" rules={[
                             {
                                 required: true,
@@ -166,14 +166,14 @@ const RaiseTicket = () => {
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4}>
                         <Button htmlType="submit" type="primary">Submit</Button>
                     </Col>
                 </Row>
             </Form>
             <Row>
                 <Col span={24}>
-                    <Table rowKey={(record: any) => record.id} dataSource={tickets || []} columns={columns} />
+                    <Table rowKey={(record: any) => record.id} dataSource={tickets || []} columns={columns} scroll={{ x: 'max-content' }}/>
                 </Col>
 
             </Row>

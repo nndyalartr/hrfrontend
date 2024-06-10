@@ -128,8 +128,7 @@ const UserPage = () => {
                 onFinish={filterSearch}
             >
                 <Row gutter={16} className="m-4">
-                    <Col span={4}>
-
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4}>
                         <Form.Item
                             name="fromDate"
                             rules={[{ required: true, message: 'Start date is missing' }]}
@@ -137,7 +136,7 @@ const UserPage = () => {
                             <DatePicker format="YYYY-MM-DD" style={{ width: "100%" }} placeholder="Start Date" />
                         </Form.Item>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4}>
 
                         <Form.Item
                             name="toDate"
@@ -146,7 +145,7 @@ const UserPage = () => {
                             <DatePicker format="YYYY-MM-DD" style={{ width: "100%" }} placeholder="End Date" />
                         </Form.Item>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={4}>
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="w-100">
@@ -161,7 +160,7 @@ const UserPage = () => {
             <Row>
                 <Col span={24}>
                     <h4>Attendance Logs</h4>
-                    <Table rowKey={(record: any) => record.id} dataSource={userData || []} columns={columns} />
+                    <Table rowKey={(record: any) => record.id} dataSource={userData || []} columns={columns} scroll={{ x: 'max-content' }}/>
 
                 </Col>
             </Row>
