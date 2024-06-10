@@ -34,6 +34,7 @@ function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
     const shouldRestrictRoute = loggedInEmail.user_role === 'Executive';
     const isFirstLogin = loggedInEmail.first_login
+    console.log(isFirstLogin)
     return (
         <AuthProvider
             authType="cookie"

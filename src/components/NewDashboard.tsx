@@ -77,7 +77,10 @@ const NewDashBoard = () => {
                 let type = "";
                 if (x.is_present === true) {
                     type = "green_calendar"
-                } else if (x.remarks === "Holiday") {
+                }else if (x.remarks == "Half Day"){
+                    type = "blue_calendar"
+                }
+                 else if (x.remarks === "Holiday") {
                     type = "red_calendar"
                 } else if (x.is_present === false && date < today) {
                     type = "orange_calendar"
@@ -107,10 +110,28 @@ const NewDashBoard = () => {
     }
     useGetLeaveDetails(leaveOptions, onLeaveSuccess, onLeaveSuccess)
     useGetAttendanceDetails(attendanceOptions, onAttendanceSuccess, onAttendanceError)
+    const getNextRecentEvent = (events:any) => {
+        const today = moment();
+      
+        // Parse the date strings into moment objects and filter future dates
+        const futureEvents = events
+          .map((event:any) => ({
+            ...event,
+            date: moment(event.date)
+          }))
+          .filter((event:any) => event.date.isSameOrAfter(today));
+      
+        // Sort events by date
+        futureEvents.sort((a:any, b:any) => a.date - b.date);
+      
+        // Return the next recent event or null if none exist
+        return futureEvents.length > 0 ? futureEvents[0] : {name:"",date:""};
+      };
     const onEventSuccess = (res: any) => {
 
         if (eventOptions.type == "GET") {
-            setEvents(res.data)
+            const nextEvent = getNextRecentEvent(res.data);
+            setEvents(nextEvent)
         }
     }
     const navigate = useNavigate()
@@ -529,11 +550,11 @@ const NewDashBoard = () => {
                         <span className="orange"></span><span className="me-4">Absent</span>
                         <span className="violet"></span><span>Leave</span><br />
                         <span className="red"></span><span className="me-4">Holiday</span>
-                        <span className="blue"></span><span className="me-4">Event</span>
+                        <span className="blue"></span><span className="me-4">Half Day</span>
                     </Card>
                     <Card className="upcoming_events" title="Upcoming Events">
-                        <h4>Annual Day</h4>
-                        <h6>July 06<sup>th</sup> 2024, Saturday</h6>
+                        <h4>{events.name}</h4>
+                        <h6>{moment(events.date).format('dddd Do MMMM, YYYY')}</h6>
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={5}>

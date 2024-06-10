@@ -329,7 +329,10 @@
     font-weight: 500;
     /* Color for holidays */
 }
-
+.lemon_yellow_calendar{
+    color: #E5A5FF;
+    font-weight: 500;
+}
 .custom-calendar .event-dot.event {
     background-color: orange;
     /* Color for events */
