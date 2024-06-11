@@ -3,18 +3,19 @@ import './LoginPage.stytle.css'
 
 import { Col, Row } from 'antd';
 import LoginFormComponent from './LoginFormComponent';
+import "../../images/logo.png"
 const LoginPage = () => {
     return <div className="login_page">
         <Row className="login_page_main_titile">
             <span>
-                RC Services
+                Work Wave
             </span>
         </Row>
         <Row className="login_page_wraper">
 
             <Col className='login_page_wraper_left' span={12}>
                 <div className="login_page_wraper_left_logo">
-                    <img src="/assets/logo-no-background.png" width={250} height={250} alt="RCS" className='img-fluid' />
+                    {/* <img src="../../images/logo.png" width={250} height={250} alt="RCS" className='img-fluid' /> */}
 
                 </div>
 

@@ -119,7 +119,12 @@
     /* background-image: linear-gradient(to bottom, #feffff, #b8c4cc); */
     /* background-image: linear-gradient(to bottom, #eefdff, #64560f); */
 }
-
+.logo_class{
+    background-image: url("../images/logo-nobg.png");
+    background-size: 87px 34px;
+    background-repeat: no-repeat;
+    min-height: 34px;
+}
 .bg_manager {
     min-height: 750px;
     background-image: url("../images/bg.jpg");

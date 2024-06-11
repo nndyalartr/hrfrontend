@@ -429,12 +429,12 @@ const NewDashBoard = () => {
 
     return (
         <>
-            <Row gutter={16} className="mt-2 mb-3">
+            <Row gutter={16} className="mt-2 mb-1" justify="center">
                 <Col xs={24} sm={3} md={2}>
-                    Logo
+                    <div className="logo_class"></div>
                 </Col>
                 <Col xs={24} sm={10} md={14}>
-                    <h6><strong>RCS</strong></h6>
+                    <h6 style={{ textAlign: 'center' }}><strong>Work Wave</strong></h6>
                 </Col>
                 <Col xs={24} sm={6} md={4}>
                     <span className="me-2">{userBasicDetails.location}</span>
@@ -447,7 +447,7 @@ const NewDashBoard = () => {
                     <span className="logout" onClick={logoutFunction}><LogoutOutlined className="me-1" />Logout</span>
                 </Col>
             </Row>
-            <Row gutter={16} className="mt-4">
+            <Row gutter={16} className="mt-2">
                 <Col xs={24} sm={6} md={4} className="menu_column">
                     <Menu
                         className="new_menu"

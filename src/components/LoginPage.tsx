@@ -63,7 +63,7 @@ const LoginPage = () => {
             <Row>
                 <Col>
                     <h3 className="text-secondary mt-2 ms-5">
-                        RC Services
+                        RWork Wave
                     </h3>
                 </Col>
             </Row>

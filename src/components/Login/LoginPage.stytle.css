@@ -33,13 +33,20 @@
                     font-size: 16px;
                     margin-bottom: 20px !important;
                     font-weight: 600;
-                    color: var(--primary);
+                    /* color: var(--primary); */
                 }
 
             }
 
             .login_page_wraper_left {
-                background: var(--primary);
+                background-image: url("../../images/logo.png");
+                background-color: rgb(28, 52, 68);;
+                background-size: contain;
+                /* Scale the image to be as large as possible without stretching */
+                background-position: center;
+                /* Center the image within the box */
+                background-repeat: no-repeat;
+                /* background: var(--primary); */
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -91,7 +98,7 @@
                     font-size: 16px;
                     margin-bottom: 20px !important;
                     font-weight: 600;
-                    color: var(--primary);
+                    /* color: var(--primary); */
                 }
             }
         }
