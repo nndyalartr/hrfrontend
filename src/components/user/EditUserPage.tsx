@@ -1,12 +1,13 @@
-import { Card, Col, Row, Modal, Select, Tag, Drawer } from "antd";
+import { Card, Col, Row, Modal, Select, Tag, Drawer, Tooltip } from "antd";
 import { Table, Button, Form, Input, } from "antd";
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, AuditOutlined } from '@ant-design/icons';
 import TopMenu from "../TopMenu";
 import { useEffect, useState } from "react";
 import useSearchUser from "../../QueryApiCalls/useSearchUser";
 import { UserInfoStore } from "../../utils/useUserInfoStore";
 import UserEditComp from "./UserEditComp";
 import moment from "moment";
+import HrLevelAttLogs from "./HrLevelUserAttLogs";
 const EditUserPage = () => {
     const [Usersearch] = Form.useForm();
     const [tabledata, settabledata] = useState<any>([]);
@@ -22,12 +23,19 @@ const EditUserPage = () => {
     };
     const [modelOpen, setModelOpen] = useState<boolean>(false);
     const [record, setRecord] = useState<any>({});
+    const [attModel, setAttModelOpen] = useState<boolean>(false);
     const searchUserFn = (rec: any) => {
         setRecord({ ...rec, date_of_joining: moment(rec.date_of_joining), date_of_birth: moment(rec.date_of_birth) });
         setModelOpen(true);
         Usersearch.resetFields()
         settabledata([])
     };
+    const [userId, setUserId] = useState<{ email: string, name: string }>({ email: "", name: "" })
+    const viewAttendanceLogs = (rec: any) => {
+        setUserId({ email: rec.email_id, name: rec.emp_name })
+        setAttModelOpen(true)
+
+    }
     const columns: any = [
         {
             title: "Employe ID",
@@ -237,9 +245,18 @@ const EditUserPage = () => {
             render: (record: any, item: any) => {
                 return (
                     <>
-                        <Button onClick={() => {
-                            searchUserFn(record);
-                        }} type="primary" icon={<EditOutlined />}>Edit</Button>
+                        <Tooltip title="Edit User">
+
+                            <EditOutlined onClick={() => {
+                                searchUserFn(record);
+                            }} />
+                        </Tooltip>
+                        <Tooltip title="View Attendance Logs">
+                            <AuditOutlined className="ms-3" onClick={() => {
+                                viewAttendanceLogs(record)
+                            }} />
+                        </Tooltip>
+
                     </>
                 );
             },
@@ -325,6 +342,22 @@ const EditUserPage = () => {
 
                 )
             }
+            {attModel && (
+                <Drawer
+                    // style={{ minWidth: '900px' }}
+                    width={800}
+                    open={attModel}
+                    placement="right"
+                    onClose={() => {
+                        setAttModelOpen(false);
+                    }}
+                    footer={null}
+                    // bodyStyle={{ overflow: "auto", maxHeight: "calc(100vh - 200px" }}
+                    title={`Attendance Logs - ${userId.name}`}
+                >
+                    <HrLevelAttLogs props={{ userId, setAttModelOpen }} />
+                </Drawer>
+            )}
         </>
     );
 };

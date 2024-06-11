@@ -430,27 +430,27 @@ const NewDashBoard = () => {
     return (
         <>
             <Row gutter={16} className="mt-2 mb-3">
-                <Col xs={4} sm={3} md={2}>
+                <Col xs={24} sm={3} md={2}>
                     Logo
                 </Col>
-                <Col xs={12} sm={10} md={14}>
+                <Col xs={24} sm={10} md={14}>
                     <h6><strong>RCS</strong></h6>
                 </Col>
-                <Col xs={6} sm={6} md={4}>
+                <Col xs={24} sm={6} md={4}>
                     <span className="me-2">{userBasicDetails.location}</span>
                     <span>{currentDate}</span>
                 </Col>
-                <Col xs={1} sm={2} md={2}>
+                <Col xs={24} sm={2} md={2}>
                     <span><NotificationOutlined /> Notifications</span>
                 </Col>
-                <Col xs={1} sm={3} md={2}>
+                <Col xs={24} sm={3} md={2}>
                     <span className="logout" onClick={logoutFunction}><LogoutOutlined className="me-1" />Logout</span>
                 </Col>
             </Row>
             <Row gutter={16} className="mt-4">
                 <Col xs={24} sm={6} md={4} className="menu_column">
                     <Menu
-                        className={loggedInUserDetails.user_role === "Employee" ? "menu_executive" : loggedInUserDetails.user_role === "Manager" || loggedInUserDetails.user_role === "HR" ? "new_menu" : "menu"}
+                        className="new_menu"
                         theme="light"
                         onClick={onClick}
                         mode="inline"
