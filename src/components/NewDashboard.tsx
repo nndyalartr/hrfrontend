@@ -232,11 +232,11 @@ const NewDashBoard = () => {
         },)
         items.push(
             {
-                label: 'Approvals',
+                label: 'My Team',
                 key: 'approvals',
                 icon: <SolutionOutlined />,
                 children: [
-                    { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
+                    { label: "Team Attendance", key: "/team-attendance" },{ label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
                 ]
             }
         )
@@ -259,7 +259,7 @@ const NewDashBoard = () => {
     if (loggedInUserDetails.user_role === "Manager") {
         items.push(
             {
-                label: 'Approvals',
+                label: 'My Team',
                 key: 'approvals',
                 icon: <SolutionOutlined />,
                 children: [

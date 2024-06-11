@@ -133,11 +133,11 @@ export default function TopMenu() {
         },)
         items.push(
             {
-                label: 'Approvals',
+                label: 'My Team',
                 key: 'approvals',
                 icon: <SolutionOutlined />,
                 children: [
-                    { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
+                    { label: "Team Attendance", key: "/team-attendance" },{ label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
                 ]
             }
         )
@@ -160,11 +160,11 @@ export default function TopMenu() {
     if (loggedInUserDetails.user_role === "Manager") {
         items.push(
             {
-                label: 'Approvals',
+                label: 'My Team',
                 key: 'approvals',
                 icon: <SolutionOutlined />,
                 children: [
-                    { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
+                    { label: "Team Attendance", key: "/team-attendance" }, { label: "Pending Leave Approvals", key: "/leave-approvals" }, { label: "Pending Attendance Approvals", "key": "/attendance-approvals" }, { label: "Pending Resignation Approvals", "key": "/resignation-approvals" }
                 ]
             }
         )

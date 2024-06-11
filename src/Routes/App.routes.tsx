@@ -29,6 +29,7 @@ import RaiseTicket from "../components/ITSupport/RaiseTicket";
 import OnBoardForm from "../components/OnBoardForm/onBoardForm";
 import OnBoardRequest from "../components/OnBoardForm/onBoardRequest";
 import NewDashBoard from "../components/NewDashboard";
+import TeamAttendance from "../components/AttendanceAdmin/TeamAttendance";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
@@ -68,6 +69,7 @@ function AppRoutes() {
                     <Route path='/user-logs' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <UserDailyLogs />} />
                     <Route path='/advance' element={shouldRestrictRoute ? <Navigate to="/advance" /> : <AdvanceRequestPage />} />
                     <Route path='/offer-initiation' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <OnBoardRequest />} />
+                    <Route path='/team-attendance' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <TeamAttendance />} />
                 </Routes> : <Routes>
 
                     <Route path="/" element={<LoginPage />} />

@@ -15,12 +15,12 @@ export interface ItTicketCreate extends ApiParams {
     desc: string
 }
 export interface OnBoardUser extends ApiParams {
-    name : String,
-    email : String,
-    doj : String,
-    designation : String,
-    ctc : String,
-    location : String
+    name: String,
+    email: String,
+    doj: String,
+    designation: String,
+    ctc: String,
+    location: String
 }
 export interface ApplyLeave extends ApiParams {
     userEmail: string,
@@ -67,6 +67,10 @@ export interface AttendanceRegRequst extends ApiParams {
 
 export interface ListAttendanceRequest extends ApiParams {
     userEmail: string,
+}
+export interface TeamAttendanceType extends ApiParams {
+    userEmail: string,
+    date?: string
 }
 export interface ApplyResignation extends ApiParams {
     resignation_date: string,
