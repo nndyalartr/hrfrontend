@@ -19,7 +19,7 @@ const onboardUser: any = (options:OnBoardUser) => {
 }
 
 const useCreateOnboardUser = (options:OnBoardUser,onSuccess:any,onError:any) => {
-    return useQuery( ["onboard-user"] ,()=>onboardUser(options),{
+    return useQuery( ["offer-letter"] ,()=>onboardUser(options),{
         onSuccess,
         onError,
         refetchOnMount:false,

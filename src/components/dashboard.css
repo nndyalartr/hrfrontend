@@ -372,7 +372,7 @@
     font-weight: 500;
 }
 .red_calendar{
-    color: maroon;
+    color: #d10000;
     font-weight: 500;
 }
 .blue_calendar{
@@ -416,7 +416,7 @@
     /* Adjust the size as needed */
     height: 6px;
     /* Adjust the size as needed */
-    background-color: maroon;
+    background-color: #d10000;
     /* Green color */
     border-radius: 50%;
     /* Make it circular */

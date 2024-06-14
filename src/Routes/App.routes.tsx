@@ -30,12 +30,12 @@ import OnBoardForm from "../components/OnBoardForm/onBoardForm";
 import OnBoardRequest from "../components/OnBoardForm/onBoardRequest";
 import NewDashBoard from "../components/NewDashboard";
 import TeamAttendance from "../components/AttendanceAdmin/TeamAttendance";
+import OnBoardingInitiation from "../components/OnBoardForm/OnBoardingInitiation";
 
 function AppRoutes() {
     const loggedInEmail = UserInfoStore()?.loggedUserInfo.value;
     const shouldRestrictRoute = loggedInEmail.user_role === 'Executive';
     const isFirstLogin = loggedInEmail.first_login
-    console.log(isFirstLogin)
     return (
         <AuthProvider
             authType="cookie"
@@ -47,7 +47,7 @@ function AppRoutes() {
 
                 {!isFirstLogin ? <Routes>
                     <Route path="/" element={<LoginPage />} />
-                    <Route path="/on-board" element={<OnBoardForm />} />
+                    <Route path="/pre-on-board" element={<OnBoardForm />} />
                     <Route path="/change-password" element={<ChangePasswordPage />} />
                     <Route path="/dashboard" element={<NewDashBoard />} />
                     <Route path="/user-attendance" element={<UserPage />} />
@@ -67,13 +67,14 @@ function AppRoutes() {
                     <Route path='/user-edit' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <EditUserPage />} />
                     <Route path='/reports' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <ProductionReportsPage />} />
                     <Route path='/user-logs' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <UserDailyLogs />} />
-                    <Route path='/advance' element={shouldRestrictRoute ? <Navigate to="/advance" /> : <AdvanceRequestPage />} />
+                    <Route path='/advance' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <AdvanceRequestPage />} />
+                    <Route path='/on-board' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <OnBoardingInitiation />} />
                     <Route path='/offer-initiation' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <OnBoardRequest />} />
                     <Route path='/team-attendance' element={shouldRestrictRoute ? <Navigate to="/dashboard" /> : <TeamAttendance />} />
                 </Routes> : <Routes>
 
                     <Route path="/" element={<LoginPage />} />
-                    <Route path="/on-board" element={<OnBoardForm />} />
+                    <Route path="/pre-on-board" element={<OnBoardForm />} />
                     <Route path="/change-password" element={<ChangePasswordPage />} />
                     <Route
                         path="*"

@@ -39,7 +39,11 @@ const UserLeavesPage = () => {
             setTableData(res.data)
 
         } else {
-            message.success(res.data.message)
+            if (res.status === 200){
+                message.success(res.data.message)
+            }else{
+                message.error(res.response.data.message)
+            }
         }
         setOptions({ leaveReason: "", leave_count: 0, leaveType: "", userEmail: loggedInEmail.user_email, leaves: [], getApiEnabled: false, type: "" })
 

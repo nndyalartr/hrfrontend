@@ -66,6 +66,7 @@ const NewDashBoard = () => {
     useEffect(() => {
         setMySelfOptions({ ...mySelfOptions, getApiEnabled: true })
         setAttendanceOptions({ userEmail: loggedInUserDetails.user_email, getApiEnabled: true })
+               
         setLeaveOptions({ ...leaveOptions, getApiEnabled: true })
     }, [])
     const onAttendanceSuccess = (res: any) => {
@@ -96,6 +97,8 @@ const NewDashBoard = () => {
 
             })
             setUserData(test)
+            setEventOptions({ ...eventOptions, type: "GET", getApiEnabled: true }) 
+
         }
     }
     const onAttendanceError = (err: any) => {
@@ -131,6 +134,21 @@ const NewDashBoard = () => {
 
         if (eventOptions.type == "GET") {
             const nextEvent = getNextRecentEvent(res.data);
+            const test = res.data.map((x: any) => {
+                let type = "";
+                if (x.event_type === "Holiday"){
+                    type = "red_calendar"
+                }
+                let dataDict = {
+                    "date": x.date,
+                    "type": type
+                }
+                return dataDict
+
+                
+            })
+            setUserData([...userData,...test])
+            
             setEvents(nextEvent)
         }
     }
@@ -206,7 +224,7 @@ const NewDashBoard = () => {
         if (loggedInUserDetails.user_role === "Manager") {
             setMySelfRoles([...mySelfRoles,])
         }
-        setEventOptions({ ...eventOptions, type: "GET", getApiEnabled: true })
+        
     }, [])
     if (loggedInUserDetails.user_role === "HR") {
         items.push({
@@ -227,6 +245,7 @@ const NewDashBoard = () => {
                     key: "/add-user"
                 }, { label: "Attendance Summary Report", key: "/attendance-all" },
                 { label: "User Logs", key: "/user-logs" },
+                { label: "On Board", key: "/on-board" },
                 { label: "Offer Initiation", key: "/offer-initiation" }
             ]
         },)

@@ -16,7 +16,7 @@ function App() {
   const ref = async () => {
 
     await privateAxios({
-      url: "/api/token/refresh/",
+      url: "api/token/refresh/",
       method: "POST",
       data: { refresh: userAuthRefreshToken }
     }).then((response: any) => {

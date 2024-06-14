@@ -128,6 +128,7 @@ export default function TopMenu() {
                     key: "/add-user"
                 }, { label: "Attendance Summary Report", key: "/attendance-all" },
                 { label: "User Logs", key: "/user-logs" },
+                { label: "On Board", key: "/on-board" },
                 { label: "Offer Initiation", key: "/offer-initiation" }
             ]
         },)
