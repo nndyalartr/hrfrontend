@@ -1,10 +1,11 @@
 import TopMenu from "../TopMenu"
 import React, { useEffect, useState } from 'react';
-import { Button, Col, DatePicker, Form, Input, Row, Table, Typography } from 'antd';
+import { Button, Col, DatePicker, Form, Input, Row, Table, Tag, Typography } from 'antd';
 import moment from "moment";
 import useCreatePreOnBoard from "../../QueryApiCalls/useCreatePreOnBoardUser";
 import { PreOnBoard } from "../../interfaces/types";
 import { AxiosError, AxiosResponse } from "axios";
+import { stat } from "fs";
 const OnBoardingInitiation = () => {
     const { Text } = Typography;
     const [filterForm] = Form.useForm()
@@ -13,7 +14,7 @@ const OnBoardingInitiation = () => {
     const filterSearch = (values: any) => {
         let dob = moment(values.dob.$d).format("YYYY-MM-DD")
         let doj = moment(values.doj.$d).format("YYYY-MM-DD")
-        setOptions({ ...options, type:"POST",email: values.email, getApiEnabled: true, name: values.name, designation: values.designation, mobile: values.mobile, doj: doj, dob: dob })
+        setOptions({ ...options, type: "POST", email: values.email, getApiEnabled: true, name: values.name, designation: values.designation, mobile: values.mobile, doj: doj, dob: dob })
 
     }
     useEffect(() => {
@@ -21,7 +22,7 @@ const OnBoardingInitiation = () => {
     }, [])
     const onSuccess = (res: AxiosResponse) => {
         filterForm.resetFields()
-        if(options.type == "POST"){
+        if (options.type == "POST") {
             setOptions({ type: "GET", getApiEnabled: true, email: "", name: "", designation: "", mobile: "", doj: "", dob: "" })
         }
         if (options.type == "GET") {
@@ -44,8 +45,8 @@ const OnBoardingInitiation = () => {
             title: "Date Of Birth",
             dataIndex: "dob",
             key: "dob",
-            render:(date:string)=>{
-                return(
+            render: (date: string) => {
+                return (
                     <span>{moment(date).format('Do MMMM, YYYY')}</span>
                 )
             }
@@ -54,8 +55,8 @@ const OnBoardingInitiation = () => {
             title: "Date Of Joining",
             dataIndex: "doj",
             key: "doj",
-            render:(date:string)=>{
-                return(
+            render: (date: string) => {
+                return (
                     <span>{moment(date).format('Do MMMM, YYYY')}</span>
                 )
             }
@@ -76,15 +77,29 @@ const OnBoardingInitiation = () => {
             key: "phone_number"
         },
         {
-            title: "Is Submitted",
-            dataIndex: "is_submitted",
-            key: "is_submitted"
+            title: "Status",
+            dataIndex: "status",
+            key: "status",
+            render: (status:string) => {
+                if (status ) {
+                    let statusArray = status.split("|").filter(x => x.trim() !== '');
+                    return (
+                        <>
+                            {statusArray.map((x:string, index) => (
+                                <Tag key={index}>{x.trim()}</Tag>
+                            ))}
+                        </>
+                    );
+                } else {
+                    return <span>Not Initiated</span>;
+                }
+            }
         },
         {
             title: "URL",
             dataIndex: "url",
             key: "url",
-            render: (text:string) => <Text copyable>{text}</Text>
+            render: (text: string) => <Text copyable>{text}</Text>
         },
     ]
     return (

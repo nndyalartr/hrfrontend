@@ -60,7 +60,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
             formData.append("id", id)
             formData.append("file_name", name)
             // Send formData to your backend API endpoint using fetch or Axios
-            fetch('http://127.0.0.1:8000/test/', {
+            fetch('http://35.154.66.101:8000/test/', {
                 method: 'POST',
                 body: formData,
             })
@@ -91,7 +91,6 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
         }
 
     };
-    console.log(isLoading)
     return (<>
         <div>
             <h5 className='text_left'>Hi {name} , Upload Documents</h5>
