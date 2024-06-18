@@ -68,7 +68,7 @@ const BasicDetailsUploadPage: React.FC<Props> = ({ setActiveTabKey, name, id }) 
     useGetPreBoardStatus(preBoardOptions,onPreBoardSuccess,onPreBordError)
     useCreatePreBoardDetails(options,onSuccess,onError)
     return (<>
-        <h5 className='text_left'>Hi {name} , Basic Details Form</h5>
+        <h5 className='text_left'>Hi {name} , Please Update Basic Details</h5>
         {isFormCopleted && <div className="mt-2 mb-2">Already you have Submitted this form you can go to next form by  <Button onClick={()=>setActiveTabKey("3")}>Clicking Here</Button></div>}
         <Form
             form={filterForm}
