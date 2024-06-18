@@ -6,7 +6,7 @@ interface Props {
     id: string,
     name: string
 }
-const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
+const BankDetailsPage: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
     const [personalDetailsForm] = Form.useForm()
     const formSubmit = (values: any) => {
         const sanitizedValues = Object.fromEntries(
@@ -26,8 +26,8 @@ const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
                 <Row gutter={16} className="ms-4 me-4 mt-2">
                     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <Form.Item
-                            label="Name as per PAN"
-                            name="name_pan"
+                            label="Name as per Bank Acc"
+                            name="name_as_per_bank"
                             rules={[{ required: true }]}
                         >
                             <Input />
@@ -35,8 +35,8 @@ const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
                     </Col>
                     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <Form.Item
-                            label="PAN No"
-                            name="PAN"
+                            label="Bank Name"
+                            name="name_bank"
                             rules={[{ required: true }]}
                         >
                             <Input />
@@ -44,8 +44,8 @@ const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
                     </Col>
                     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <Form.Item
-                            label="Name as per AADHAR"
-                            name="name_AADHAR"
+                            label="Branch"
+                            name="branch_name"
                             rules={[{ required: true }]}
                         >
                             <Input />
@@ -53,8 +53,8 @@ const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
                     </Col>
                     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <Form.Item
-                            label="AADHAR"
-                            name="AADHAR"
+                            label="Place"
+                            name="bank_place"
                             rules={[{ required: true }]}
                         >
                             <Input />
@@ -64,42 +64,22 @@ const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
                 <Row gutter={16} className="ms-4 me-4 mt-1">
                     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <Form.Item
-                            label="Name as per Passport"
-                            name="name_passport"
-                            rules={[{ required: false }]}
+                            label="Account No"
+                            name="bank_acc_no"
+                            rules={[{ required: true }]}
                         >
                             <Input />
                         </Form.Item>
                     </Col>
                     <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <Form.Item
-                            label="Passport No"
-                            name="passport"
-                            rules={[{ required: false }]}
+                            label="IFSC Code"
+                            name="ifsc_code"
+                            rules={[{ required: true }]}
                         >
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                        <Form.Item
-                            label="Name as per DL"
-                            name="name_dl"
-                            rules={[{ required: false }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                    <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                        <Form.Item
-                            label="DL No"
-                            name="DL"
-                            rules={[{ required: false }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row gutter={16} className="ms-4 me-4 mt-2">
                     <Col xs={24} sm={12} md={8} lg={6} xl={4}>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="w-100">
@@ -112,4 +92,4 @@ const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
         </>
     )
 }
-export default PersonelIdDetails;
+export default BankDetailsPage;
