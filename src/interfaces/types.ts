@@ -14,6 +14,11 @@ export interface ItTicketCreate extends ApiParams {
     title: string,
     desc: string
 }
+export interface PreBoardFormDetails extends ApiParams {
+    data_type: string,
+    id: string,
+    data: any
+}
 export interface PreOnBoard extends ApiParams {
     name: string,
     email: string,

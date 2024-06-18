@@ -1,6 +1,12 @@
 import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
 import moment from "moment";
 import "./onboard.css"
+import useCreatePreBoardDetails from "../../QueryApiCalls/useCreatePreBoardDetails";
+import { PreBoardFormDetails } from "../../interfaces/types";
+import { useEffect, useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
+import useGetPreBoardStatus from "../../QueryApiCalls/useGetPreBoardStatus";
+import { stat } from "fs";
 interface Props {
     setActiveTabKey: (key: string) => void;
     id: string,
@@ -9,17 +15,60 @@ interface Props {
 const BasicDetailsUploadPage: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
     const [filterForm] = Form.useForm()
     const { TextArea } = Input;
+    const [isFormCopleted, setIsFormCompleted] = useState<boolean>(false)
+    const [options, setOptions] = useState<PreBoardFormDetails>({type:"POST",data_type:"basic_details",id:id,data:{},getApiEnabled:false,})
+    const [preBoardOptions,setPreBoardOptions] = useState<{id:string,getApiEnabled:boolean}>({id:id,getApiEnabled:false})
+    useEffect(()=>{
+        setPreBoardOptions({...preBoardOptions,getApiEnabled:true})
+    },[])
     const filterSearch = (values: any) => {
-        const sanitizedValues = Object.fromEntries(
+        let sanitizedValues = Object.fromEntries(
             Object.entries(values).map(([key, value]) => [key, value === undefined ? '' : value])
         );
+        let dob = moment(values.dob.$d).format("YYYY-MM-DD")
+        let dom = ""
+        if (values.dom){
+
+            dom = moment(values.dom.$d).format("YYYY-MM-DD")
+        }
+        sanitizedValues = {...sanitizedValues,dob:dob,dom:dom}
+        setOptions({...options,data:sanitizedValues,getApiEnabled:true})
+        console.log(sanitizedValues)
     }
     const genderOptions = [
         { lable: "Male", key: "Male", value: "Male" },
         { lable: "Female", key: "Female", value: "Female" }
     ]
+    const onSuccess = (res:AxiosResponse)=>{
+        let status = res.data
+        status = status.split("|").map((s:string) => s.trim())
+        let is_present = status.find((x:string) => x === "basic_details")
+        if(is_present){
+            setIsFormCompleted(true)
+        }
+        
+        setOptions({...options,data:{},getApiEnabled:false})
+    }
+    const onError = (err:AxiosError)=>{
+        setOptions({...options,data:{},getApiEnabled:false})
+    }
+    const onPreBoardSuccess = (res:AxiosResponse)=>{
+        let status = res.data
+        status = status.split("|").map((s:string) => s.trim())
+        let is_present = status.find((x:string) => x === "basic_details")
+        if(is_present){
+            setIsFormCompleted(true)
+        }
+        setPreBoardOptions({...preBoardOptions,getApiEnabled:false})
+    }
+    const onPreBordError = (err:AxiosError)=>{
+
+    }
+    useGetPreBoardStatus(preBoardOptions,onPreBoardSuccess,onPreBordError)
+    useCreatePreBoardDetails(options,onSuccess,onError)
     return (<>
         <h5 className='text_left'>Hi {name} , Basic Details Form</h5>
+        {isFormCopleted && <div className="mt-2 mb-2">Already you have Submitted this form you can go to next form by  <Button onClick={()=>setActiveTabKey("3")}>Clicking Here</Button></div>}
         <Form
             form={filterForm}
             className=""

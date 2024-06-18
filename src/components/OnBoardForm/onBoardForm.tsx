@@ -7,6 +7,7 @@ import PersonelIdDetails from './PersonelIdDetails';
 import BasicDetailsUploadPage from './BasicDetailsPage';
 import BankDetailsPage from './BankDetailsPage';
 import EducationDetailsPage from './EducationDetailsPage';
+import PreviousEmpDetails from './PreviousEmpDetails';
 const { TabPane } = Tabs;
 const OnBoardForm = () => {
     const [name,setName] = useState<string>("")
@@ -39,6 +40,9 @@ const OnBoardForm = () => {
                 </TabPane>
                 <TabPane tab="Education Details" key="5">
                     <EducationDetailsPage setActiveTabKey={setActiveTabKey} id={id} name={name}/>
+                </TabPane>
+                <TabPane tab="Previous Employment Details" key="6">
+                    <PreviousEmpDetails setActiveTabKey={setActiveTabKey} id={id} name={name}/>
                 </TabPane>
             </Tabs>
             
