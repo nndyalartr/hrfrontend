@@ -1,6 +1,11 @@
 import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
 import moment from "moment";
 import "./onboard.css"
+import { useEffect, useState } from "react";
+import { PreBoardFormDetails } from "../../interfaces/types";
+import { AxiosError, AxiosResponse } from "axios";
+import useGetPreBoardStatus from "../../QueryApiCalls/useGetPreBoardStatus";
+import useCreatePreBoardDetails from "../../QueryApiCalls/useCreatePreBoardDetails";
 interface Props {
     setActiveTabKey: (key: string) => void;
     id: string,
@@ -8,15 +13,50 @@ interface Props {
 }
 const PersonelIdDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
     const [personalDetailsForm] = Form.useForm()
+    const [isFormCopleted, setIsFormCompleted] = useState<boolean>(false)
+    const [options, setOptions] = useState<PreBoardFormDetails>({type:"POST",data_type:"personel_id_details",id:id,data:{},getApiEnabled:false,})
+    const [preBoardOptions,setPreBoardOptions] = useState<{id:string,getApiEnabled:boolean}>({id:id,getApiEnabled:false})
+    useEffect(()=>{
+        setPreBoardOptions({...preBoardOptions,getApiEnabled:true})
+    },[])
     const formSubmit = (values: any) => {
         const sanitizedValues = Object.fromEntries(
             Object.entries(values).map(([key, value]) => [key, value === undefined ? '' : value])
         );
-        console.log(sanitizedValues)
+        setOptions({...options,data:sanitizedValues,getApiEnabled:true})
+        // console.log(sanitizedValues)
     }
+    const onSuccess = (res:AxiosResponse)=>{
+        let status = res.data
+        status = status.split("|").map((s:string) => s.trim())
+        let is_present = status.find((x:string) => x === "personel_id_details")
+        if(is_present){
+            setIsFormCompleted(true)
+        }
+        
+        setOptions({...options,data:{},getApiEnabled:false})
+    }
+    const onError = (err:AxiosError)=>{
+        setOptions({...options,data:{},getApiEnabled:false})
+    }
+    const onPreBoardSuccess = (res:AxiosResponse)=>{
+        let status = res.data
+        status = status.split("|").map((s:string) => s.trim())
+        let is_present = status.find((x:string) => x === "personel_id_details")
+        if(is_present){
+            setIsFormCompleted(true)
+        }
+        setPreBoardOptions({...preBoardOptions,getApiEnabled:false})
+    }
+    const onPreBordError = (err:AxiosError)=>{
+
+    }
+    useGetPreBoardStatus(preBoardOptions,onPreBoardSuccess,onPreBordError)
+    useCreatePreBoardDetails(options,onSuccess,onError)
     return (
         <>
             <h4 className="text_left">Hi {name}, Please Update Personel Details</h4>
+            {isFormCopleted && <div className="mt-2 mb-2">Already you have Submitted this form you can go to next form by  <Button onClick={()=>setActiveTabKey("4")}>Clicking Here</Button></div>}
             <Form
                 form={personalDetailsForm}
                 className=""

@@ -94,6 +94,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
     return (<>
         <div>
             <h5 className='text_left'>Hi {name} , Upload Documents</h5>
+            {!isComplete?<h6 className='warning'>Not All Mandatory Files Are uploaded</h6>:<h6 className='text_left'>All Mandatory Fields are uploaded <Button onClick={()=>setActiveTabKey("2")}>Click for next form</Button> </h6>}
             <Row gutter={16} className='m-4'>
                 <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
@@ -406,7 +407,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
                     </Row>
                 </Col>
             </Row>
-            {!isComplete?<h5 className='warning'>Not All Mandatory Files Are uploaded</h5>:<h5 className='text_left'>All Mandatory Fields are uploaded <Button onClick={()=>setActiveTabKey("2")}>Click for next form</Button> </h5>}
+            
         </div>
     </>)
 }

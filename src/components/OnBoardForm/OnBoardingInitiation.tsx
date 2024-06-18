@@ -80,15 +80,16 @@ const OnBoardingInitiation = () => {
             title: "Status",
             dataIndex: "status",
             key: "status",
+            width:"50px",
             render: (status:string) => {
                 if (status ) {
                     let statusArray = status.split("|").filter(x => x.trim() !== '');
                     return (
-                        <>
+                        <div >
                             {statusArray.map((x:string, index) => (
-                                <Tag key={index}>{x.trim()}</Tag>
+                                <Tag className="mt-2" key={index}>{x.trim()}</Tag>
                             ))}
-                        </>
+                        </div>
                     );
                 } else {
                     return <span>Not Initiated</span>;

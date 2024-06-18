@@ -1,4 +1,4 @@
-import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import { Button, Col, DatePicker, Form, Input, Row, Select, message } from "antd";
 import moment from "moment";
 import "./onboard.css"
 import useCreatePreBoardDetails from "../../QueryApiCalls/useCreatePreBoardDetails";
@@ -40,6 +40,7 @@ const BasicDetailsUploadPage: React.FC<Props> = ({ setActiveTabKey, name, id }) 
         { lable: "Female", key: "Female", value: "Female" }
     ]
     const onSuccess = (res:AxiosResponse)=>{
+        message.success("Successfully submited form")
         let status = res.data
         status = status.split("|").map((s:string) => s.trim())
         let is_present = status.find((x:string) => x === "basic_details")

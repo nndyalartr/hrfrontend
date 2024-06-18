@@ -1,7 +1,11 @@
-import { Button, Col, DatePicker, Form, Input, Row, Switch } from "antd";
+import { Button, Col, DatePicker, Form, Input, Row, Switch, message } from "antd";
 import moment from "moment";
 import "./onboard.css"
 import { useState } from "react";
+import { PreBoardFormDetails } from "../../interfaces/types";
+import { AxiosError, AxiosResponse } from "axios";
+import useGetPreBoardStatus from "../../QueryApiCalls/useGetPreBoardStatus";
+import useCreatePreBoardDetails from "../../QueryApiCalls/useCreatePreBoardDetails";
 interface Props {
     setActiveTabKey: (key: string) => void;
     id: string,
@@ -11,28 +15,62 @@ const PreviousEmpDetails: React.FC<Props> = ({ setActiveTabKey, name, id }) => {
     const { TextArea } = Input;
     const [isFresher, setIsFresher] = useState<boolean>(false)
     const [educationDetailsForm] = Form.useForm()
+    const [isFormCopleted, setIsFormCompleted] = useState<boolean>(false)
+    const [options, setOptions] = useState<PreBoardFormDetails>({type:"POST",data_type:"prev_emp_details",id:id,data:{},getApiEnabled:false,})
+    const [preBoardOptions,setPreBoardOptions] = useState<{id:string,getApiEnabled:boolean}>({id:id,getApiEnabled:false})
     const formSubmit = (values: any) => {
         // Check if all values are empty or undefined
         const allEmpty = Object.values(values).every(value => value === undefined || value === '');
         let sanitizedValues;
         if (allEmpty) {
             sanitizedValues = { is_fresher: true };
-            console.log(sanitizedValues);
+            setOptions({...options,data:sanitizedValues,getApiEnabled:true})
+            // console.log(sanitizedValues);
         } else {
             sanitizedValues = Object.fromEntries(
                 Object.entries(values).map(([key, value]) => [key, value === undefined ? '' : value])
             );
             let date = moment(values.last_working_day.$d).format("YYYY-MM-DD")
             sanitizedValues = {...sanitizedValues,last_working_day:date}
-            console.log(sanitizedValues);
+            setOptions({...options,data:sanitizedValues,getApiEnabled:true})
+            // console.log(sanitizedValues);
         }
     };
     
     const onChange = (checked: boolean) => {
         setIsFresher(checked)
     };
+    const onSuccess = (res:AxiosResponse)=>{
+        message.success("Successfully submited form")
+        let status = res.data
+        status = status.split("|").map((s:string) => s.trim())
+        let is_present = status.find((x:string) => x === "prev_emp_details")
+        if(is_present){
+            setIsFormCompleted(true)
+        }
+        
+        setOptions({...options,data:{},getApiEnabled:false})
+    }
+    const onError = (err:AxiosError)=>{
+        setOptions({...options,data:{},getApiEnabled:false})
+    }
+    const onPreBoardSuccess = (res:AxiosResponse)=>{
+        let status = res.data
+        status = status.split("|").map((s:string) => s.trim())
+        let is_present = status.find((x:string) => x === "prev_emp_details")
+        if(is_present){
+            setIsFormCompleted(true)
+        }
+        setPreBoardOptions({...preBoardOptions,getApiEnabled:false})
+    }
+    const onPreBordError = (err:AxiosError)=>{
+
+    }
+    useGetPreBoardStatus(preBoardOptions,onPreBoardSuccess,onPreBordError)
+    useCreatePreBoardDetails(options,onSuccess,onError)
     return (<>
         <h4 className="text_left">Hi {name}, Please Update Previous Employment Details</h4>
+        {isFormCopleted && <div className="mt-2 mb-2">Already you have Submitted this form you can go to next form by  <Button onClick={()=>setActiveTabKey("1")}>Clicking Here</Button></div>}
         <h5 className="text_left text-secondary mt-2">Fresher <Switch onChange={onChange} /></h5>
         {!isFresher ? <Form
             form={educationDetailsForm}
