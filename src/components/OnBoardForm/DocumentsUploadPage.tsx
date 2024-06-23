@@ -60,7 +60,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
             formData.append("id", id)
             formData.append("file_name", name)
             // Send formData to your backend API endpoint using fetch or Axios
-            fetch('http://35.154.66.101:8000/test/', {
+            fetch('http://65.1.84.149/test/', {
                 method: 'POST',
                 body: formData,
             })
