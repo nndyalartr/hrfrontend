@@ -8,7 +8,7 @@ import BasicDetailsUploadPage from './BasicDetailsPage';
 import BankDetailsPage from './BankDetailsPage';
 import EducationDetailsPage from './EducationDetailsPage';
 import PreviousEmpDetails from './PreviousEmpDetails';
-import { useMediaQuery } from 'react-responsive';
+// import { useMediaQuery } from 'react-responsive';
 const { TabPane } = Tabs;
 const OnBoardForm = () => {
     const [name,setName] = useState<string>("")
@@ -23,11 +23,11 @@ const OnBoardForm = () => {
     const switchTab = (key: string) => {
         setActiveTabKey(key);
     }
-    const isMobile = useMediaQuery({ maxWidth: 767 });
+    // const isMobile = useMediaQuery({ maxWidth: 767 });
     return (<>
         <div className='m-4'>
       <Tabs
-        tabPosition={isMobile ? 'top' : 'left'}
+        tabPosition={"left"}
         activeKey={activeTabKey}
         onChange={setActiveTabKey}
       >
