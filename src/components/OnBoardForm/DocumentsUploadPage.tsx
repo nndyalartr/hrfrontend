@@ -7,12 +7,12 @@ import { AxiosError, AxiosResponse } from 'axios';
 interface Props {
     setActiveTabKey: (key: string) => void;
     id: string,
-    setName : (name:string)=>void;
-    name:string
+    setName: (name: string) => void;
+    name: string
 }
-const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, id }) => {
+const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, id }) => {
     const mandatoryFields = ["resume", "photo", "PAN", "AADHAR", "passbook", "tenthmarks", "twelth", "underGraduation"]
-    
+
     const [isComplete, setIsComplete] = useState<boolean>(false)
     const [uploadedFiles, setUploadedFiles] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,8 +33,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
     const onSuccess = (res: AxiosResponse) => {
         if (res.status === 200) {
             setName(res.data.name)
-            const allPresent = mandatoryFields.every((item:string) => res.data.data.includes(item));
-            if(allPresent){
+            const allPresent = mandatoryFields.every((item: string) => res.data.data.includes(item));
+            if (allPresent) {
                 setIsComplete(true)
             }
             setUploadedFiles(res.data.data)
@@ -74,8 +74,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
                 .then(data => {
                     setUploadedFiles(data.data);
                     setName(data.name)
-                    const allPresent = mandatoryFields.every((item:string) => data.data.includes(item));
-                    if(allPresent){
+                    const allPresent = mandatoryFields.every((item: string) => data.data.includes(item));
+                    if (allPresent) {
                         setIsComplete(true)
                     }
                     message.success('Files uploaded successfully');
@@ -94,11 +94,11 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
     return (<>
         <div>
             <h5 className='text_left'>Hi {name} , Upload Documents</h5>
-            {!isComplete?<h6 className='warning'>Not All Mandatory Files Are uploaded</h6>:<h6 className='text_left'>All Mandatory Fields are uploaded <Button onClick={()=>setActiveTabKey("2")}>Click for next form</Button> </h6>}
+            {!isComplete ? <h6 className='warning'>Not All Mandatory Files Are uploaded</h6> : <h6 className='text_left'>All Mandatory Fields are uploaded <Button onClick={() => setActiveTabKey("2")}>Click for next form</Button> </h6>}
             <Row gutter={16} className='m-4'>
                 <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, resume: file });
@@ -107,32 +107,36 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
                                 fileList={files.resume ? [files.resume] : []}
                             >
                                 <Button className='ms-3 me-3'>Select Resume<span className='red_clr'>*</span></Button>
-                            </Upload></Col>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                            {uploadedFiles.includes("resume") ? <span className='green_tik'><CheckOutlined /> Uploaded</span>:<Button onClick={() => handleUpload("resume")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>}</Col>
+                            </Upload>
+                        </Col>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("resume")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            {uploadedFiles.includes("resume") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
+                        </Col>
                     </Row>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}><Upload
-                            beforeUpload={(file) => {
-                                setFiles({ ...files, photo: file });
-                                return false;
-                            }}
-                            fileList={files.photo ? [files.photo] : []}
-                        >
-                            <Button className='ms-3 me-3' >Select Photo<span className='red_clr'>*</span></Button>
-
-                        </Upload></Col>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                            <Button onClick={() => handleUpload("photo")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Upload
+                                beforeUpload={(file) => {
+                                    setFiles({ ...files, photo: file });
+                                    return false;
+                                }}
+                                fileList={files.photo ? [files.photo] : []}
+                            >
+                                <Button className='ms-3 me-3'>Select Photo<span className='red_clr'>*</span></Button>
+                            </Upload>
+                        </Col>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("photo")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("photo") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, PAN: file });
@@ -140,22 +144,20 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
                                 }}
                                 fileList={files.PAN ? [files.PAN] : []}
                             >
-                                <Button className='ms-3 me-3' >Select PAN Card<span className='red_clr'>*</span></Button>
-
+                                <Button className='ms-3 me-3'>Select PAN Card<span className='red_clr'>*</span></Button>
                             </Upload>
                         </Col>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                            <Button onClick={() => handleUpload("PAN")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2 '>
+                            <Button type="text" onClick={() => handleUpload("PAN")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("PAN") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
-
             </Row>
             <Row gutter={16} className='m-4'>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, AADHAR: file });
@@ -167,15 +169,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("AADHAR")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("AADHAR")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("AADHAR") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, passbook: file });
@@ -187,15 +189,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("passbook")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("passbook")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("passbook") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, tenthmarks: file });
@@ -207,19 +209,17 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("tenthmarks")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("tenthmarks")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("tenthmarks") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
-
-
                 </Col>
             </Row>
             <Row gutter={16} className='m-4'>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, twelth: file });
@@ -231,17 +231,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("twelth")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("twelth")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("twelth") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
-
-
                 </Col>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, underGraduation: file });
@@ -252,16 +250,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
                                 <Button className='ms-3 me-3' >Select UG Marks Sheet<span className='red_clr'>*</span></Button>
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("underGraduation")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("underGraduation")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("underGraduation") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
-
                 </Col>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, reliving: file });
@@ -273,19 +270,17 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("reliving")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("reliving")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("reliving") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
-
-
                 </Col>
             </Row>
             <Row gutter={16} className='m-4'>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, paySlips: file });
@@ -297,15 +292,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("paySlips")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("paySlips")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("paySlips") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, expCert: file });
@@ -317,15 +312,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("expCert")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("expCert")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("expCert") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, pg: file });
@@ -336,17 +331,17 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
                                 <Button className='ms-3 me-3'>Select PG Marks Sheet</Button>
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("pg")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("pg")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("pg") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
             </Row>
             <Row gutter={16} className='m-4'>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, driving: file });
@@ -358,15 +353,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("driving")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("driving")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("driving") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, passport: file });
@@ -378,17 +373,15 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("passport")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("passport")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("passport") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
-
-
                 </Col>
-                <Col span={8}>
+                <Col span={8} xs={24} sm={12} md={8} lg={8} xl={8}>
                     <Row gutter={12}>
-                        <Col span={12}>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
                                 beforeUpload={(file) => {
                                     setFiles({ ...files, technical: file });
@@ -400,14 +393,14 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName,name, i
 
                             </Upload>
                         </Col>
-                        <Col span={12}>
-                            <Button onClick={() => handleUpload("technical")} icon={<UploadOutlined />} disabled={isLoading}>Upload</Button>
+                        <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
+                            <Button type="text" onClick={() => handleUpload("technical")} icon={<UploadOutlined />} disabled={isLoading}></Button>
                             {uploadedFiles.includes("technical") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
                 </Col>
             </Row>
-            
+
         </div>
     </>)
 }
