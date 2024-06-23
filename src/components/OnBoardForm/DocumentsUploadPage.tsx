@@ -100,7 +100,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, resume: file });
                                     return false;
                                 }}
@@ -119,7 +119,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, photo: file });
                                     return false;
                                 }}
@@ -138,7 +138,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, PAN: file });
                                     return false;
                                 }}
@@ -159,7 +159,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, AADHAR: file });
                                     return false;
                                 }}
@@ -179,7 +179,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, passbook: file });
                                     return false;
                                 }}
@@ -199,7 +199,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, tenthmarks: file });
                                     return false;
                                 }}
@@ -221,7 +221,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, twelth: file });
                                     return false;
                                 }}
@@ -241,7 +241,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, underGraduation: file });
                                     return false;
                                 }}
@@ -260,7 +260,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, reliving: file });
                                     return false;
                                 }}
@@ -282,7 +282,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, paySlips: file });
                                     return false;
                                 }}
@@ -302,7 +302,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, expCert: file });
                                     return false;
                                 }}
@@ -322,7 +322,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, pg: file });
                                     return false;
                                 }}
@@ -343,7 +343,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, driving: file });
                                     return false;
                                 }}
@@ -363,7 +363,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, passport: file });
                                     return false;
                                 }}
@@ -383,7 +383,7 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                     <Row gutter={12}>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
                             <Upload
-                                beforeUpload={(file) => {
+                                beforeUpload={(file: any) => {
                                     setFiles({ ...files, technical: file });
                                     return false;
                                 }}

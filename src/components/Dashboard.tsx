@@ -160,7 +160,7 @@ const Dashboard = () => {
     const wrapperStyle: React.CSSProperties = {
         width: 300,
         border: `1px solid ${token.colorBorderSecondary}`,
-        borderRadius: token.borderRadiusLG,
+        // borderRadius: token.borderRadiusLG,
         backgroundColor: "transparent"
     };
     return (
