@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { UploadOutlined, CheckOutlined } from '@ant-design/icons';
-import { Button, message, Upload, Row, Col, Tabs } from 'antd';
+import { Button, message, Upload, Row, Col, Tabs, Tooltip } from 'antd';
 import "./onboard.css"
 import useGetAllFiles from '../../QueryApiCalls/useGetAllFiles';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -110,7 +110,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("resume")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Resume" >
+                                <Button type="text" onClick={() => handleUpload("resume")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("resume") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -129,7 +130,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("photo")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Photo" >
+                                <Button type="text" onClick={() => handleUpload("photo")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("photo") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -148,7 +150,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2 '>
-                            <Button type="text" onClick={() => handleUpload("PAN")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload PAN Card" >
+                                <Button type="text" onClick={() => handleUpload("PAN")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("PAN") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -170,7 +173,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("AADHAR")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload AADHAR Card" >
+                                <Button type="text" onClick={() => handleUpload("AADHAR")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("AADHAR") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -190,7 +194,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("passbook")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Passbook" >
+                                <Button type="text" onClick={() => handleUpload("passbook")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("passbook") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -210,7 +215,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("tenthmarks")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload 10 th Marks Sheet" >
+                                <Button type="text" onClick={() => handleUpload("tenthmarks")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("tenthmarks") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -232,7 +238,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("twelth")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload 12 th Marks Sheet" >
+                                <Button type="text" onClick={() => handleUpload("twelth")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("twelth") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -251,7 +258,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("underGraduation")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload UG Marks Sheet" >
+                                <Button type="text" onClick={() => handleUpload("underGraduation")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("underGraduation") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -271,7 +279,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("reliving")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Reliving Letter" >
+                                <Button type="text" onClick={() => handleUpload("reliving")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("reliving") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -293,7 +302,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("paySlips")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Payslips" >
+                                <Button type="text" onClick={() => handleUpload("paySlips")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("paySlips") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -313,7 +323,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("expCert")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Experience Certificate" >
+                                <Button type="text" onClick={() => handleUpload("expCert")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("expCert") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -332,7 +343,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("pg")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload PG Marks Sheet" >
+                                <Button type="text" onClick={() => handleUpload("pg")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("pg") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -354,7 +366,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("driving")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload DL" >
+                                <Button type="text" onClick={() => handleUpload("driving")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("driving") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -374,7 +387,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("passport")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Passport" >
+                                <Button type="text" onClick={() => handleUpload("passport")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("passport") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
@@ -394,7 +408,8 @@ const DocumentsUploadPage: React.FC<Props> = ({ setActiveTabKey, setName, name, 
                             </Upload>
                         </Col>
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} className='mb-2'>
-                            <Button type="text" onClick={() => handleUpload("technical")} icon={<UploadOutlined />} disabled={isLoading}></Button>
+                            <Tooltip title="Please click on the icon to upload Technical Document" >
+                                <Button type="text" onClick={() => handleUpload("technical")} icon={<UploadOutlined />} disabled={isLoading}></Button></Tooltip>
                             {uploadedFiles.includes("technical") && <span className='green_tik'><CheckOutlined /> Uploaded</span>}
                         </Col>
                     </Row>
